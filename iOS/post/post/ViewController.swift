@@ -9,7 +9,10 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    var window: UIWindow?
+    @IBOutlet var tableView: UITableView?
+    var dataArray: [AnyObject] = [AnyObject]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

@@ -16,6 +16,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window!.backgroundColor = UIColor.whiteColor()
+        
+        let postVC = PostViewController()
+        let nav1 = UINavigationController(rootViewController: postVC)
+        //let image1 = UIImage(named: "user_tabbar.png");
+        nav1.tabBarItem = UITabBarItem(title: "论坛列表", image: nil,tag:1)
+        
+        
+        let userVC = UserViewController()
+        let nav2 = UINavigationController(rootViewController: userVC)
+        //let image2 = UIImage(named: "comment_tabbar.png");
+        nav2.tabBarItem = UITabBarItem(title: "用户信息", image: nil,tag:2)
+        
+        let navArr = [nav1,nav2]
+        
+        //        let addPostVC = AddPostViewController()
+        //        let nav3 = UINavigationController(rootViewController: addPostVC)
+        //        //let image2 = UIImage(named: "comment_tabbar.png");
+        //        nav3.tabBarItem = UITabBarItem(title: "添加帖子", image: nil,tag:3)
+        //
+        //        let navArr = [nav1,nav2,nav3]
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = navArr
+        self.window!.rootViewController = tabBarController
+        
+        self.window!.makeKeyAndVisible()
         return true
     }
 
