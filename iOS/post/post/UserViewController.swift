@@ -20,9 +20,9 @@ class UserViewController:ViewController{
         labelView.text = "用户信息"
         self.view.addSubview(labelView)
         
-        var store:Store = Store.getInstance()
+        //var store:Store = Store.getInstance()
         
-        println("\(store.user.userId)")
+//        println("\(store.user.userId)")
         
         self.navigationController?.pushViewController(LoginViewController(), animated: true)
         
