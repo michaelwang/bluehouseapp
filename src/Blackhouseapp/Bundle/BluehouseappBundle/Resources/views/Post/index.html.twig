@@ -19,8 +19,14 @@
 
                         <div class="sep5"></div>
                     <span class="box_small box_fade"><div class="votes"></div><a class="box_node" href="#"></a> &nbsp;•&nbsp; <strong><a
-                                    href="#">{{entity.member.username}}</a></strong> &nbsp;•&nbsp; {{entity.modified|date("m/d/Y H:m")}} &nbsp;•&nbsp; 最后回复来自 <strong><a
-                                    href="#">{{entity.member.username}}</a></strong></span>
+                                    href="#">{{entity.member.username}}</a></strong> &nbsp;•&nbsp; {{entity.modified|date("m/d/Y H:m")}}
+                        {% if lastComments[entity.id] %}
+                                    &nbsp;•&nbsp; 最后回复来自 <strong><a
+                                    href="#">
+                                {{ lastComments[entity.id].member.username }}
+                            </a></strong>
+                        {% endif %}
+                    </span>
                     </td>
                     <td width="50" align="right" valign="middle">
 

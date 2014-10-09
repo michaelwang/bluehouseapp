@@ -47,14 +47,16 @@ class PostController extends Controller
         $entities = $this->get('knp_paginator')->paginate($query, $page, 50);
         $serializer = $this->get('jms_serializer');
         if ($wh_content == '' || $wh_content == null) {
-            $data = array(
-                'data' => $entities,
+            $lastComments = array();
+            foreach ($entities  as $entity){
+                $lastComments[$entity->getId()]=$this->get('blackhouseapp_bluehouseapp.post')->getLastComment($entity);
 
-            );
+            }
 
 
             return array(
                 'entities' => $entities,
+                'lastComments' => $lastComments
             );
         } else {
 
