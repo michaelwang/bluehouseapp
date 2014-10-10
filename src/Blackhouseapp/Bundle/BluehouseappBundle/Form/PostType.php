@@ -30,6 +30,7 @@ class PostType extends AbstractType
                 'attr'=>array(
                     'class'=>'input-block-level',
                     'rows'=>10,
+
                     'placeholder'=>'讨论内容.',
 
                 )

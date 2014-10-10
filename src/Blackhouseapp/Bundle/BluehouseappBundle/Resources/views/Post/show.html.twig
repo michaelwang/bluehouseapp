@@ -49,8 +49,12 @@
         </div>
 
         {% for comment in comments %}
-            <div id="r_{{ comment.id }}" class="box_inner box_cell">
+        {% if loop.last %}
 
+        <div id="r_{{ comment.id }}" class="box_inner box_cell" style="border-bottom: 0">
+            {% else %}
+            <div id="r_{{ comment.id }}" class="box_inner box_cell">
+              {% endif %}
                 <table cellpadding="0" cellspacing="0" border="0" width="100%">
                     <tbody>
                     <tr>
@@ -67,7 +71,7 @@
                         </td>
                         <td width="10" valign="top"></td>
                         <td width="auto" valign="top" align="left">
-                            <div class="box_fr"> &nbsp; &nbsp; <span class="box_no">1</span></div>
+                            <div class="box_fr"> &nbsp; &nbsp; <span class="box_no">{{ loop.index }}</span></div>
                             <div class="sep3"></div>
                             <strong><a href="#" class="box_dark">{{ comment.member.username }}</a></strong>&nbsp; &nbsp;<span
                                     class="box_fade box_small"> {{ comment.modified|date("Y-m-d H:m") }}</span>
@@ -80,15 +84,18 @@
                     </tr>
                     </tbody>
                 </table>
-
-
             </div>
         {% endfor %}
 
     </div>
     <div class="box download-box post-comment-form">
         {% if is_granted('ROLE_USER') %}
-            {{ form(form) }}
+            <div style="width: 100%">
+                <div style="margin: 0 20px">
+                    {{ form(form) }}
+                </div>
+            </div>
+
         {% else %}
             <center>请<a href="{{path('fos_user_security_login')}}">登录</a>后再添加评论</center>
         {% endif %}
