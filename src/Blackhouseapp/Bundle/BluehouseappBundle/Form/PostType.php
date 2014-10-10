@@ -34,7 +34,7 @@ class PostType extends AbstractType
 
                 )
             ))
-            ->add('创建讨论','submit',array(
+            ->add('创建','submit',array(
                 'attr'=>array(
                     'style'=>'margin-top:20px;'
                 )

@@ -18,7 +18,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 /**
  * Post controller.
  *
- * @Route("/post")
  */
 class PostController extends Controller
 {
@@ -26,7 +25,7 @@ class PostController extends Controller
     /**
      * Lists all Post entities.
      *
-     * @Route("/", name="post")
+     * @Route("/post/", name="post")
      * @Method("GET")
      * @Template()
      */
@@ -44,6 +43,7 @@ class PostController extends Controller
             ->where('a.status = :status')
             ->setParameters(array('status' => true))
             ->getQuery();
+
         $entities = $this->get('knp_paginator')->paginate($query, $page, 50);
         $serializer = $this->get('jms_serializer');
         if ($wh_content == '' || $wh_content == null) {
@@ -78,7 +78,7 @@ class PostController extends Controller
     /**
      * Creates a new Post entity.
      *
-     * @Route("/", name="post_create")
+     * @Route("/member/post/", name="post_create")
      * @Method("POST")
      * @Template("BlackhouseappBluehouseappBundle:Post:new.html.twig")
      */
@@ -126,7 +126,7 @@ class PostController extends Controller
     /**
      * Displays a form to create a new Post entity.
      *
-     * @Route("/new", name="post_new")
+     * @Route("/member/post/new", name="post_new")
      * @Method("GET")
      * @Template()
      */
@@ -144,7 +144,7 @@ class PostController extends Controller
     /**
      * Finds and displays a Post entity.
      *
-     * @Route("/{id}", name="post_show")
+     * @Route("/post/{id}", name="post_show")
      * @Method("GET")
      * @Template()
      */
@@ -190,7 +190,7 @@ class PostController extends Controller
     /**
      * Displays a form to edit an existing Post entity.
      *
-     * @Route("/{id}/edit", name="post_edit")
+     * @Route("/manager/post/{id}/edit", name="post_edit")
      * @Method("GET")
      * @Template()
      */
@@ -234,7 +234,7 @@ class PostController extends Controller
     /**
      * Edits an existing Post entity.
      *
-     * @Route("/{id}", name="post_update")
+     * @Route("/manager/post/{id}", name="post_update")
      * @Method("PUT")
      * @Template("BlackhouseappBluehouseappBundle:Post:edit.html.twig")
      */
@@ -270,7 +270,7 @@ class PostController extends Controller
     /**
      * Deletes a Post entity.
      *
-     * @Route("/{id}", name="post_delete")
+     * @Route("/manager/post/{id}", name="post_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
