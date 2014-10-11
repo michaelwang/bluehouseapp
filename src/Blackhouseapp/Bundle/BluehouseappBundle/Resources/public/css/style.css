@@ -381,3 +381,10 @@ a.box_dark:link, a.box_dark:visited, a.box_dark:active {
 strong, b {
     font-weight: bold;
 }
+
+.input-block-level {
+    box-sizing: border-box;
+    display: block;
+    min-height: 30px;
+    width: 100%;
+}

@@ -78,6 +78,40 @@ class PostComment {
 
 
     /**
+     * @ORM\Column(type="string", length=255, name="attachment",nullable = true)
+     *
+     * @var string $imageName
+     */
+    private $attachment;
+
+    /**
+     * @Assert\File(
+     *     maxSize="10M",
+     *     mimeTypes={"image/png","image/jpeg","image/pjpeg",
+     *                          "image/jpg","image/gif"}
+     * )
+     * @Vich\UploadableField(mapping="discuss_image", fileNameProperty="attachment")
+     *
+     * @var File $image
+     */
+    private $image;
+
+    public function setImage($image)
+    {
+        if($image){
+            $this->attachment = $image->getFileName();
+        }
+        $this->image = $image;
+        return $this;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+
+    /**
      * @param string $content
      */
     public function setContent($content)
@@ -189,6 +223,22 @@ class PostComment {
     public function getMember()
     {
         return $this->member;
+    }
+
+    /**
+     * @param string $attachment
+     */
+    public function setAttachment($attachment)
+    {
+        $this->attachment = $attachment;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAttachment()
+    {
+        return $this->attachment;
     }
 
 

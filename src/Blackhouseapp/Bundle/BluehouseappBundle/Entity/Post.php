@@ -11,7 +11,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Post
- *
+ * @Vich\Uploadable
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Blackhouseapp\Bundle\BluehouseappBundle\Entity\PostRepository")
  */
@@ -120,6 +120,41 @@ class Post
      * @ORM\OneToMany(targetEntity="PostComment", mappedBy="post",cascade="remove")
      */
     protected $comments;
+
+
+    /**
+     * @ORM\Column(type="string", length=255, name="attachment",nullable = true)
+     *
+     * @var string $imageName
+     */
+    private $attachment;
+
+    /**
+     * @Assert\File(
+     *     maxSize="10M",
+     *     mimeTypes={"image/png","image/jpeg","image/pjpeg",
+     *                          "image/jpg","image/gif"}
+     * )
+     * @Vich\UploadableField(mapping="discuss_image", fileNameProperty="attachment")
+     *
+     * @var File $image
+     */
+    private $image;
+
+    public function setImage($image)
+    {
+        if($image){
+            $this->attachment = $image->getFileName();
+        }
+        $this->image = $image;
+        return $this;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
 
     /**
      * @param string $content
@@ -302,5 +337,40 @@ class Post
     {
         $this->comments->removeElement($comments);
     }
+
+    /**
+     * @param string $attachment
+     */
+    public function setAttachment($attachment)
+    {
+        $this->attachment = $attachment;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAttachment()
+    {
+        return $this->attachment;
+    }
+
+    /**
+     * @param mixed $comments
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+
+
 
 }
