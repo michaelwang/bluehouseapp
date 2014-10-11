@@ -1,25 +1,29 @@
 <?php
 
 namespace Blackhouseapp\Bundle\BluehouseappBundle\Entity;
+
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity()
- * @ORM\Table(name="member")
  * @UniqueEntity(
  *     fields={"username", "email"},
- *     message="用户名和电子邮箱不能重复"
+ *     message="用户名或者电子信箱不能与已注册的用户重复"
  * )
+ * @Vich\Uploadable
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Blackhouseapp\Bundle\BluehouseappBundle\Entity\MemberRepository")
  */
 class Member extends BaseUser
 {
 
-    const ROLE_ADMIN='ROLE_ADMIN';
-    const ROLE_USER='ROLE_USER';
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+    const ROLE_USER = 'ROLE_USER';
 
     /**
      * @ORM\Id
@@ -35,30 +39,6 @@ class Member extends BaseUser
         $this->modified = $this->created;
         $this->addRole(self::ROLE_USER);
     }
-
-    /**
-     * @Assert\NotBlank(message="用户名不可为空")
-     * @Assert\Length(
-     *     min="4",
-     *     max="36",
-     *     minMessage="用户名不能少于4个字符",
-     *     maxMessage="用户名不能多于36个字符"
-     * )
-     * @Assert\Regex(
-     *    pattern="/^[A-z0-9]*$/i",
-     *    message="用户名只能使用英文字母和数字"
-     * )
-     */
-    protected $username;
-
-
-    /**
-     * @Assert\Email(
-     *    checkMX=true,
-     *    message="请使用合法的电子信箱"
-     * )
-     */
-    protected $email;
 
     /**
      *
@@ -101,6 +81,113 @@ class Member extends BaseUser
      */
     private $modified;
 
+
+    /**
+     * @ORM\Column(type="string", length=255, name="avatar",nullable = true)
+     *
+     * @var string $imageName
+     */
+    private $avatar;
+
+    /**
+     * @Assert\File(
+     *     maxSize="10M",
+     *     mimeTypes={"image/png","image/jpeg","image/pjpeg",
+     *                          "image/jpg","image/gif"}
+     * )
+     * @Vich\UploadableField(mapping="avatar_image", fileNameProperty="avatar")
+     *
+     * @var File $image
+     */
+    private $image;
+
+
+    /**
+     * @Assert\NotBlank(message="用户名不可为空")
+     * @Assert\Length(
+     *     min="4",
+     *     max="36",
+     *     minMessage="用户名不能少于4个字符",
+     *     maxMessage="用户名不能多于36个字符"
+     * )
+     * @Assert\Regex(
+     *    pattern="/^[A-z0-9]*$/i",
+     *    message="用户名只能使用英文字母和数字"
+     * )
+     */
+    protected $username;
+
+
+
+
+    /**
+     * @ORM\Column(name="weibo",type="string",length=255,nullable=true)
+     * @assert\Length(
+     *         max="255",
+     *         maxMessage="不能超过255个字符"
+     * )
+     * @Assert\Url(message="请使用合法的URL")
+     */
+    protected $weibo;
+
+    /**
+     * @ORM\Column(name="github",type="string",length=255,nullable=true)
+     * @assert\Length(
+     *         max="255",
+     *         maxMessage="不能超过255个字符"
+     * )
+     * @Assert\Url(message="请使用合法的URL")
+     */
+    protected $github;
+    /**
+     * @ORM\Column(name="city",type="string",length=60,nullable=true)
+     * @Assert\Length(
+     *    max="60",
+     *    maxMessage="所在位置不能超过60个字"
+     * )
+     */
+    protected $city;
+
+
+
+    /*
+   * @UniqueEntity(
+   *     fields={"username", "email"},
+   *     message="用户名或者电子信箱不能与已注册的用户重复"
+       * )
+
+           /**
+            * @param mixed $username
+            */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
     /**
      * @param \DateTime $created
      */
@@ -133,37 +220,7 @@ class Member extends BaseUser
         return $this->description;
     }
 
-    /**
-     * @param mixed $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
 
-    /**
-     * @return mixed
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * @param \DateTime $modified
@@ -197,21 +254,6 @@ class Member extends BaseUser
         return $this->nickname;
     }
 
-    /**
-     * @param mixed $username
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
 
     /**
      * @param mixed $website
@@ -229,7 +271,90 @@ class Member extends BaseUser
         return $this->website;
     }
 
+    /**
+     * @param mixed $city
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    }
 
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param mixed $github
+     */
+    public function setGithub($github)
+    {
+        $this->github = $github;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGithub()
+    {
+        return $this->github;
+    }
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\File\File $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+        if ($image) {
+            $this->avatar = $image->getFileName();
+        }
+        return $this;
+    }
+
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\File\File
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $weibo
+     */
+    public function setWeibo($weibo)
+    {
+        $this->weibo = $weibo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWeibo()
+    {
+        return $this->weibo;
+    }
+
+    /**
+     * @param string $avatar
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
 
 
 }

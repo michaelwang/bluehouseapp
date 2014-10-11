@@ -6,25 +6,27 @@
 
 <div class="box" style="border-bottom: 0px;">
     <div class="box_header">
-        <div class="box_fr"><a href="#"><img
-                        src="#" class="box_avatar" border="0"
-                        align="default"></a></div>
+        <div class="box_fr">
+            <a href="#">
+                {% if entity.member.image %}
+                <img  src="#" class="box_avatar" border="0"
+                        align="default">
+                {% else %}
+                    <span class="glyphicon glyphicon-user"></span>
+                {% endif %}
+            </a>
+        </div>
         <a href="/">蓝房子</a> <span class="box_chevron">&nbsp;›&nbsp;</span> <a href="#"></a>
 
         <div class="box_sep10"></div>
         <h1>{{ entity.title }}</h1>
-
-
         &nbsp;
         <small class="box_gray"><a href="#">{{entity.member.username}}</a>
             · {{ entity.modified|date("Y-m-d H:m") }}</small>
     </div>
-
-
     <div class="box_cell">
 
         <div class="topic_content">{{ entity.content |raw|nl2br }}</div>
-
     </div>
 
 
@@ -43,24 +45,36 @@
                 标签2</a>
 -->
             <span class="box_gray">{{ entity.commentCount }} 回复 &nbsp;<strong
-                        class="snow">|</strong> &nbsp;直到 {{ entity.lastCommentTime|date("m/d/Y H:m:s") }}</span>
+                        class="snow">|</strong> &nbsp;直到 {{ entity.lastCommentTime|date("Y-m-d H:m") }}</span>
         </div>
 
         {% for comment in comments %}
-            <div id="r_{{ comment.id }}" class="box_inner box_cell">
+        {% if loop.last %}
 
+        <div id="r_{{ comment.id }}" class="box_inner box_cell" style="border-bottom: 0">
+            {% else %}
+            <div id="r_{{ comment.id }}" class="box_inner box_cell">
+              {% endif %}
                 <table cellpadding="0" cellspacing="0" border="0" width="100%">
                     <tbody>
                     <tr>
-                        <td width="48" valign="top" align="center"><img
+                        <td width="48" valign="top" align="center">
+                            {% if comment.member.image %}
+                            <img
                                     src="#" class="box_avatar"
-                                    border="0" align="default"></td>
+                                    border="0" align="default">
+
+                            {% else %}
+                                <span class="glyphicon glyphicon-user"></span>
+                            {% endif %}
+
+                        </td>
                         <td width="10" valign="top"></td>
                         <td width="auto" valign="top" align="left">
-                            <div class="box_fr"> &nbsp; &nbsp; <span class="box_no">1</span></div>
+                            <div class="box_fr"> &nbsp; &nbsp; <span class="box_no">{{ loop.index }}</span></div>
                             <div class="sep3"></div>
                             <strong><a href="#" class="box_dark">{{ comment.member.username }}</a></strong>&nbsp; &nbsp;<span
-                                    class="box_fade box_small"> {{ comment.modified|date("m/d/Y H:m") }}</span>
+                                    class="box_fade box_small"> {{ comment.modified|date("Y-m-d H:m") }}</span>
 
                             <div class="sep5"></div>
                             <div class="reply_content">
@@ -70,21 +84,22 @@
                     </tr>
                     </tbody>
                 </table>
-
-
             </div>
         {% endfor %}
 
     </div>
     <div class="box download-box post-comment-form">
         {% if is_granted('ROLE_USER') %}
-            {{ form(form) }}
+            <div style="width: 100%">
+                <div style="margin: 0 20px">
+                    {{ form(form) }}
+                </div>
+            </div>
+
         {% else %}
-            <center>请登录后再添加评论</center>
+            <center>请<a href="{{path('fos_user_security_login')}}">登录</a>后再添加评论</center>
         {% endif %}
     </div>
     <div class="box_sep20"></div>
-
-
 
     {% endblock %}

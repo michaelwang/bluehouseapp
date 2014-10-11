@@ -30,11 +30,12 @@ class PostType extends AbstractType
                 'attr'=>array(
                     'class'=>'input-block-level',
                     'rows'=>10,
+
                     'placeholder'=>'讨论内容.',
 
                 )
             ))
-            ->add('创建讨论','submit',array(
+            ->add('创建','submit',array(
                 'attr'=>array(
                     'style'=>'margin-top:20px;'
                 )

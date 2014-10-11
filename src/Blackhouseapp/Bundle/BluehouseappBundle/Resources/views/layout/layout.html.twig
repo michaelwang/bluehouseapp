@@ -15,6 +15,10 @@
     <![endif]-->
     {% block header %}{% endblock %}
     {% block top %} {% endblock %}
+    <script>
+        if(top!==self)
+            top.location.href=this.location.href;
+    </script>
 </head>
 <body{% block bodyattr %}{% endblock bodyattr %}>
 
@@ -66,20 +70,18 @@
 
                         </ul>
                         {% else %}
-                            <span class="left-nav-item">
-                <a href="{{path('fos_user_registration_register')}}">注册</a>
-              </span>
-                            <span class="left-nav-item">
-                <a href="{{path('fos_user_security_login')}}">登录</a>
-              </span>
+
                         <ul class="nav navbar-nav navbar-right">
-                            <li >
-                                <a href="fos_user_security_login" class="dropdown-toggle"
-                                   data-toggle="dropdown">登录 <span class="caret"></span></a>
-                            </li>
-                            <li >
-                                <a href="fos_user_registration_register" class="dropdown-toggle"
-                                   data-toggle="dropdown">注册 <span class="caret"></span></a>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle"
+                                   data-toggle="dropdown">账户管理 <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ path('fos_user_security_login') }}">
+                                            登录</a></li>
+                                    <li><a href="{{ path('fos_user_registration_register') }}">
+                                            注册</a></li>
+
+                                </ul>
                             </li>
                         </ul>
                         {% endif %}
@@ -104,7 +106,7 @@
     <div class="container">
         <div class="clear">
             <div class="pull-right">
-                关于 加入
+                关于 我们
             </div>
         </div>
     </div>

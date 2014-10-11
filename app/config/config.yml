@@ -205,7 +205,7 @@ liip_imagine:
         thumbnail_mini:
             quality: 75
             filters:
-                thumbnail: { size: [64, 64], mode: outbound }
+                thumbnail: { size: [48, 48], mode: outbound }
         thumbnail:
             quality: 75
             filters:
