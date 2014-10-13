@@ -1,4 +1,4 @@
-{% extends "SlackissSlackwareBundle:layout:layout.html.twig" %}
+{% extends "BlackhouseappBluehouseappBundle:layout:layout.html.twig" %}
 
 {% block title %}
 
@@ -13,7 +13,7 @@
 {% endif %}
 
 {% if app.request.get('_route') == 'fos_user_registration_register' %}
-加入Slackware中文社区
+加入蓝房子
 {% endif %}
 
 {% if app.request.get('_route') == 'fos_user_security_login' %}
@@ -76,25 +76,18 @@ display:inline-block;
     {% endif %}
 
     {% if app.request.get('_route') == 'fos_user_registration_register' %}
-    <h2>加入Slackware中文社区</h2>
+    <h2>加入蓝房子</h2>
     {% endif %}
 
     {% if app.request.get('_route') == 'fos_user_security_login' %}
-    <h2>登录Slackware中文社区</h2>
+    <h2>登录蓝房子</h2>
     {% endif %}
     {% block fos_user_content %}
     {% endblock fos_user_content %}
 
     {% if app.request.get('_route') == 'fos_user_security_login' %}
     <div class="clearfix">
-      <div class="pull-left">
-        <a href="/connect/weibo">
-          <img src="{{asset('bundles/slackissslackware/images/oauth_weibo.png')}}" />
-        </a>
-        <a href="/connect/github">
-          <img src="{{asset('bundles/slackissslackware/images/oauth_github.png')}}" />
-        </a>
-      </div>
+
       <div class="pull-right">
         <a href="{{path('fos_user_resetting_request')}}">忘记密码?</a>
       </div>
