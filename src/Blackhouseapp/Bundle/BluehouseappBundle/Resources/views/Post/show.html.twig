@@ -11,6 +11,7 @@
                 {% if entity.member.image %}
                 <img  src="#" class="box_avatar" border="0"
                         align="default">
+
                 {% else %}
                     <span class="glyphicon glyphicon-user"></span>
                 {% endif %}
@@ -21,7 +22,14 @@
         <div class="box_sep10"></div>
         <h1>{{ entity.title }}</h1>
         &nbsp;
-        <small class="box_gray"><a href="#">{{entity.member.username}}</a>
+        <small class="box_gray"><a href="#">
+
+                {% if entity.member.nickname %}
+                    {{ entity.member.nickname }}
+                {% else %}
+                    {{ entity.member.username }}
+                {% endif %}
+            </a>
             · {{ entity.modified|date("Y-m-d H:m") }}</small>
     </div>
     <div class="box_cell">
@@ -73,7 +81,15 @@
                         <td width="auto" valign="top" align="left">
                             <div class="box_fr"> &nbsp; &nbsp; <span class="box_no">{{ loop.index }}</span></div>
                             <div class="sep3"></div>
-                            <strong><a href="#" class="box_dark">{{ comment.member.username }}</a></strong>&nbsp; &nbsp;<span
+                            <strong><a href="#" class="box_dark">
+                                    {% if comment.member.nickname %}
+                                        {{ comment.member.nickname }}
+                                    {% else %}
+                                        {{ comment.member.username }}
+                                    {% endif %}
+
+
+                                </a></strong>&nbsp; &nbsp;<span
                                     class="box_fade box_small"> {{ comment.modified|date("Y-m-d H:m") }}</span>
 
                             <div class="sep5"></div>

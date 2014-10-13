@@ -11,10 +11,12 @@
                     <tr>
 
                         <td width="48" valign="top" align="center">
-                            {% if entity.member.image %}
-                            <a href="#"><img
-                                        src="#" class="avatar" border="0"
-                                        align="default"></a>
+                            {% if entity.member.avatar %}
+                                {% set member=entity.member %}
+                            <a href="#">
+                                <img src="{{vich_uploader_asset(member,'userImage')|imagine_filter('face_image')}}"/>
+                                <span class="glyphicon glyphicon-user"></span>
+                             </a>
                             {% else %}
                             <span class="glyphicon glyphicon-user"></span>
                             {% endif %}
@@ -26,11 +28,21 @@
 
                             <div class="sep5"></div>
                     <span class="box_small box_fade"><div class="votes"></div><a class="box_node" href="#"></a> &nbsp;•&nbsp; <strong><a
-                                    href="#">{{ entity.member.username }}</a></strong> &nbsp;•&nbsp; {{ entity.modified|date("m/d/Y H:m") }}
+                                    href="#">
+                                {% if entity.member.nickname %}
+                                    {{ entity.member.nickname }}
+                                {% else %}
+                                    {{ entity.member.username }}
+                                {% endif %}
+                            </a></strong> &nbsp;•&nbsp; {{ entity.modified|date("m/d/Y H:m") }}
                         {% if lastComments[entity.id] %}
                             &nbsp;•&nbsp; 最后回复来自 <strong><a
                                     href="#">
+                                {% if lastComments[entity.id].member.nickname %}
+                                {{ lastComments[entity.id].member.nickname }}
+                                {% else %}
                                 {{ lastComments[entity.id].member.username }}
+                                {% endif %}
                             </a></strong>
                         {% endif %}
                     </span>

@@ -89,18 +89,18 @@ class Member extends BaseUser
      */
     private $avatar;
 
+
     /**
      * @Assert\File(
-     *     maxSize="10M",
+     *     maxSize="2M",
      *     mimeTypes={"image/png","image/jpeg","image/pjpeg",
      *                          "image/jpg","image/gif"}
      * )
-     * @Vich\UploadableField(mapping="avatar_image", fileNameProperty="avatar")
+     * @Vich\UploadableField(mapping="discuss_image", fileNameProperty="avatar")
      *
      * @var File $image
      */
-    private $image;
-
+    private $userImage;
 
     /**
      * @Assert\NotBlank(message="用户名不可为空")
@@ -304,25 +304,25 @@ class Member extends BaseUser
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\File\File $image
+     * @param \Symfony\Component\HttpFoundation\File\File $userImage
      */
-    public function setImage($image)
+    public function setUserImage($userImage)
     {
-        $this->image = $image;
-        if ($image) {
-            $this->avatar = $image->getFileName();
+        $this->userImage = $userImage;
+        if ($userImage) {
+            $this->avatar = $userImage->getFileName();
         }
         return $this;
     }
 
-
     /**
      * @return \Symfony\Component\HttpFoundation\File\File
      */
-    public function getImage()
+    public function getUserImage()
     {
-        return $this->image;
+        return $this->userImage;
     }
+
 
     /**
      * @param mixed $weibo
