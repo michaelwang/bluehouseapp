@@ -1,6 +1,7 @@
 package com.blackhouse.bluehouse.util;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -49,6 +50,7 @@ public class NetUtil {
 		try {
 			if (connection.getResponseCode() == HttpStatus.SC_OK) {
 				is = connection.getInputStream();
+				Log.w(TAG, "is content" + inStream2String(is));
 				return inStream2JSON(is);
 			} else {
 				Log.w(TAG, "executePost error :" + connection.getResponseCode()
@@ -103,6 +105,23 @@ public class NetUtil {
 		}
 		return null;
 
+	}
+	
+	private static String inStream2String(InputStream is){
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		byte[] buffer = new byte[1024];
+		int len = -1;
+		try {
+			while ((len = is.read(buffer)) != -1) {
+				baos.write(buffer, 0, len);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		String jsonObject = new String(baos.toByteArray());
+		return jsonObject;
+		
 	}
 
 	private static JSONObject inStream2JSON(InputStream is) throws Exception {
