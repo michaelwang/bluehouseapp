@@ -112,6 +112,7 @@
         {% endfor %}
 
     </div>
+        {{knp_pagination_render(comments)}}
     <div class="box download-box post-comment-form">
         {% if is_granted('ROLE_USER') %}
             <div style="width: 100%">

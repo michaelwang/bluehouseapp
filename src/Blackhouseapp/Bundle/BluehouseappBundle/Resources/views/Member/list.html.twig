@@ -8,6 +8,8 @@
     </div>
     <ol class="breadcrumb clearfix">
         <li><a href="{{path('members_list', { 'locked':  0})}}">可用用户 <span class="label label-success">({{activeCount }})</span></a></li>
+        </li>
+        <li>
             <a href="{{path('members_list', { 'locked':1 })}}">禁用用户 <span class="label label-danger">({{inactiveCount }})</span></a>
         </li>
     </ol>
@@ -64,6 +66,7 @@
 
                 </td>
             </tr>
+
         {% endfor %}
         </tbody>
     </table>

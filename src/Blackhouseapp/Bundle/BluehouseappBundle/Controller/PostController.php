@@ -368,7 +368,7 @@ class PostController extends Controller
             ->setParameters(array(':post' => $post->getId(),'status'=>true))
             ->orderBy('c.id', 'asc')
             ->getQuery();
-        $comments = $this->get('knp_paginator')->paginate($query, $page, 50);
+        $comments = $this->get('knp_paginator')->paginate($query, $page,50);
         return $comments;
     }
 

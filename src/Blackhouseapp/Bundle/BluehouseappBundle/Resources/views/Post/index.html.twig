@@ -38,14 +38,16 @@
                             </a></strong> &nbsp;•&nbsp; {{ entity.modified|date("Y-m-d H:m") }}
                         {% if lastComments[entity.id] %}
                             {% set member= lastComments[entity.id].member %}
-                            &nbsp;•&nbsp; 最后回复来自 <strong><a
+                            &nbsp;•&nbsp; 最后回复来自 <strong>
+                            <a
                                     href="{{ path('user_show', { 'username': member.username }) }}">
                                 {% if member.nickname %}
                                 {{ member.nickname }}
                                 {% else %}
                                 {{ member.username }}
                                 {% endif %}
-                            </a></strong>
+                            </a>
+                        </strong>
                         {% endif %}
                     </span>
                         </td>

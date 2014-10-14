@@ -1,31 +1,19 @@
 {% extends "BlackhouseappBluehouseappBundle:layout:layout.html.twig" %}
 
 {% block body -%}
-    {% if entity.userImage %}
-
-        <img  class="box_avatar" border="0"  align="default" src="{{vich_uploader_asset(entity,'userImage')|imagine_filter('small_image')}}"/>
-
-    {% else %}
-        <span class="glyphicon glyphicon-user"></span>
-    {% endif %}
-
-    {{ entity.username }}<br>
-    {{ entity.nickname }}<br>
-    {{ entity.website }}<br>
-    {{ entity.weibo }}<br>
-    {{ entity.github }}<br>
-
-
-    {{ entity.description }}<br>
-
-
 
     <div class="box">
         <div class="box_cell">
             <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tbody>
                     <tr>
-                        <td width="73" valign="top" align="center"><img src="{{vich_uploader_asset(entity,'userImage')|imagine_filter('small_image')}}" class="avatar" border="0" align="default">
+                        <td width="73" valign="top" align="center">
+    {% if member.userImage %}
+                            <img src="{{vich_uploader_asset(member,'userImage')|imagine_filter('avatar_image')}}" class="box_avatar" border="0" align="default"/>
+    {% else %}
+        <span class="glyphicon glyphicon-user"></span>
+    {% endif %}
+
                             <div class="box_sep10"></div>
                             {#<strong class="box_online">ONLINE</strong>#}
                         </td>
@@ -35,15 +23,18 @@
 
                             </div>
                             <h1 style="margin-bottom: 5px;">
-                                {{ entity.username }}
+                                {{ member.username }}
                             </h1>
 
                             <span class="box_bigger">
-                                {{ entity.nickname }}
+                                {% if  member.nickname  %}
+                                {{ member.nickname }}
+                                {% endif %}
                             </span>
 
                             <div class="box_sep10"></div>
-                            <span class="box_gray"><li class="box_fa box_fa-time"></li> &nbsp; V2EX 第 38523 号会员，加入于 2013-05-05 19:13:26 +08:00，今日活跃度排名 <a href="/top/dau">1111</a></span>
+                            <span class="box_gray"><li class="box_fa box_fa-time"></li>
+                                &nbsp; 加入于{{member.created|date('Y-m-d H:m')}}
                             {#<div class="box_sep10"></div><div class="box_balance_area" style="">1 <img src="//cdn.v2ex.com/static/img/gold.png" alt="G" align="absmiddle" border="0" style="padding-bottom: 2px;"> 4 <img src="//cdn.v2ex.com/static/img/silver.png" alt="S" align="absmiddle" border="0" style="padding-bottom: 2px;"> 90 <img src="//cdn.v2ex.com/static/img/bronze.png" alt="B" align="absmiddle" border="0"></div>#}
                         </td>
                     </tr>
@@ -52,44 +43,50 @@
             <div class="box_sep5"></div>
         </div>
         <div class="box_cell">
+            {% if  member.website  %}
             <div class="box_sep5"></div>
 
             <div class="box_icon box_mobileme">
-                <a href="http://konakonaweb.aliapp.com" target="_blank">
-                    {{ entity.website }}
+                <a href="{{ member.website }}" target="_blank">
+                    {{ member.website }}
                 </a>
             </div>
-
+            {% endif %}
+                {% if   member.weibo  %}
             <div class="box_sep5"></div>
 
             <div class="box_icon box_weibo">
-                <a href="http://konakonaweb.aliapp.com" target="_blank">
-                    {{ entity.weibo }}
+                <a href="{{ member.weibo }}" target="_blank">
+                    {{ member.weibo }}
                 </a>
             </div>
-
+                {% endif %}
+                    {% if  member.github  %}
             <div class="box_sep5"></div>
 
             <div class="box_icon box_github">
-                <a href="http://konakonaweb.aliapp.com" target="_blank">
-                    {{ entity.github }}
+                <a href="{{ member.github }}" target="_blank">
+                    {{ member.github }}
                 </a>
             </div>
-
+                    {% endif %}
+              {% if   member.city  %}
             <div class="box_sep5"></div>
 
             <div class="box_icon box_location">
-                <a href="http://konakonaweb.aliapp.com" target="_blank">
-                    {{ entity.city }}
+                <a href="#">
+                    {{ member.city }}
                 </a>
             </div>
-
+              {% endif %}
             <div class="box_sep5"></div>
 
         </div>
+           {% if  member.description  %}
         <div class="box_cell">
-            {{ entity.description }}
+            {{ member.description|raw|nl2br}}
         </div>
+           {% endif %}
     </div>
 
     <div class="box_sep20"></div>
@@ -97,74 +94,90 @@
     <div class="box">
         <div class="box_cell">
             {#<div class="box_fr"><img src="/static/img/rss.png" align="absmiddle">&nbsp; <a href="/feed/member/konakona.xml">Atom</a></div>#}
-            <span class="box_gray">konakona 最近创建的主题</span></div>
+            <span class="box_gray">
+                {% if  member.nickname  %}
+                    {{ member.nickname }}
+                 {% else %}
+                    {{ member.username }}
+                {% endif %} 最近创建的主题</span></div>
 
-
+    {% for post in posts %}
         <div class="box_cell box_item" style="border-top-left-radius: 3px; border-top-right-radius: 3px;"><div style="position: absolute; margin: -10px -10px 0px 650px;"></div>
             <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tbody><tr>
 
-                    <td width="auto" valign="middle"><span class="box_item_title"><a href="/t/138539#reply3">osx 下有什么比较好的 https 截取工具？</a></span>
+                    <td width="auto" valign="middle"><span class="box_item_title">
+                            <a href="{{ path('post_show', { 'id': post.id }) }}">{{ post.title }}</a>
+                        </span>
                         <div class="box_sep5"></div>
-                        <span class="box_small box_fade"><div class="box_votes"></div><a class="box_node" href="/go/qna">问与答</a> &nbsp;•&nbsp; <strong><a href="/member/konakona">konakona</a></strong> &nbsp;•&nbsp; 1 天前 &nbsp;•&nbsp; 最后回复来自 <strong><a href="/member/a3587556">a3587556</a></strong></span>
+                        <span class="box_small box_fade"><div class="box_votes">
+
+                        </div><a class="box_node" href="#"></a> &nbsp;•&nbsp; <strong>
+                                <a href="{{ path('user_show', { 'username': post.member.username }) }}">
+                                    {% if   post.member.nickname  %}
+                                        {{  post.member.nickname }}
+                                    {% else %}
+                                        {{  post.member.username }}
+                                    {% endif %}
+                                </a></strong> &nbsp;•&nbsp; {{ post.created|date('Y-m-d H:m') }} &nbsp;•&nbsp;
+        {% if lastComments[post.id] %}
+            {% set lastCommentMember= lastComments[post.id].member %}
+                            最后回复来自 <strong>
+            <a  href="{{ path('user_show', { 'username': lastCommentMember.username }) }}">
+                {% if lastCommentMember.nickname %}
+                    {{ lastCommentMember.nickname }}
+                {% else %}
+                    {{ lastCommentMember.username }}
+                {% endif %}
+            </a>
+                                </strong>
+        {% endif %}
+            </span>
                     </td>
                     <td width="50" align="right" valign="middle">
 
-                        <a href="/t/138539#reply3" class="box_count_livid">3</a>
+                        <a href="{{ path('post_show', { 'id': post.id }) }}" class="box_count_livid">{{ post.commentCount }}</a>
 
                     </td>
                 </tr>
                 </tbody></table>
         </div>
+        {% endfor %}
 
-        <div class="box_cell box_item" style=""><div style="position: absolute; margin: -10px -10px 0px 650px;"></div>
-            <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                <tbody><tr>
-
-                    <td width="auto" valign="middle"><span class="box_item_title"><a href="/t/137449#reply5">准备入，但不知道选哪一款</a></span>
-                        <div class="box_sep5"></div>
-                        <span class="box_small box_fade"><div class="box_votes"></div><a class="box_node" href="/go/kindle">Kindle</a> &nbsp;•&nbsp; <strong><a href="/member/konakona">konakona</a></strong> &nbsp;•&nbsp; 6 天前 &nbsp;•&nbsp; 最后回复来自 <strong><a href="/member/konakona">konakona</a></strong></span>
-                    </td>
-                    <td width="50" align="right" valign="middle">
-
-                        <a href="/t/137449#reply5" class="box_count_livid">5</a>
-
-                    </td>
-                </tr>
-                </tbody></table>
-        </div>
-        <div class="box_cell box_item" style=""><div style="position: absolute; margin: -10px -10px 0px 650px;"></div>
-            <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                <tbody><tr>
-
-                    <td width="auto" valign="middle"><span class="box_item_title"><a href="/t/133201#reply7">OSX 的百度云同步盘工具有人在用吗？为什么一直在重复下载</a></span>
-                        <div class="box_sep5"></div>
-                        <span class="box_small box_fade"><div class="box_votes"></div><a class="box_node" href="/go/qna">问与答</a> &nbsp;•&nbsp; <strong><a href="/member/konakona">konakona</a></strong> &nbsp;•&nbsp; 31 天前 &nbsp;•&nbsp; 最后回复来自 <strong><a href="/member/orvice">orvice</a></strong></span>
-                    </td>
-                    <td width="50" align="right" valign="middle">
-
-                        <a href="/t/133201#reply7" class="box_count_livid">7</a>
-
-                    </td>
-                </tr>
-                </tbody></table>
-        </div>
-
-        <div class="box_inner"><span class="box_chevron">»</span> <a href="/member/konakona/topics">konakona 创建的更多主题</a></div>
+        <div class="box_inner"><span class="box_chevron">»</span> <a href="#">
+                {% if member.nickname %}
+                    {{ member.nickname }}
+                {% else %}
+                    {{ member.username }}
+                {% endif %}
+                创建的更多主题</a></div>
 
     </div>
 
 
     <div class="box_sep20"></div>
-
-
     <div class="box">
-        <div class="box_cell"><span class="box_gray">konakona 最近回复了</span></div>
-
+        <div class="box_cell"><span class="box_gray">
+                 {% if  member.nickname  %}
+                     {{ member.nickname }}
+                 {% else %}
+                     {{ member.username }}
+                 {% endif %}
+                最近回复了</span></div>
+    {% for postComment in postComments %}
         <div class="box_dock_area">
             <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tbody><tr>
-                    <td style="padding: 10px 15px 8px 15px; font-size: 12px; text-align: left;"><div class="box_fr"><span class="box_fade">4 分钟前</span></div><span class="box_gray">回复了 yangyanggnu 创建的主题 <span class="box_chevron">›</span> <a href="/t/138696#reply46">所需即所获：像 IDE 一样使用 vim</a></span></td>
+                    <td style="padding: 10px 15px 8px 15px; font-size: 12px; text-align: left;"><div class="box_fr"><span class="box_fade">{{ postComment.created|date('Y-m-d H:m') }}</span></div>
+                        <span class="box_gray">回复了
+
+                            {% if postComment.member.nickname %}
+                                {{ postComment.member.nickname }}
+                            {% else %}
+                                {{ postComment.member.username }}
+                            {% endif %}
+                            创建的主题 <span class="box_chevron">›</span>
+                            <a href="{{path('post_show', { 'id': postComment.post.id }) }}">{{ postComment.post.title }}</a></span></td>
                 </tr>
                 <tr>
                     <td align="left">
@@ -173,46 +186,23 @@
                 </tr>
                 </tbody></table>
         </div>
-        <div class="box_inner">
-            <div class="box_reply_content">还不错，对于将VIM的功能发挥到极致颇有帮助。<br><br>我觉得将VIM弄成日常IDE的人本身就是一种折腾，一种技术的磨练，一种挖掘的精神，很好。<br><br>大家不用为了想法不同，但结果很好的事情进行任何判定吧？</div>
+        {% if loop.last %}
+         <div class="box_cell">
+         {% else %}
+             <div class="box_inner">
+          {% endif %}
+            <div class="box_reply_content">{{ postComment.content|raw|nl2br }}</div>
         </div>
-
-        <div class="box_dock_area">
-            <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                <tbody><tr>
-                    <td style="padding: 10px 15px 8px 15px; font-size: 12px; text-align: left;"><div class="box_fr"><span class="box_fade">4 分钟前</span></div><span class="box_gray">回复了 yangyanggnu 创建的主题 <span class="box_chevron">›</span> <a href="/t/138696#reply46">所需即所获：像 IDE 一样使用 vim</a></span></td>
-                </tr>
-                <tr>
-                    <td align="left">
-                        <div class="box_feedback"></div>
-                    </td>
-                </tr>
-                </tbody></table>
-        </div>
-        <div class="box_inner">
-            <div class="box_reply_content">还不错，对于将VIM的功能发挥到极致颇有帮助。<br><br>我觉得将VIM弄成日常IDE的人本身就是一种折腾，一种技术的磨练，一种挖掘的精神，很好。<br><br>大家不用为了想法不同，但结果很好的事情进行任何判定吧？</div>
-        </div>
+    {% endfor %}
 
 
-
-        <div class="box_dock_area">
-            <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                <tbody><tr>
-                    <td style="padding: 10px 15px 8px 15px; font-size: 12px; text-align: left;"><div class="box_fr"><span class="box_fade">2 天前</span></div><span class="box_gray">回复了 manoon 创建的主题 <span class="box_chevron">›</span> <a href="/t/138312#reply44">免费试吃来了（不是饼干，是榨菜）</a></span></td>
-                </tr>
-                <tr>
-                    <td align="left">
-                        <div class="box_feedback"></div>
-                    </td>
-                </tr>
-                </tbody></table>
-        </div>
-        <div class="box_cell">
-            <div class="box_reply_content">已经下架了！！！！</div>
-        </div>
-
-
-        <div class="box_inner"><span class="box_chevron">»</span> <a href="/member/konakona/replies">konakona 创建的更多回复</a></div>
+        <div class="box_inner"><span class="box_chevron">»</span> <a href="#">
+                {% if  member.nickname  %}
+                    {{ member.nickname }}
+                {% else %}
+                    {{ member.username }}
+                {% endif %}
+                创建的更多回复</a></div>
 
     </div>
 

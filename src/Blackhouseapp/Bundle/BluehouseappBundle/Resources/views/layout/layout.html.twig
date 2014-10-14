@@ -42,12 +42,13 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         {% if app.user %}
                         <ul class="nav navbar-nav navbar-right">
-                            {% set member=app.user %}
-                            {% if member.avatar %}
-                                <li>
+                            {% set appUser=app.user %}
+                            <li>
+                            {% if appUser.avatar %}
+
                                 <span class="glyphicon">
                                         <a href="#">
-                                            <img src="{{vich_uploader_asset(member,'userImage')|imagine_filter('small_image')}}"/>
+                                            <img src="{{vich_uploader_asset(appUser,'userImage')|imagine_filter('small_image')}}"/>
                                         </a>
                                         </span>
                             {% else %}
@@ -63,7 +64,7 @@
                                     <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="{{ path('member_edit') }}">
-                                            <span class="glyphicon glyphicon-user"></span>
+                                            <span class="glyphicon glyphicon-pencil"></span>
                                             修改个人资料</a></li>
                                     <li><a href="{{ path('fos_user_change_password') }}">
                                             <span class="glyphicon glyphicon-lock"></span>
@@ -80,6 +81,7 @@
                                        data-toggle="dropdown"> 系统管理 <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="{{ path('members_list') }}">
+                                                <span class="glyphicon glyphicon-user"></span>
                                                 用户管理</a></li>
                                     </ul>
                                 </li>

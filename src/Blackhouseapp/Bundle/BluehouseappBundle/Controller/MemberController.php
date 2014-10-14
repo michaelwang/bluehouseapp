@@ -91,7 +91,6 @@ class MemberController  extends Controller
         $param=array();
         $em = $this->getDoctrine()->getManager();
 
-
         $commentRepo = $em->getRepository('BlackhouseappBluehouseappBundle:Member');
         $query = $commentRepo->createQueryBuilder('m')
             ->where('m.username = :username')
@@ -100,7 +99,7 @@ class MemberController  extends Controller
             ->setMaxResults(1)
             ->setFirstResult(0)
             ->getQuery();
-
+        $entity =null;
         try {
             $entity = $query->getSingleResult();
         } catch (\Doctrine\Orm\NoResultException $e) {
@@ -112,7 +111,42 @@ class MemberController  extends Controller
             throw $this->createNotFoundException('这个用户不存在');
         }
 
-        $param['entity'] = $entity;
+        $repo = $em->getRepository('BlackhouseappBluehouseappBundle:Post');
+
+        $query = $repo->createQueryBuilder('a')
+            ->orderBy('a.modified', 'desc')
+            ->where('a.status = :status')
+            ->andWhere('a.member= :member')
+            ->setParameters(array('status' => true,'member'=>$entity))
+            ->setMaxResults(50)
+            ->setFirstResult(0)
+            ->getQuery();
+
+
+        $posts = $query->getResult();
+        $lastComments = array();
+        foreach ($posts  as $post){
+            $lastComments[$post->getId()]=$this->get('blackhouseapp_bluehouseapp.post')->getLastComment($post);
+
+        }
+
+
+        $repo = $em->getRepository('BlackhouseappBluehouseappBundle:PostComment');
+
+        $query = $repo->createQueryBuilder('a')
+            ->orderBy('a.modified', 'desc')
+            ->where('a.status = :status')
+            ->andWhere('a.member= :member')
+            ->setParameters(array('status' => true,'member'=>$entity))
+            ->setMaxResults(50)
+            ->setFirstResult(0)
+            ->getQuery();
+        $postComments= $query->getResult();
+
+        $param['member'] = $entity;
+        $param['posts'] = $posts;
+        $param['lastComments'] = $lastComments;
+        $param['postComments'] = $postComments;
         return $param;
     }
 
