@@ -1,0 +1,21 @@
+{% extends "BlackhouseappBluehouseappBundle:layout:layout.html.twig" %}
+
+{% block body -%}
+    {% if entity.userImage %}
+
+        <img  class="box_avatar" border="0"  align="default" src="{{vich_uploader_asset(entity,'userImage')|imagine_filter('small_image')}}"/>
+
+    {% else %}
+        <span class="glyphicon glyphicon-user"></span>
+    {% endif %}
+    {{ entity.username }}<br>
+    {{ entity.nickname }}<br>
+    {{ entity.website }}<br>
+    {{ entity.weibo }}<br>
+    {{ entity.github }}<br>
+
+
+    {{ entity.description }}<br>
+
+
+{% endblock %}

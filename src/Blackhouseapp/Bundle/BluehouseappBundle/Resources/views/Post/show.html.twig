@@ -7,10 +7,10 @@
 <div class="box" style="border-bottom: 0px;">
     <div class="box_header">
         <div class="box_fr">
-            <a href="#">
-                {% if entity.member.image %}
-                <img  src="#" class="box_avatar" border="0"
-                        align="default">
+            <a href="{{ path('user_show', { 'username': entity.member.username }) }}">
+                {% if entity.member.userImage %}
+
+                    <img  class="box_avatar" border="0"  align="default" src="{{vich_uploader_asset(entity.member,'userImage')|imagine_filter('small_image')}}"/>
                 {% else %}
                     <span class="glyphicon glyphicon-user"></span>
                 {% endif %}
@@ -21,14 +21,26 @@
         <div class="box_sep10"></div>
         <h1>{{ entity.title }}</h1>
         &nbsp;
-        <small class="box_gray"><a href="#">{{entity.member.username}}</a>
+        <small class="box_gray">
+            <a href="{{ path('user_show', { 'username': entity.member.username }) }}">
+
+                {% if entity.member.nickname %}
+                    {{ entity.member.nickname }}
+                {% else %}
+                    {{ entity.member.username }}
+                {% endif %}
+            </a>
             · {{ entity.modified|date("Y-m-d H:m") }}</small>
     </div>
     <div class="box_cell">
 
         <div class="topic_content">{{ entity.content |raw|nl2br }}</div>
-    </div>
 
+    </div>
+    {% if is_granted('ROLE_MANAGER')%}
+        <a onclick="return confirm('您确定要删除这个帖子吗?')"
+           href="{{path('post_delete',{'id':entity.id})}}">删除</a>
+    {% endif %}
 
 </div>
 <div class="box_sep20"></div>
@@ -59,10 +71,10 @@
                     <tbody>
                     <tr>
                         <td width="48" valign="top" align="center">
-                            {% if comment.member.image %}
-                            <img
-                                    src="#" class="box_avatar"
-                                    border="0" align="default">
+
+                            {% if comment.member.userImage %}
+
+                                <img  class="box_avatar" border="0"  align="default" src="{{vich_uploader_asset(comment.member,'userImage')|imagine_filter('small_image')}}"/>
 
                             {% else %}
                                 <span class="glyphicon glyphicon-user"></span>
@@ -73,13 +85,25 @@
                         <td width="auto" valign="top" align="left">
                             <div class="box_fr"> &nbsp; &nbsp; <span class="box_no">{{ loop.index }}</span></div>
                             <div class="sep3"></div>
-                            <strong><a href="#" class="box_dark">{{ comment.member.username }}</a></strong>&nbsp; &nbsp;<span
+                            <strong><a href="{{ path('user_show', { 'username': comment.member.username }) }}" class="box_dark">
+                                    {% if comment.member.nickname %}
+                                        {{ comment.member.nickname }}
+                                    {% else %}
+                                        {{ comment.member.username }}
+                                    {% endif %}
+
+
+                                </a></strong>&nbsp; &nbsp;<span
                                     class="box_fade box_small"> {{ comment.modified|date("Y-m-d H:m") }}</span>
 
                             <div class="sep5"></div>
                             <div class="reply_content">
                                 {{ comment.content|raw|nl2br }}
                             </div>
+                            {% if is_granted('ROLE_MANAGER')%}
+                                <a onclick="return confirm('您确定要删除这个回复吗?')"
+                                   href="{{path('postcomment_delete',{'id':comment.id})}}">删除</a>
+                            {% endif %}
                         </td>
                     </tr>
                     </tbody>

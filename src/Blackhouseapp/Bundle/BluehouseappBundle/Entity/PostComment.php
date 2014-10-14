@@ -28,6 +28,8 @@ class PostComment {
     {
         $this->created = new \DateTime();
         $this->modified = $this->created;
+        $this->enabled = true;
+        $this->status = true;
     }
     /**
      * @var integer
@@ -95,6 +97,22 @@ class PostComment {
      * @var File $image
      */
     private $image;
+
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="status", type="boolean")
+     */
+    private $status;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="enabled", type="boolean")
+     */
+    private $enabled;
+
 
     public function setImage($image)
     {
@@ -239,6 +257,38 @@ class PostComment {
     public function getAttachment()
     {
         return $this->attachment;
+    }
+
+    /**
+     * @param boolean $enabled
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param boolean $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 
 

@@ -9,14 +9,17 @@
                 <table cellpadding="0" cellspacing="0" border="0" width="100%">
                     <tbody>
                     <tr>
-
                         <td width="48" valign="top" align="center">
-                            {% if entity.member.image %}
-                            <a href="#"><img
-                                        src="#" class="avatar" border="0"
-                                        align="default"></a>
+                            {% set member=entity.member %}
+                            {% if entity.member.avatar %}
+                            <a href="{{ path('user_show', { 'username': member.username }) }}">
+                                <img src="{{vich_uploader_asset(member,'userImage')|imagine_filter('small_image')}}"/>
+
+                            </a>
                             {% else %}
+                                <a href="{{ path('user_show', { 'username': member.username }) }}">
                             <span class="glyphicon glyphicon-user"></span>
+                                </a>
                             {% endif %}
                         </td>
                         <td width="10"></td>
@@ -26,11 +29,22 @@
 
                             <div class="sep5"></div>
                     <span class="box_small box_fade"><div class="votes"></div><a class="box_node" href="#"></a> &nbsp;•&nbsp; <strong><a
-                                    href="#">{{ entity.member.username }}</a></strong> &nbsp;•&nbsp; {{ entity.modified|date("m/d/Y H:m") }}
+                                    href="{{ path('user_show', { 'username': entity.member.username }) }}">
+                                {% if entity.member.nickname %}
+                                    {{ entity.member.nickname }}
+                                {% else %}
+                                    {{ entity.member.username }}
+                                {% endif %}
+                            </a></strong> &nbsp;•&nbsp; {{ entity.modified|date("Y-m-d H:m") }}
                         {% if lastComments[entity.id] %}
+                            {% set member= lastComments[entity.id].member %}
                             &nbsp;•&nbsp; 最后回复来自 <strong><a
-                                    href="#">
-                                {{ lastComments[entity.id].member.username }}
+                                    href="{{ path('user_show', { 'username': member.username }) }}">
+                                {% if member.nickname %}
+                                {{ member.nickname }}
+                                {% else %}
+                                {{ member.username }}
+                                {% endif %}
                             </a></strong>
                         {% endif %}
                     </span>
