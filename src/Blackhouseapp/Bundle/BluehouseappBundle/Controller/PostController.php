@@ -21,7 +21,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class PostController extends Controller
 {
-
     /**
      * Lists all Post entities.
      *
@@ -59,7 +58,6 @@ class PostController extends Controller
                 'lastComments' => $lastComments
             );
         } else {
-
 
             $data = array(
                 'data' => $entities
@@ -155,7 +153,19 @@ class PostController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $post = $em->getRepository('BlackhouseappBluehouseappBundle:Post')->find($id);
+        $query = $this->getDoctrine()->getManager()
+            ->getRepository('BlackhouseappBluehouseappBundle:Post')
+            ->createQueryBuilder('c')
+            ->where('c.id = :id')
+            ->andWhere('c.status = :status')
+            ->setParameters(array(':id' => $id,'status'=>true))
+            ->getQuery();
+
+        try {
+            $post =  $query->getSingleResult();
+        } catch (\Doctrine\Orm\NoResultException $e) {
+            $post = null;
+        }
 
         if (!$post || !$post->getStatus()) {
             throw $this->createNotFoundException('这个帖子不存在');
@@ -267,48 +277,33 @@ class PostController extends Controller
         );
     }
 
-    /**
+
+        /**
      * Deletes a Post entity.
      *
-     * @Route("/manager/post/{id}", name="post_delete")
-     * @Method("DELETE")
+     * @Route("/manager/post_delete/{id}", name="post_delete")
+     * @Method({"GET","DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('BlackhouseappBluehouseappBundle:Post')->find($id);
-
-            if (!$entity) {
+        $em = $this->getDoctrine()->getManager();
+        $post = $em->getRepository('BlackhouseappBluehouseappBundle:Post')->find($id);
+        if($post){
+            if (!$post) {
                 throw $this->createNotFoundException('Unable to find Post entity.');
             }
-            $entity->setModified(new \DateTime());
-            $entity->setStatus(false);
-
+            $post->setModified(new \DateTime());
+            $post->setStatus(false);
+          //  $em->remove($post);
             $em->flush();
         }
-
+        $this->get('session')->getFlashBag()->add('success','删除成功');
         return $this->redirect($this->generateUrl('post'));
+
     }
 
-    /**
-     * Creates a form to delete a Post entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('post_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm();
-    }
+
 
     /**
      * @Route("/member/post/comment/update/{id}",name="post_comment_create")
@@ -369,7 +364,8 @@ class PostController extends Controller
             ->getRepository('BlackhouseappBluehouseappBundle:PostComment')
             ->createQueryBuilder('c')
             ->where('c.post = :post')
-            ->setParameters(array(':post' => $post->getId()))
+            ->andWhere('c.status = :status')
+            ->setParameters(array(':post' => $post->getId(),'status'=>true))
             ->orderBy('c.id', 'asc')
             ->getQuery();
         $comments = $this->get('knp_paginator')->paginate($query, $page, 50);

@@ -40,7 +40,7 @@ class MemberType  extends AbstractType
                 )
             ));
 
-            $builder->add('image','file',array(
+            $builder->add('userImage','file',array(
                 'label'=>'个人头像设置',
                 'required'=>false,
                 'attr'=>array(
