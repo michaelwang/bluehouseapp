@@ -511,9 +511,9 @@ div.header{
     height: 70px;
     background-size: 70px 70px;
 }
-body{
+/*body{
     background-color: #e2e2e2;
-}
+}*/
 div.body {
     background-color: #e2e2e2;
     background-image: url("../images/shadow_light.png");
