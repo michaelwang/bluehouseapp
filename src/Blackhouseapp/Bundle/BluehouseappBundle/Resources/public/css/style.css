@@ -119,9 +119,7 @@
     text-align: center;
     font-family: "Microsoft YaHei", 'Myriad Pro','Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-body {
-    background: #e2e2e2;
-}
+
 
 .box {
     background-color: #fff;
@@ -505,4 +503,19 @@ a.box_count_blue:visited, a.box_count_green:visited, a.box_count_orange:visited,
     border-radius: 12px;
     text-decoration: none;
     margin-right: 5px;
+}
+div.header{
+    background-image: url("../images/top_light.png");
+    text-align: center;
+    background-color: #f0f0f0;
+    height: 70px;
+    background-size: 70px 70px;
+}
+/*body{
+    background-color: #e2e2e2;
+}*/
+div.body {
+    background-color: #e2e2e2;
+    background-image: url("../images/shadow_light.png");
+    background-repeat: repeat-x;
 }
