@@ -87,7 +87,7 @@
                         </ul>
                         {% else %}
 
-                        <ul class="nav navbar-nav navbar-right">
+                        {#<ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle"
                                    data-toggle="dropdown">账户管理 <span class="caret"></span></a>
@@ -99,7 +99,13 @@
 
                                 </ul>
                             </li>
-                        </ul>
+                        </ul>#}
+                            <div style="float:right;height:50px;line-height:50px;font-size:16px;">
+                                <a href="/" class="box_top">首页</a>&nbsp;&nbsp;&nbsp;
+                                <a href="{{ path('fos_user_registration_register') }}" class="box_top">注册</a>&nbsp;&nbsp;&nbsp;
+                                <a href="{{ path('fos_user_security_login') }}" class="box_top">登录</a>
+                            </div>
+
                         {% endif %}
                     </div>
                     <!-- /.navbar-collapse -->
