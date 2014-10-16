@@ -44,16 +44,22 @@
                         <ul class="nav navbar-nav navbar-right">
                             {% set appUser=app.user %}
                             <li>
-                            {% if appUser.avatar %}
+
 
                                 <span class="glyphicon">
                                         <a href="#">
+                                            {% if appUser.avatar %}
                                             <img src="{{vich_uploader_asset(appUser,'userImage')|imagine_filter('small_image')}}"/>
+                                            {% else %}
+                                                <img src="{{ asset('bundles/blackhouseappbluehouseapp/images/user_default.png') }}"/>
+
+                                            {% endif %}
                                         </a>
                                         </span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-user"></span>
-                            {% endif %}
+
+
+
+
                                 </li>
 
 

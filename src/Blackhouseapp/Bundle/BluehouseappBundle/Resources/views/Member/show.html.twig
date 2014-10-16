@@ -11,7 +11,8 @@
     {% if member.userImage %}
                             <img src="{{vich_uploader_asset(member,'userImage')|imagine_filter('avatar_image')}}" class="box_avatar" border="0" align="default"/>
     {% else %}
-        <span class="glyphicon glyphicon-user"></span>
+        <img src="{{ asset('bundles/blackhouseappbluehouseapp/images/user_default_large.png') }}"/>
+
     {% endif %}
 
                             <div class="box_sep10"></div>
