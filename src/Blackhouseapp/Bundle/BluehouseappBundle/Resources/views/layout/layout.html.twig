@@ -42,22 +42,30 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         {% if app.user %}
                         <ul class="nav navbar-nav navbar-right">
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle"
-                                       data-toggle="dropdown"> 系统管理 <span class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="{{ path('admin') }}">
-                                                系统管理</a></li>
-                                    </ul>
-                                </li>
+                            {% set appUser=app.user %}
+                            <li>
+                            {% if appUser.avatar %}
+
+                                <span class="glyphicon">
+                                        <a href="#">
+                                            <img src="{{vich_uploader_asset(appUser,'userImage')|imagine_filter('small_image')}}"/>
+                                        </a>
+                                        </span>
+                            {% else %}
+                                <span class="glyphicon glyphicon-user"></span>
                             {% endif %}
+                                </li>
+
+
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <span class="glyphicon glyphicon-user"></span>
-                                    {{ app.user.username }}
+
+                                     {{ app.user.username }}
                                     <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ path('member_edit') }}">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                            修改个人资料</a></li>
                                     <li><a href="{{ path('fos_user_change_password') }}">
                                             <span class="glyphicon glyphicon-lock"></span>
                                             修改密码</a></li>
@@ -67,11 +75,21 @@
                                 </ul>
                             </li>
 
-
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle"
+                                       data-toggle="dropdown"> 系统管理 <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="{{ path('members_list') }}">
+                                                <span class="glyphicon glyphicon-user"></span>
+                                                用户管理</a></li>
+                                    </ul>
+                                </li>
+                            {% endif %}
                         </ul>
                         {% else %}
 
-                        <ul class="nav navbar-nav navbar-right">
+                        {#<ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle"
                                    data-toggle="dropdown">账户管理 <span class="caret"></span></a>
@@ -83,7 +101,13 @@
 
                                 </ul>
                             </li>
-                        </ul>
+                        </ul>#}
+                            <div style="float:right;height:50px;line-height:50px;font-size:16px;">
+                                <a href="{{ path('welcome') }}" class="box_top">首页</a>&nbsp;&nbsp;&nbsp;
+                                <a href="{{ path('fos_user_registration_register') }}" class="box_top">注册</a>&nbsp;&nbsp;&nbsp;
+                                <a href="{{ path('fos_user_security_login') }}" class="box_top">登录</a>
+                            </div>
+
                         {% endif %}
                     </div>
                     <!-- /.navbar-collapse -->
@@ -98,15 +122,18 @@
 
 <div class="body">
     <div class="container">
+        <div class="box_sep20"></div>
         {% block body %}
         {% endblock %}
+        <div class="box_sep20"></div>
     </div>
 </div>
 <div class="footer">
     <div class="container">
-        <div class="clear">
+        <div class="">
+            © 蓝房子
             <div class="pull-right">
-                关于 我们
+                关于我们
             </div>
         </div>
     </div>

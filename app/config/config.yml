@@ -35,7 +35,7 @@ twig:
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
-    use_controller: false
+    use_controller: true
     bundles:        [ ]
     #java: /usr/bin/java
     filters:
@@ -128,89 +128,109 @@ fos_user:
         address:        %mailer_user%
         sender_name:   蓝房子
 
-knp_gaufrette:
-    stream_wrapper: ~
 
-    adapters:
-        image_adapter:
-            local:
-                directory: %kernel.root_dir%/../web/assets/image/
-        picture_adapter:
-            local:
-                directory: %kernel.root_dir%/../web/assets/picture/
-        plu_adapter:
-            local:
-                directory: %kernel.root_dir%/../web/assets/plu/
-        meta_adapter:
-            local:
-                directory: %kernel.root_dir%/../web/assets/meta/
-        collocation_adapter:
-            local:
-                directory: %kernel.root_dir%/../web/assets/collocation/
-    filesystems:
-        image_fs:
-            adapter:    image_adapter
-        picture_fs:
-            adapter:    picture_adapter
-        plu_fs:
-            adapter:    plu_adapter
-        meta_fs:
-            adapter:    meta_adapter
-        collocation_fs:
-            adapter:    collocation_adapter
-
-vich_uploader:
-    db_driver:  orm
-    twig:       true
-    gaufrette:  true
-    storage:    vich_uploader.storage.gaufrette
-    mappings:
-        meta:
-            uri_prefix: /assets/meta
-            namer: vich_uploader.namer_uniqid
-            upload_destination: meta_fs
-            delete_on_remove: true
-            inject_on_load: true
-        image:
-            uri_prefix: /assets/image
-            namer: vich_uploader.namer_uniqid
-            upload_destination: image_fs
-            delete_on_remove: true
-            inject_on_load: true
-        collocation:
-            uri_prefix: /assets/collocation
-            namer: vich_uploader.namer_uniqid
-            upload_destination: collocation_fs
-            delete_on_remove: true
-            inject_on_load: true
-        picture:
-            uri_prefix: /assets/picture
-            namer: vich_uploader.namer_uniqid
-            upload_destination: picture_fs
-            delete_on_remove: true
-            inject_on_load: true
-        plu:
-            uri_prefix: /assets/plu
-            namer: vich_uploader.namer_uniqid
-            upload_destination: plu_fs
-            delete_on_remove: true
-            inject_on_load: true
 liip_imagine:
-    resolvers:
-       default:
-          web_path: ~
-
     filter_sets:
-        cache: ~
-        thumbnail_mini:
+        face_image:
+            quality: 75
+            filters:
+                thumbnail: { size: [170, 170], mode: outbound}
+        avatar_image:
+            quality: 75
+            filters:
+                thumbnail: { size: [73, 73], mode: outbound }
+        banner_image:
+            quality: 75
+            filters:
+                thumbnail: { size: [940, 360], mode: outbound }
+        small_image:
             quality: 75
             filters:
                 thumbnail: { size: [48, 48], mode: outbound }
-        thumbnail:
+        product_image:
+                     quality: 75
+                     filters:
+                         thumbnail: { size: [480, 480], mode: outbound }
+        page_image:
             quality: 75
             filters:
-                thumbnail: { size: [128, 128], mode: outbound }
-        thumbnail_large:
-            quality: 75
-            filters:
-                thumbnail: { size: [256, 256], mode: outbound }
+                relative_resize: { widen: 600 }
+
+
+knp_gaufrette:
+    stream_wrapper: ~
+    adapters:
+        image_adapter:
+            local:
+                directory: %kernel.root_dir%/../web/assets/images
+        avatar_adapter:
+            local:
+                directory: %kernel.root_dir%/../web/assets/avatar
+        party_adapter:
+            local:
+                directory: %kernel.root_dir%/../web/assets/party
+        desk_adapter:
+            local:
+                directory: %kernel.root_dir%/../web/assets/desk
+        discuss_adapter:
+            local:
+                directory: %kernel.root_dir%/../web/assets/discuss
+        misc_adapter:
+            local:
+                directory: %kernel.root_dir%/../web/assets/misc
+    filesystems:
+        image_fs:
+            adapter:    image_adapter
+        avatar_fs:
+            adapter:    avatar_adapter
+        party_fs:
+            adapter:    party_adapter
+        desk_fs:
+            adapter:    desk_adapter
+        discuss_fs:
+            adapter:    discuss_adapter
+        misc_fs:
+            adapter:    misc_adapter
+
+vich_uploader:
+    db_driver: orm
+    twig: true
+    gaufrette: true
+    storage: vich_uploader.storage.gaufrette
+    mappings:
+        image_image:
+            namer: vich_uploader.namer_uniqid
+            uri_prefix: /assets/images
+            upload_destination: image_fs
+            delete_on_remove: true
+            inject_on_load: true
+        avatar_image:
+            namer: vich_uploader.namer_uniqid
+            uri_prefix: /assets/avatar
+            upload_destination: avatar_fs
+            delete_on_remove: true
+            inject_on_load: true
+        party_image:
+            namer: vich_uploader.namer_uniqid
+            uri_prefix: /assets/party
+            upload_destination: party_fs
+            delete_on_remove: true
+            inject_on_load: true
+        desk_image:
+            namer: vich_uploader.namer_uniqid
+            uri_prefix: /assets/desk
+            upload_destination: desk_fs
+            delete_on_remove: true
+            inject_on_load: true
+        discuss_image:
+            namer: vich_uploader.namer_uniqid
+            uri_prefix: /assets/discuss
+            upload_destination: discuss_fs
+            delete_on_remove: true
+            inject_on_load: true
+        misc_image:
+            namer: vich_uploader.namer_uniqid
+            uri_prefix: /assets/misc
+            upload_destination: misc_fs
+            delete_on_remove: true
+            inject_on_load: true
