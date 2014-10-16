@@ -118,30 +118,31 @@ class LoginViewController:ViewController,UITextFieldDelegate{
         var url = Constant().URL_USER_LOGIN
         var dic=["username":username,"password":password]
         
-        dl.downloadFromGetUrl(url, completionHandler: {(data: NSData?, error: NSError?) -> Void in
-            if (error != nil){
-                println("error=\(error!.localizedDescription)")
-            }else{
-                var dict=NSJSONSerialization.JSONObjectWithData(data!, options:.MutableContainers, error:nil) as? NSDictionary
-                dict=NSJSONSerialization.JSONObjectWithData(data!, options:.MutableContainers, error:nil) as? NSDictionary
-                
-                //                var str1 = dict?.objectForKey("data") as NSArray
-                var str1: AnyObject? = dict?.objectForKey("agent")
-                println("get_dict=\(dict)")
-            }
-        })
-        //        dl.downloadFromPostUrl(url, dic: dic, completionHandler: {(data: NSData?, error: NSError?) -> Void in
-        //            if (error != nil){
-        //                println("error=\(error!.localizedDescription)")
-        //            }else{
-        //
-        //                var dict=NSJSONSerialization.JSONObjectWithData(data!, options:.MutableContainers, error:nil) as? NSDictionary
-        //
-        ////                var str1 = dict?.objectForKey("title")
-        //                println("登录成功！")
-        //                println("post_dict=\(dict)")
-        //            }
-        //        })
+//        dl.downloadFromGetUrl(url, completionHandler: {(data: NSData?, error: NSError?) -> Void in
+//            if (error != nil){
+//                println("error=\(error!.localizedDescription)")
+//            }else{
+//                var dict=NSJSONSerialization.JSONObjectWithData(data!, options:.MutableContainers, error:nil) as? NSDictionary
+//                dict=NSJSONSerialization.JSONObjectWithData(data!, options:.MutableContainers, error:nil) as? NSDictionary
+//                
+//                //                var str1 = dict?.objectForKey("data") as NSArray
+//                var str1: AnyObject? = dict?.objectForKey("agent")
+//                println("get_dict=\(dict)")
+//            }
+//        })
+        println(url)
+                dl.downloadFromPostUrl(url, dic: dic, completionHandler: {(data: NSData?, error: NSError?) -> Void in
+                    if (error != nil){
+                        println("error=\(error!.localizedDescription)")
+                    }else{
+        
+                        var dict=NSJSONSerialization.JSONObjectWithData(data!, options:.MutableContainers, error:nil) as? NSDictionary
+        
+        //                var str1 = dict?.objectForKey("title")
+                        println("登录成功！")
+                        println("post_dict=\(dict)")
+                    }
+                })
     }
     
     func gotoRegist(){

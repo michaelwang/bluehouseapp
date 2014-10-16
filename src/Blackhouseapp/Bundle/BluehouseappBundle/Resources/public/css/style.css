@@ -151,20 +151,7 @@
 }
 
 
-a:hover {
-    color: #4d5256;
-    text-decoration: underline;
-}
 
-a:link, a:visited, a:active {
-    color: #778087;
-    text-decoration: none;
-}
-
-a:link, a:visited, a:active {
-    color: #778087;
-    text-decoration: none;
-}
 
 .box_small {
     font-size: 11px;
@@ -558,4 +545,20 @@ a:hover{
 .box_top:hover{
     color: #556;
     text-decoration: underline;
+}
+
+
+a:hover {
+    color: #4d5256;
+    text-decoration: underline;
+}
+
+a:link, a:visited, a:active {
+    color: #778087;
+    text-decoration: none;
+}
+
+a:link, a:visited, a:active {
+    color: #778087;
+    text-decoration: none;
 }
