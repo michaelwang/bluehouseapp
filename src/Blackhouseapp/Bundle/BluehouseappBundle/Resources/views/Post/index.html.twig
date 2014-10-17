@@ -28,16 +28,16 @@
                     <tr>
                         <td width="48" valign="top" align="center">
                             {% set member=entity.member %}
-                            {% if entity.member.avatar %}
-                            <a href="{{ path('user_show', { 'username': member.username }) }}">
-                                <img src="{{vich_uploader_asset(member,'userImage')|imagine_filter('small_image')}}"/>
 
+                            <a href="{{ path('user_show', { 'username': member.username }) }}">
+                                {% if entity.member.avatar %}
+                                <img src="{{vich_uploader_asset(member,'userImage')|imagine_filter('small_image')}}"/>
+                                {% else %}
+                                    <img src="{{ asset('bundles/blackhouseappbluehouseapp/images/user_default.png') }}"/>
+                                {% endif %}
                             </a>
-                            {% else %}
-                                <a href="{{ path('user_show', { 'username': member.username }) }}">
-                            <span class="glyphicon glyphicon-user"></span>
-                                </a>
-                            {% endif %}
+
+
                         </td>
                         <td width="10"></td>
 
