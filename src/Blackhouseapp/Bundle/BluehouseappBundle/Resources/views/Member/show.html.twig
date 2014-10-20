@@ -8,7 +8,7 @@
                 <tbody>
                     <tr>
                         <td width="73" valign="top" align="center">
-    {% if member.userImage %}
+    {% if member.avatar %}
                             <img src="{{vich_uploader_asset(member,'userImage')|imagine_filter('avatar_image')}}" class="box_avatar" border="0" align="default"/>
     {% else %}
         <img src="{{ asset('bundles/blackhouseappbluehouseapp/images/user_default_large.png') }}"/>

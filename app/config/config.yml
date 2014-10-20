@@ -147,6 +147,10 @@ liip_imagine:
             quality: 75
             filters:
                 thumbnail: { size: [48, 48], mode: outbound }
+        mini_image:
+            quality: 75
+            filters:
+                thumbnail: { size: [24, 24], mode: outbound }
         product_image:
                      quality: 75
                      filters:

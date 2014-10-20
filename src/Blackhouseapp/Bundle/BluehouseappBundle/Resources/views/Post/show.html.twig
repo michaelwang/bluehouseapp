@@ -8,7 +8,7 @@
     <div class="box_header">
         <div class="box_fr">
             <a href="{{ path('user_show', { 'username': entity.member.username }) }}">
-                {% if entity.member.userImage %}
+                {% if entity.member.avatar %}
 
                     <img  class="box_avatar" border="0"  align="default" src="{{vich_uploader_asset(entity.member,'userImage')|imagine_filter('small_image')}}"/>
                 {% else %}
@@ -73,7 +73,7 @@
                     <tr>
                         <td width="48" valign="top" align="center">
 
-                            {% if comment.member.userImage %}
+                            {% if comment.member.avatar %}
 
                                 <img  class="box_avatar" border="0"  align="default" src="{{vich_uploader_asset(comment.member,'userImage')|imagine_filter('small_image')}}"/>
 

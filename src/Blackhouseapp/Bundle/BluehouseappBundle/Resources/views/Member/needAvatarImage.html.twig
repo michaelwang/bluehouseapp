@@ -1,0 +1,26 @@
+{% extends "BlackhouseappBluehouseappBundle:layout:layout.html.twig" %}
+
+{% block title %}需要上传个人头像{% endblock %}
+{% block body %}
+    <div class="row-fluid">
+
+        <div  class= "span7 box">
+            <div style="width: 50%;margin: 0 auto">
+                <div class="box_cell">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td width="auto" style="text-align:right;font-size: 14px;">
+                                需要上传个人头像，
+                                <a href="{{path('member_edit')}}">
+                                点击设置头像
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
