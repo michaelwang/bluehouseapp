@@ -35,12 +35,13 @@
                 <td>{{entity.email}}</td>
                 <td>
                     <a href="{{ path('user_show', { 'username': entity.username }) }}">
-                    {% if entity.userImage %}
+                    {% if entity.avatar %}
 
                         <img  class="box_avatar" border="0"  align="default" src="{{vich_uploader_asset(entity,'userImage')|imagine_filter('small_image')}}"/>
 
                     {% else %}
-                        <span class="glyphicon glyphicon-user"></span>
+                        <img src="{{ asset('bundles/blackhouseappbluehouseapp/images/user_default.png') }}"/>
+
                     {% endif %}
                     </a>
                 </td>
