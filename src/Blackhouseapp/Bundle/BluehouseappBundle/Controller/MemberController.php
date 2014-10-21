@@ -80,14 +80,21 @@ class MemberController  extends Controller
             ->getRepository('BlackhouseappBluehouseappBundle:Member')
             ->find($current->getId());
 
+        $memberType = new MemberType();
+        $form = $this->createForm($memberType,$member,array(
+            'action'=>$this->generateUrl('member_update'),
+            'method'=>'POST'
+        ));
+
+
         $isEdit = $member->getAvatar()!='';
         $memberType = new MemberImageType($isEdit);
-        $form = $this->createForm($memberType,$member,array(
+        $memberImageForm = $this->createForm($memberType,$member,array(
             'action'=>$this->generateUrl('member_update_image'),
             'method'=>'POST'
         ));
-        $form->handleRequest($request);
-        if($form->isValid()){
+        $memberImageForm->handleRequest($request);
+        if($memberImageForm->isValid()){
             $em = $this->getDoctrine()->getManager();
             $em->persist($member);
             $em->flush();
@@ -95,7 +102,8 @@ class MemberController  extends Controller
             return $this->redirect($this->generateUrl('member_edit'));
         }
         $param['member']=$member;
-
+        $param['form']=$form->createView();
+        $param['memberImageForm']=$memberImageForm->createView();
         return $param;
     }
 
@@ -113,11 +121,19 @@ class MemberController  extends Controller
             ->find($current->getId());
 
         $isEdit = $member->getAvatar()!='';
+        $memberType = new MemberImageType($isEdit);
+        $memberImageForm = $this->createForm($memberType,$member,array(
+            'action'=>$this->generateUrl('member_update_image'),
+            'method'=>'POST'
+        ));
+
+
         $memberType = new MemberType();
         $form = $this->createForm($memberType,$member,array(
             'action'=>$this->generateUrl('member_update'),
             'method'=>'POST'
         ));
+
         $form->handleRequest($request);
         if($form->isValid()){
             $em = $this->getDoctrine()->getManager();
@@ -128,6 +144,8 @@ class MemberController  extends Controller
         }
         $param['member']=$member;
         $param['form']=$form->createView();
+        $param['memberImageForm']=$memberImageForm->createView();
+
         return $param;
     }
 
