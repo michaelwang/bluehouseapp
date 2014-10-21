@@ -15,11 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class MemberType  extends AbstractType
 {
-    private $isEdit;
-    public function __construct($isEdit=false)
-    {
-        $this->isEdit = $isEdit;
-    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -40,13 +36,6 @@ class MemberType  extends AbstractType
                 )
             ));
 
-            $builder->add('userImage','file',array(
-                'label'=>'个人头像设置',
-                'required'=>false,
-                'attr'=>array(
-
-                )
-            ));
 
         $builder
             ->add('website','text',array(
@@ -89,9 +78,8 @@ class MemberType  extends AbstractType
                     'style'=>'display:block;margin-top:20px'
                 )
             ))
+        ;
 
-        ;
-        ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

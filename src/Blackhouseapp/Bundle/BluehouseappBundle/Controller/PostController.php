@@ -133,10 +133,20 @@ class PostController extends Controller
         $entity = new Post();
         $form = $this->createCreateForm($entity);
 
+        $current = $this->get('security.context')->getToken()->getUser();
+        $member = $this->getDoctrine()->getManager()
+            ->getRepository('BlackhouseappBluehouseappBundle:Member')
+            ->find($current->getId());
+
+        if( $member->getAvatar()!='')
+
         return array(
             'entity' => $entity,
             'form' => $form->createView(),
         );
+        else{
+            return $this->redirect($this->generateUrl('member_needAvatarImage', array()));
+        }
     }
 
     /**
@@ -368,7 +378,7 @@ class PostController extends Controller
             ->setParameters(array(':post' => $post->getId(),'status'=>true))
             ->orderBy('c.id', 'asc')
             ->getQuery();
-        $comments = $this->get('knp_paginator')->paginate($query, $page, 50);
+        $comments = $this->get('knp_paginator')->paginate($query, $page,50);
         return $comments;
     }
 

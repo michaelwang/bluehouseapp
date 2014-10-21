@@ -8,11 +8,12 @@
     <div class="box_header">
         <div class="box_fr">
             <a href="{{ path('user_show', { 'username': entity.member.username }) }}">
-                {% if entity.member.userImage %}
+                {% if entity.member.avatar %}
 
                     <img  class="box_avatar" border="0"  align="default" src="{{vich_uploader_asset(entity.member,'userImage')|imagine_filter('small_image')}}"/>
                 {% else %}
-                    <span class="glyphicon glyphicon-user"></span>
+                    <img src="{{ asset('bundles/blackhouseappbluehouseapp/images/user_default.png') }}"/>
+
                 {% endif %}
             </a>
         </div>
@@ -72,12 +73,13 @@
                     <tr>
                         <td width="48" valign="top" align="center">
 
-                            {% if comment.member.userImage %}
+                            {% if comment.member.avatar %}
 
                                 <img  class="box_avatar" border="0"  align="default" src="{{vich_uploader_asset(comment.member,'userImage')|imagine_filter('small_image')}}"/>
 
                             {% else %}
-                                <span class="glyphicon glyphicon-user"></span>
+                                <img src="{{ asset('bundles/blackhouseappbluehouseapp/images/user_default.png') }}"/>
+
                             {% endif %}
 
                         </td>
@@ -112,6 +114,7 @@
         {% endfor %}
 
     </div>
+        {{knp_pagination_render(comments)}}
     <div class="box download-box post-comment-form">
         {% if is_granted('ROLE_USER') %}
             <div style="width: 100%">

@@ -42,28 +42,40 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         {% if app.user %}
                         <ul class="nav navbar-nav navbar-right">
-                            {% set member=app.user %}
-                            {% if member.avatar %}
-                                <li>
+                            {% set appUser=app.user %}
+                            <li>
+
+
                                 <span class="glyphicon">
                                         <a href="#">
-                                            <img src="{{vich_uploader_asset(member,'userImage')|imagine_filter('small_image')}}"/>
+                                            {% if appUser.avatar %}
+                                            <img src="{{vich_uploader_asset(appUser,'userImage')|imagine_filter('small_image')}}"/>
+                                            {% else %}
+                                                <img src="{{ asset('bundles/blackhouseappbluehouseapp/images/user_default.png') }}"/>
+
+                                            {% endif %}
                                         </a>
                                         </span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-user"></span>
-                            {% endif %}
+
+
+
+
                                 </li>
 
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    {% if appUser.nickname %}
+                                     {{ appUser.nickname }}
+                                    {% else %}
+                                        {{ appUser.username }}
+                                    {% endif %}
 
-                                     {{ app.user.username }}
+
                                     <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="{{ path('member_edit') }}">
-                                            <span class="glyphicon glyphicon-user"></span>
+                                            <span class="glyphicon glyphicon-pencil"></span>
                                             修改个人资料</a></li>
                                     <li><a href="{{ path('fos_user_change_password') }}">
                                             <span class="glyphicon glyphicon-lock"></span>
@@ -80,6 +92,7 @@
                                        data-toggle="dropdown"> 系统管理 <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="{{ path('members_list') }}">
+                                                <span class="glyphicon glyphicon-user"></span>
                                                 用户管理</a></li>
                                     </ul>
                                 </li>
@@ -101,7 +114,7 @@
                             </li>
                         </ul>#}
                             <div style="float:right;height:50px;line-height:50px;font-size:16px;">
-                                <a href="/" class="box_top">首页</a>&nbsp;&nbsp;&nbsp;
+                                <a href="{{ path('welcome') }}" class="box_top">首页</a>&nbsp;&nbsp;&nbsp;
                                 <a href="{{ path('fos_user_registration_register') }}" class="box_top">注册</a>&nbsp;&nbsp;&nbsp;
                                 <a href="{{ path('fos_user_security_login') }}" class="box_top">登录</a>
                             </div>
@@ -129,7 +142,7 @@
 <div class="footer">
     <div class="container">
         <div class="">
-            © 黑房子社区版权所有
+            © 蓝房子
             <div class="pull-right">
                 关于我们
             </div>
