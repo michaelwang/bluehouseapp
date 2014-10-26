@@ -45,7 +45,7 @@
                             {% set appUser=app.user %}
                             <li>
 
-
+                                {% if is_granted('ROLE_ADMIN') %}
                                 <span class="glyphicon">
                                         <a href="#">
                                             {% if appUser.avatar %}
@@ -56,7 +56,7 @@
                                             {% endif %}
                                         </a>
                                         </span>
-
+                                {% endif %}
 
 
 
@@ -106,19 +106,7 @@
                         </ul>
                     {% else %}
 
-                        {#<ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle"
-                                   data-toggle="dropdown">账户管理 <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ path('fos_user_security_login') }}">
-                                            登录</a></li>
-                                    <li><a href="{{ path('fos_user_registration_register') }}">
-                                            注册</a></li>
 
-                                </ul>
-                            </li>
-                        </ul>#}
                         <div style="float:right;height:50px;line-height:50px;font-size:16px;">
                             <a href="{{ path('post') }}" class="top-btn">首页</a>&nbsp;&nbsp;&nbsp;
                             <a href="{{ path('fos_user_registration_register') }}" class="top-btn">注册</a>&nbsp;&nbsp;&nbsp;

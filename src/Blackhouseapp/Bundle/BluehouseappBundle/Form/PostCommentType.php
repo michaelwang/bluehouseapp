@@ -16,7 +16,7 @@ class PostCommentType extends AbstractType
     {
         $builder
             ->add('content','textarea',array(
-                'label'=>'评论内容(必填)',
+                'label'=>'评论内容',
                 'required'=>true,
                 'attr'=>array(
                     'class'=>'input-block-level',
