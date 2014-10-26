@@ -51,18 +51,16 @@
 <div class="box">
     <div class="box_cell">
         <div class="box_fr" style="margin: -3px -5px 0px 0px;">
-            <!--
             <a href="#" class="box_tag">
                 <li class="box_fa fa-tag"></li>
                 标签1</a>
             <a href="#" class="box_tag">
                 <li class="box_fa fa-tag"></li>
                 标签2</a>
--->
-            <span class="box_gray">{{ entity.commentCount }} 回复 &nbsp;<strong
-                        class="snow">|</strong> &nbsp;直到 {{ entity.lastCommentTime|date("Y-m-d H:m") }}</span>
-        </div>
 
+        </div>
+        <span class="box_gray">{{ entity.commentCount }} 回复 &nbsp;<strong
+            class="snow">|</strong> &nbsp;直到 {{ entity.lastCommentTime|date("Y-m-d H:m") }}</span>
         {% for comment in comments %}
         {% if loop.last %}
 
@@ -129,6 +127,21 @@
             <center>请<a href="{{path('fos_user_security_login')}}">登录</a>后再添加评论</center>
         {% endif %}
     </div>
-    <div class="box_sep20"></div>
 
+</div>
+    <div class="box_sep20"></div>
+    <div class="box transparent">
+        <div class="box-inner" style="text-align: center">
+            <span style="color: rgba(0, 0, 0, 0.25);">目前尚无回复</span>
+        </div>
+    </div>
+    <div class="h20"></div>
+    <div class="box">
+        <div class="box-inner">
+            <a href="#" class="box_tag">文档</a>
+            <a href="#" class="box_tag">思路</a>
+            <a href="#" class="box_tag">网页</a>
+        </div>
+    </div>
+</div>
     {% endblock %}
