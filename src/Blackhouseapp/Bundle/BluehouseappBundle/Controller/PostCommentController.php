@@ -85,6 +85,6 @@ class PostCommentController extends Controller
             $em->flush();
         }
         $this->get('session')->getFlashBag()->add('success','删除成功');
-        return $this->redirect($this->generateUrl('post'));
+        return $this->redirect($this->generateUrl('post_show', array('id' => $postComment->getPost()->getId())));
     }
 }

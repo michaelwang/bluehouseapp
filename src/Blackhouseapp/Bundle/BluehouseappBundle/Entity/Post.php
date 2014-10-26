@@ -141,6 +141,33 @@ class Post
      */
     private $image;
 
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Node")
+     * @ORM\JoinColumn(name="node_id", referencedColumnName="id")
+     */
+    protected $node;
+
+    /**
+     * @param mixed $node
+     */
+    public function setNode($node)
+    {
+        $this->node = $node;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNode()
+    {
+        return $this->node;
+    }
+
+
+
+
     public function setImage($image)
     {
         if($image){

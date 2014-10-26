@@ -40,4 +40,23 @@ class PostService {
         return $comment;
     }
 
+    public function getAllEnableCategories()
+    {
+        $repo = $this->em->getRepository('BlackhouseappBluehouseappBundle:Category');
+        $query = $repo->createQueryBuilder('c')
+            ->where('c.enabled = :enabled')
+            ->andWhere('c.status = :status')
+            ->setParameters(array('enabled' => true,'status'=>true))
+            ->orderBy('c.no','desc')
+            ->setMaxResults(10)
+            ->setFirstResult(0)
+            ->getQuery();
+        try {
+            $categories = $query->getResult();
+        } catch (\Doctrine\Orm\NoResultException $e) {
+            $comment = null;
+        }
+        return $categories;
+    }
+
 } 

@@ -264,7 +264,7 @@ class MemberController  extends Controller
 
 
     /**
- * @Route("/enable/{id}",name="member_enable")
+ * @Route("/admin/member/enable/{id}",name="member_enable")
  * @Method({"GET"})
  */
     public function enableAction(Request $request,$id)
@@ -280,7 +280,7 @@ class MemberController  extends Controller
     }
 
     /**
-     * @Route("/disable/{id}",name="member_disable")
+     * @Route("/admin/member/disable/{id}",name="member_disable")
      * @Method({"GET"})
      */
     public function disableAction(Request $request,$id)
