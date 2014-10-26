@@ -52,9 +52,12 @@ class PostController extends Controller
 
             }
 
+            $categories=$this->get('blackhouseapp_bluehouseapp.post')->getAllEnableCategories();
+
 
             return array(
                 'entities' => $entities,
+                'categories'=>$categories,
                 'lastComments' => $lastComments
             );
         } else {

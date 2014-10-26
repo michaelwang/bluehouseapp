@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PostType extends AbstractType
+class CategoryType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,27 +15,24 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title','text',array(
-                'label'=>'讨论标题(必填)',
+
+            ->add('name','text',array(
+                'label'=>'名称(必填)',
                 'required'=>true,
                 'attr'=>array(
                     'class'=>'input-block-level',
-                    'placeholder'=>'讨论标题'
+                    'placeholder'=>'分类名称'
 
                 )
             ))
-            ->add('content','textarea',array(
-                'label'=>'讨论内容(必填)',
+
+            ->add('no','text',array(
+                'label'=>'序号(必填)',
                 'required'=>true,
                 'attr'=>array(
                     'class'=>'input-block-level',
-                    'rows'=>10,
-                    'placeholder'=>'讨论内容.'
-                )
-            ))
-            ->add('创建','submit',array(
-                'attr'=>array(
-                    'style'=>'margin-top:20px;'
+                    'placeholder'=>'显示序号'
+
                 )
             ))
         ;
@@ -47,7 +44,7 @@ class PostType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Blackhouseapp\Bundle\BluehouseappBundle\Entity\Post'
+            'data_class' => 'Blackhouseapp\Bundle\BluehouseappBundle\Entity\Category'
         ));
     }
 
@@ -56,6 +53,6 @@ class PostType extends AbstractType
      */
     public function getName()
     {
-        return 'blackhouseapp_bundle_bluehouseappbundle_post';
+        return 'blackhouseapp_bundle_bluehouseappbundle_category';
     }
 }
