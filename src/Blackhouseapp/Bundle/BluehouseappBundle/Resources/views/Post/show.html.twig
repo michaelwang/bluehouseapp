@@ -47,20 +47,32 @@
 
 </div>
 <div class="box_sep20"></div>
-
+    {% if  entity.commentCount<1 %}
+    <div class="box transparent">
+        <div class="box-inner" style="text-align: center">
+            <span style="color: rgba(0, 0, 0, 0.25);">目前尚无回复</span>
+        </div>
+    </div>
+    <div class="box_sep20"></div>
+    {% endif %}
 <div class="box">
     <div class="box_cell">
         <div class="box_fr" style="margin: -3px -5px 0px 0px;">
+            <!--
             <a href="#" class="box_tag">
                 <li class="box_fa fa-tag"></li>
                 标签1</a>
             <a href="#" class="box_tag">
                 <li class="box_fa fa-tag"></li>
                 标签2</a>
-
+            -->
         </div>
-        <span class="box_gray">{{ entity.commentCount }} 回复 &nbsp;<strong
-            class="snow">|</strong> &nbsp;直到 {{ entity.lastCommentTime|date("Y-m-d H:m") }}</span>
+        {% if  entity.commentCount>0 %}
+        <span class="box_gray">{{ entity.commentCount }} 回复 &nbsp;
+            <strong class="snow">|</strong> &nbsp;直到 {{ entity.lastCommentTime|date("Y-m-d H:m") }}
+        </span>
+        {% endif %}
+
         {% for comment in comments %}
         {% if loop.last %}
 
@@ -115,6 +127,7 @@
 
     </div>
         {{knp_pagination_render(comments)}}
+
     <div class="box download-box post-comment-form">
         {% if is_granted('ROLE_USER') %}
             <div style="width: 100%">
@@ -129,12 +142,7 @@
     </div>
 
 </div>
-    <div class="box_sep20"></div>
-    <div class="box transparent">
-        <div class="box-inner" style="text-align: center">
-            <span style="color: rgba(0, 0, 0, 0.25);">目前尚无回复</span>
-        </div>
-    </div>
+
     <div class="h20"></div>
     <div class="box">
         <div class="box-inner">

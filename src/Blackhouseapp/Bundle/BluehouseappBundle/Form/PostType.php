@@ -33,6 +33,13 @@ class PostType extends AbstractType
                     'placeholder'=>'讨论内容.'
                 )
             ))
+            ->add('node',null,array(
+                'label'=>'节点(必填)',
+                'required'=>true,
+                'attr'=>array(
+                    'class'=>'input-block-level'
+                )
+            ))
             ->add('创建','submit',array(
                 'attr'=>array(
                     'style'=>'margin-top:20px;'

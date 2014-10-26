@@ -54,9 +54,30 @@ class PostService {
         try {
             $categories = $query->getResult();
         } catch (\Doctrine\Orm\NoResultException $e) {
-            $comment = null;
+            $categories = null;
         }
         return $categories;
     }
 
+
+    public function  getNode($nodeId){
+        $repo = $this->em->getRepository('BlackhouseappBluehouseappBundle:Node');
+
+        $query = $repo->createQueryBuilder('n')
+            ->where('n.id = :id')
+            ->andWhere('n.status = :status')
+            ->andWhere('n.enabled = :enabled')
+            ->setParameters(array(':id'=>$nodeId,'status'=>true,'enabled'=>true))
+            ->orderBy('n.id','desc')
+            ->setMaxResults(1)
+            ->setFirstResult(0)
+            ->getQuery();
+        try {
+            $node = $query->getSingleResult();
+        } catch (\Doctrine\Orm\NoResultException $e) {
+            $node = null;
+        }
+        return $node;
+
+    }
 } 

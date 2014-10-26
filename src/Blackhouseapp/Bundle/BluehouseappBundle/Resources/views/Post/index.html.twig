@@ -7,23 +7,26 @@
             <div class="h20"></div>
             <div class="box">
                 <div class="box-inner" id="tabs" style="background-color: #fff; border-top-left-radius: 3px; border-top-right-radius: 3px;">
-                    <a href="#" class="tab_current">分类1</a>
-                    <a href="#" class="tab">分类2</a>
-                    <a href="#" class="tab">分类3</a>
-                    <a href="#" class="tab">分类4</a>
-                    <a href="#" class="tab">分类5</a>
+                    {% for category in categories %}
+                        {% if category.getId()==currentCategory.getId() %}
+                        <a href="{{ path('post_by_category', { 'currentCategoryId': category.id }) }}" class="tab_current">{{ category.name }}</a>
+
+                        {% else %}
+                            <a href="{{ path('post_by_category', { 'currentCategoryId': category.id }) }}" class="tab">{{ category.name }}</a>
+                    {% endif%}
+                    {% endfor %}
+
                 </div>
                 <div class="box-cell" style="background-color: #f9f9f9;">
-                    <a href="#" class="node">节点1</a>
-                    <a href="#" class="node">节点2</a>
-                    <a href="#" class="node">节点3</a>
-                    <a href="#" class="node">节点4</a>
-                    <a href="#" class="node">节点5</a>
-                    <a href="#" class="node">节点6</a>
-                    <a href="#" class="node">节点7</a>
+                    {% set nodes=currentCategory.nodes %}
+                    {% for node in nodes %}
+                        <a href="#" class="node">{{ node.name }}</a>
+                    {% endfor %}
+                    {% if currentNode%}
                     <div class="fr">
-                        <a href="{{ path('post_new') }}" class="node">发表帖子</a>
+                        <a href="{{ path('post_new', { 'currentNodeId': currentNode.id }) }}" class="node">发表帖子</a>
                     </div>
+                    {% endif%}
                 </div>
 
 
@@ -52,7 +55,7 @@
                                                 href="{{ path('post_show', { 'id': entity.id }) }}">{{ entity.title }}</a></span>
 
                                     <div class="h_5"></div>
-                    <span class="box-small box-fade"><div class="box-votes"></div><a class="box-node" href="#">节点1</a> &nbsp;•&nbsp; <strong><a
+                    <span class="box-small box-fade"><div class="box-votes"></div><a class="box-node" href="#">{{ entity.node.name }}</a> &nbsp;•&nbsp; <strong><a
                                     href="{{ path('user_show', { 'username': entity.member.username }) }}">
                                 {% if entity.member.nickname %}
                                     {{ entity.member.nickname }}
@@ -200,42 +203,50 @@
         </div>
 
         <!-- right bar -->
-        <div class="col-md-4">
-            <div class="h20"></div>
-            <div class="box">
-                <div class="box-cell">
-                    <strong>蓝房子</strong>
-                    <div class="box-fade">
-                        蓝房子介绍
+            <div class="col-md-4">
+                <div class="h20"></div>
+                <div class="box">
+                    <div class="box-cell">
+                        <strong>蓝房子</strong>
+                        <div class="box-fade">
+                            欢迎来到蓝房子
+                        </div>
                     </div>
-                </div>
-                <div class="box-inner">
-                    用户个人信息
-                </div>
-            </div>
-            <div class="h20"></div>
-            <div class="box">
-                <div class="box-cell">
-                    <strong>清除屏蔽</strong>
-                </div>
-                <div class="box-cell">
-                    <div style="text-align: center">
-                        <a href="#" class="super normal button">一键清除节点屏蔽</a>
-                    </div>
-                </div>
-                <div class="box-cell">
-                    <div style="text-align: center">
-                        <a href="#" class="super normal button">一键清除帖子屏蔽</a>
-                    </div>
-                </div>
-                <div class="box-inner">
-                    <div style="text-align: center">
-                        <a href="#" class="super normal button">一键清除用户屏蔽</a>
-                    </div>
-                </div>
-            </div>
+                    <div class="box-inner">
 
-        </div>
+                        {% if app.user %}
+                            {% if appUser.avatar %}
+                                <img src="{{vich_uploader_asset(appUser,'userImage')|imagine_filter('small_image')}}"/>
+                            {% else %}
+                                <img src="{{ asset('bundles/blackhouseappbluehouseapp/images/user_default.png') }}"/>
+
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="h20"></div>
+                <div class="box">
+                    <div class="box-cell">
+                        <strong>清除屏蔽</strong>
+                    </div>
+                    <div class="box-cell">
+                        <div style="text-align: center">
+                            <a href="#" class="super normal button">一键清除节点屏蔽</a>
+                        </div>
+                    </div>
+                    <div class="box-cell">
+                        <div style="text-align: center">
+                            <a href="#" class="super normal button">一键清除帖子屏蔽</a>
+                        </div>
+                    </div>
+                    <div class="box-inner">
+                        <div style="text-align: center">
+                            <a href="#" class="super normal button">一键清除用户屏蔽</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
     </div>
 </div>
 {% endblock %}
