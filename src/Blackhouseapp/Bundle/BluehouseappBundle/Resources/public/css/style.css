@@ -648,7 +648,7 @@ a.top-btn{
     float: right;
     font-size: 15px;
     display: block;
-    margin-left: 10px;
+    margin-right: 20px;
 }
 a.top-btn:hover{
     text-decoration: none;

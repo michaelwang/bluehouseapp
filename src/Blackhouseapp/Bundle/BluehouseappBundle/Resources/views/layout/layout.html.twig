@@ -41,52 +41,9 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     {% if app.user %}
-                        <ul class="nav navbar-nav navbar-right">
-                            {% set appUser=app.user %}
-                            <li>
-
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <span class="glyphicon">
-                                        <a href="#">
-                                            {% if appUser.avatar %}
-                                                <img src="{{vich_uploader_asset(appUser,'userImage')|imagine_filter('small_image')}}"/>
-                                            {% else %}
-                                                <img src="{{ asset('bundles/blackhouseappbluehouseapp/images/user_default.png') }}"/>
-
-                                            {% endif %}
-                                        </a>
-                                        </span>
-                                {% endif %}
-
-
-
-                            </li>
-
-
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    {% if appUser.nickname %}
-                                        {{ appUser.nickname }}
-                                    {% else %}
-                                        {{ appUser.username }}
-                                    {% endif %}
-
-
-                                    <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ path('member_edit') }}">
-                                            <span class="glyphicon glyphicon-pencil"></span>
-                                            修改个人资料</a></li>
-                                    <li><a href="{{ path('fos_user_change_password') }}">
-                                            <span class="glyphicon glyphicon-lock"></span>
-                                            修改密码</a></li>
-                                    <li><a href="{{ path('fos_user_security_logout') }}">
-                                            <span class="glyphicon glyphicon-log-out"></span>
-                                            注销</a></li>
-                                </ul>
-                            </li>
-
-                            {% if is_granted('ROLE_ADMIN') %}
+                        {% set appUser=app.user %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <ul class="nav navbar-nav navbar-right">
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle"
                                        data-toggle="dropdown"> 系统管理 <span class="caret"></span></a>
@@ -102,15 +59,40 @@
                                                 节点管理</a></li>
                                     </ul>
                                 </li>
-                            {% endif %}
-                        </ul>
-                    {% else %}
-
+                            </ul>
+                        {% endif %}
 
                         <div style="float:right;height:50px;line-height:50px;font-size:16px;">
-                            <a href="{{ path('post') }}" class="top-btn">首页</a>&nbsp;&nbsp;&nbsp;
-                            <a href="{{ path('fos_user_registration_register') }}" class="top-btn">注册</a>&nbsp;&nbsp;&nbsp;
+
+                            <a href="{{ path('fos_user_security_logout') }}" class="top-btn">
+                                <span class="glyphicon glyphicon-log-out"></span>注销
+                            </a>
+                            <a href="{{ path('fos_user_change_password') }}" class="top-btn">
+                                <span class="glyphicon glyphicon-lock"></span>修改密码
+                            </a>
+                            <a href="{{ path('member_edit') }}" class="top-btn">
+                                <span class="glyphicon glyphicon-pencil"></span>修改个人资料
+                            </a>
+                            <a href="#"  class="top-btn">{% if appUser.nickname %}
+                                    {{ appUser.nickname }}
+                                {% else %}
+                                    {{ appUser.username }}
+                                {% endif %}
+                            </a>
+                            <a href="#" class="top-btn">
+                                {% if appUser.avatar %}
+                                    <img src="{{vich_uploader_asset(appUser,'userImage')|imagine_filter('small_image')}}"/>
+                                {% else %}
+                                    <img src="{{ asset('bundles/blackhouseappbluehouseapp/images/user_default.png') }}"/>
+                                {% endif %}
+                            </a>
+                        </div>
+                    {% else %}
+
+                        <div style="float:right;height:50px;line-height:50px;font-size:16px;">
                             <a href="{{ path('fos_user_security_login') }}" class="top-btn">登录</a>
+                            <a href="{{ path('fos_user_registration_register') }}" class="top-btn">注册</a>
+                            <a href="{{ path('post') }}" class="top-btn">首页</a>
                         </div>
 
                     {% endif %}
@@ -155,27 +137,27 @@
                             {% endif %}
                         </div>
                     </div>
-                    <div class="h20"></div>
-                    <div class="box">
-                        <div class="box-cell">
-                            <strong>清除屏蔽</strong>
-                        </div>
-                        <div class="box-cell">
-                            <div style="text-align: center">
-                                <a href="#" class="super normal button">一键清除节点屏蔽</a>
-                            </div>
-                        </div>
-                        <div class="box-cell">
-                            <div style="text-align: center">
-                                <a href="#" class="super normal button">一键清除帖子屏蔽</a>
-                            </div>
-                        </div>
-                        <div class="box-inner">
-                            <div style="text-align: center">
-                                <a href="#" class="super normal button">一键清除用户屏蔽</a>
-                            </div>
-                        </div>
-                    </div>
+                    {#<div class="h20"></div>#}
+                    {#<div class="box">#}
+                        {#<div class="box-cell">#}
+                            {#<strong>清除屏蔽</strong>#}
+                        {#</div>#}
+                        {#<div class="box-cell">#}
+                            {#<div style="text-align: center">#}
+                                {#<a href="#" class="super normal button">一键清除节点屏蔽</a>#}
+                            {#</div>#}
+                        {#</div>#}
+                        {#<div class="box-cell">#}
+                            {#<div style="text-align: center">#}
+                                {#<a href="#" class="super normal button">一键清除帖子屏蔽</a>#}
+                            {#</div>#}
+                        {#</div>#}
+                        {#<div class="box-inner">#}
+                            {#<div style="text-align: center">#}
+                                {#<a href="#" class="super normal button">一键清除用户屏蔽</a>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</div>#}
                 {% endblock %}
             </div>
 
