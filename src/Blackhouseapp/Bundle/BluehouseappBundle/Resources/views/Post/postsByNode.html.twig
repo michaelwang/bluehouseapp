@@ -23,9 +23,8 @@
                     {{ currentNode.description }}
                 {% endif %}
                 </span>
-                <div class="fr f12">
-                    <a href="{{ path('post_new', { 'currentNodeId': currentNode.id }) }}" class="node">发表帖子</a>
-                </div>
+                <div class="h10"></div>
+                <input type="button" class="super normal button" value="创建新主题" onclick="location.href = '{{ path('post_new', { 'currentNodeId': currentNode.id }) }}';">
 
             </div>
             {#<div class="box-cell box-item" style="border-top-left-radius: 3px; border-top-right-radius: 3px;">#}
