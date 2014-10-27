@@ -5,12 +5,12 @@
     <div class="h20"></div>
     <div class="box">
         <!-- 节点下的帖子样式 start -->
-        <div class="h20"></div>
         <div class="box">
             <div class="box_header"><div style="float: left; display: inline-block; margin-right: 10px; margin-bottom: 10px;">
 
     {% if currentNode.attachment %}
         <img src="{{vich_uploader_asset(currentNode,'image')|imagine_filter('avatar_image')}}" border="0" align="default" width="auto"/>
+
     {% endif %}
 
             </div>
@@ -23,9 +23,8 @@
                     {{ currentNode.description }}
                 {% endif %}
                 </span>
-                <div class="fr f12">
-                    <a href="{{ path('post_new', { 'currentNodeId': currentNode.id }) }}" class="node">发表帖子</a>
-                </div>
+                <div class="h10"></div>
+                <input type="button" class="super normal button" value="创建新主题" onclick="location.href = '{{ path('post_new', { 'currentNodeId': currentNode.id }) }}';">
 
             </div>
             {#<div class="box-cell box-item" style="border-top-left-radius: 3px; border-top-right-radius: 3px;">#}
