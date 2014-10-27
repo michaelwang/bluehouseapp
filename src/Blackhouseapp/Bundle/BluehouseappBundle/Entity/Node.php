@@ -66,7 +66,7 @@ class Node
      *     mimeTypes={"image/png","image/jpeg","image/pjpeg",
      *                          "image/jpg","image/gif"}
      * )
-     * @Vich\UploadableField(mapping="discuss_image", fileNameProperty="attachment")
+     * @Vich\UploadableField(mapping="node_image", fileNameProperty="attachment")
      *
      * @var File $image
      */

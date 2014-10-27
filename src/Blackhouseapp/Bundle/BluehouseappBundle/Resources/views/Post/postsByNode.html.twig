@@ -8,13 +8,21 @@
         <div class="h20"></div>
         <div class="box">
             <div class="box_header"><div style="float: left; display: inline-block; margin-right: 10px; margin-bottom: 10px;">
-                    <img src="#" border="0" align="default" width="auto">
-                </div>
+
+    {% if currentNode.attachment %}
+        <img src="{{vich_uploader_asset(currentNode,'image')|imagine_filter('avatar_image')}}" border="0" align="default" width="auto"/>
+    {% endif %}
+
+            </div>
                 <div class="fr f12"><span class="box_snow">主题总数</span> <strong class="box_gray">5573</strong></div><a href="/">蓝房子</a>
                 <span class="box_chevron">&nbsp;>&nbsp;</span> {{ currentNode.name }}
 
                 <div class="h10"></div>
-                <span class="f12 box_gray">While code monkeys are not eating bananas, they're coding.</span>
+                <span class="f12 box_gray">
+                {% if currentNode.description %}
+                    {{ currentNode.description }}
+                {% endif %}
+                </span>
                 <div class="fr f12">
                     <a href="{{ path('post_new', { 'currentNodeId': currentNode.id }) }}" class="node">发表帖子</a>
                 </div>
