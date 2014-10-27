@@ -22,6 +22,82 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class PostController extends Controller
 {
 
+    /**
+     * Lists all Post entities.
+     *
+     * @Route("/post/node/{currentNodeId}", name="post_by_node")
+     * @Method("GET")
+     */
+    public function listPostsByNodeAction(Request $request,$currentNodeId=0)
+    {
+        $wh_content = $request->headers->get('WH-CONTEXT');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $page = $request->query->get('page', 1);
+
+        $categories = $this->get('blackhouseapp_bluehouseapp.post')->getAllEnableCategories();
+
+        $currentCategory = null;
+        $currentNode = null;
+        if($currentNodeId==0){
+            if (count($categories) > 0) {
+                $currentCategory = $categories[0];
+                $currentCategoryId=$currentCategory->getId();
+            }
+        }else{
+            $currentNode = $em->getRepository('BlackhouseappBluehouseappBundle:Node')->find($currentNodeId);
+
+            if (!$currentNode) {
+                throw $this->createNotFoundException('此节点不存在.');
+            }
+
+
+        }
+        if($currentCategory!=null){
+            $nodes = $currentCategory->getNodes();
+
+            if (count($nodes) > 0) {
+                $currentNode = $nodes[0];
+            }
+        }
+
+        $repo = $em->getRepository('BlackhouseappBluehouseappBundle:Post');
+
+        $query = $repo->createQueryBuilder('p')
+            ->innerJoin('p.node', 'n')
+            ->orderBy('p.lastCommentTime', 'desc')
+            ->where('p.status = :status')
+            ->andWhere('n.id = :currentNodeId')
+            ->setParameters(array('status' => true, 'currentNodeId' =>$currentNodeId))
+            ->getQuery();
+
+        $entities = $this->get('knp_paginator')->paginate($query, $page, 50);
+        $serializer = $this->get('jms_serializer');
+
+        if ($wh_content == '' || $wh_content == null) {
+            $lastComments = array();
+            foreach ($entities as $entity) {
+                $lastComments[$entity->getId()] = $this->get('blackhouseapp_bluehouseapp.post')->getLastComment($entity);
+            }
+
+
+            return $this->render('BlackhouseappBluehouseappBundle:Post:postsByNode.html.twig',
+
+                array(
+                    'entities' => $entities,
+                    'categories' => $categories,
+                    'lastComments' => $lastComments,
+                    'currentCategory' => $currentCategory,
+                    'currentNode' => $currentNode
+
+                )
+            );
+
+            //  return;
+        }
+        return array();
+    }
 
     /**
      * Lists all Post entities.
@@ -97,7 +173,7 @@ class PostController extends Controller
 
           //  return;
         }
-return array();
+            return array();
     }
     /**
      * Lists all Post entities.

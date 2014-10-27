@@ -18,6 +18,7 @@ use Blackhouseapp\Bundle\BluehouseappBundle\Form\NodeType;
 class NodeController extends Controller
 {
 
+
     /**
      * Lists all Node entities.
      *
@@ -48,6 +49,9 @@ class NodeController extends Controller
             'entities' => $entities,
         );
     }
+
+
+
     /**
      * Creates a new Node entity.
      *
