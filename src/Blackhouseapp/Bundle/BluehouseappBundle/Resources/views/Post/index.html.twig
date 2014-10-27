@@ -3,69 +3,71 @@
 {% block title %}蓝房子{% endblock %}
 {% block body -%}
     <div class="row">
-        <div class="col-md-8">
-            <div class="h20"></div>
-            <div class="box">
-                <div class="box-inner" id="tabs" style="background-color: #fff; border-top-left-radius: 3px; border-top-right-radius: 3px;">
-                    {% for category in categories %}
-                        {% if category.getId()==currentCategory.getId() %}
-                        <a href="{{ path('post_by_category', { 'currentCategoryId': category.id }) }}" class="tab_current">{{ category.name }}</a>
+    <div class="col-md-8">
+    <div class="h20"></div>
+    <div class="box">
+        <div class="box-inner" id="tabs" style="background-color: #fff; border-top-left-radius: 3px; border-top-right-radius: 3px;">
+            {% for category in categories %}
+                {% if category.getId()==currentCategory.getId() %}
+                    <a href="{{ path('post_by_category', { 'currentCategoryId': category.id }) }}" class="tab_current">{{ category.name }}</a>
 
-                        {% else %}
-                            <a href="{{ path('post_by_category', { 'currentCategoryId': category.id }) }}" class="tab">{{ category.name }}</a>
-                    {% endif%}
-                    {% endfor %}
+                {% else %}
+                    <a href="{{ path('post_by_category', { 'currentCategoryId': category.id }) }}" class="tab">{{ category.name }}</a>
+                {% endif%}
+            {% endfor %}
 
-                </div>
-                <div class="box-cell" style="background-color: #f9f9f9;">
-                    {% set nodes=currentCategory.nodes %}
-                    {% for node in nodes %}
-                        <a href="#" class="node">{{ node.name }}</a>
-                    {% endfor %}
-                    {% if currentNode%}
+        </div>
+        <div class="box-cell" style="background-color: #f9f9f9;">
+            {% if currentCategory%}
+                {% set nodes=currentCategory.nodes %}
+                {% for node in nodes %}
+                    <a href="#" class="node">{{ node.name }}</a>
+                {% endfor %}
+                {% if currentNode%}
                     <div class="fr">
                         <a href="{{ path('post_new', { 'currentNodeId': currentNode.id }) }}" class="node">发表帖子</a>
                     </div>
-                    {% endif%}
-                </div>
+                {% endif%}
+            {% endif%}
+        </div>
 
 
-                {% for entity in entities %}
-                    <div class="box-cell box-item" style="border-top-left-radius: 3px; border-top-right-radius: 3px;">
-                        <div style="position: absolute; margin: -10px -10px 0px 650px;"></div>
-                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                            <tbody>
-                            <tr>
-                                <td width="48" valign="top" align="center">
-                                    {% set member=entity.member %}
+        {% for entity in entities %}
+            <div class="box-cell box-item" style="border-top-left-radius: 3px; border-top-right-radius: 3px;">
+                <div style="position: absolute; margin: -10px -10px 0px 650px;"></div>
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tbody>
+                    <tr>
+                        <td width="48" valign="top" align="center">
+                            {% set member=entity.member %}
 
-                                    <a href="{{ path('user_show', { 'username': member.username }) }}">
-                                        {% if entity.member.avatar %}
-                                            <img src="{{vich_uploader_asset(member,'userImage')|imagine_filter('small_image')}}"/>
-                                        {% else %}
-                                            <img src="{{ asset('bundles/blackhouseappbluehouseapp/images/user_default.png') }}"/>
-                                        {% endif %}
-                                    </a>
+                            <a href="{{ path('user_show', { 'username': member.username }) }}">
+                                {% if entity.member.avatar %}
+                                    <img src="{{vich_uploader_asset(member,'userImage')|imagine_filter('small_image')}}"/>
+                                {% else %}
+                                    <img src="{{ asset('bundles/blackhouseappbluehouseapp/images/user_default.png') }}"/>
+                                {% endif %}
+                            </a>
 
 
-                                </td>
-                                <td width="10"></td>
+                        </td>
+                        <td width="10"></td>
 
-                                <td width="auto" valign="middle"><span class="box-item-title"><a
-                                                href="{{ path('post_show', { 'id': entity.id }) }}">{{ entity.title }}</a></span>
+                        <td width="auto" valign="middle"><span class="box-item-title"><a
+                                        href="{{ path('post_show', { 'id': entity.id }) }}">{{ entity.title }}</a></span>
 
-                                    <div class="h_5"></div>
-                    <span class="box-small box-fade"><div class="box-votes"></div><a class="box-node" href="#">{{ entity.node.name }}</a> &nbsp;•&nbsp; <strong><a
+                            <div class="h_5"></div>
+                    <span class="box-small box-fade"><div class="box-votes"></div><a class="box-node" href="#">{{ entity.node.name }}</a> &nbsp;?&nbsp; <strong><a
                                     href="{{ path('user_show', { 'username': entity.member.username }) }}">
                                 {% if entity.member.nickname %}
                                     {{ entity.member.nickname }}
                                 {% else %}
                                     {{ entity.member.username }}
                                 {% endif %}
-                            </a></strong> &nbsp;•&nbsp; {{ entity.modified|date("Y-m-d H:m") }}
+                            </a></strong> &nbsp;?&nbsp; {{ entity.modified|date("Y-m-d H:m") }}
                         {% if lastComments[entity.id] %}
                             {% set member= lastComments[entity.id].member %}
-                            &nbsp;•&nbsp; 最后回复来自 <strong>
+                            &nbsp;?&nbsp; 最后回复来自 <strong>
                             <a
                                     href="{{ path('user_show', { 'username': member.username }) }}">
                                 {% if member.nickname %}
@@ -77,176 +79,174 @@
                         </strong>
                         {% endif %}
                     </span>
-                                </td>
-                                <td width="50" align="right" valign="middle">
-                        {%  if entity.commentCount>0 %}
-                                    <a href="#" class="box-count-livid">{{ entity.commentCount }}</a>
-                        {% endif %}
-                                </td>
-                            </tr>
-                            </tbody>
+                        </td>
+                        <td width="50" align="right" valign="middle">
+                            {%  if entity.commentCount>0 %}
+                                <a href="#" class="box-count-livid">{{ entity.commentCount }}</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    </tbody>
 
-                        </table>
-                    </div>
-                {% endfor %}
-
-
+                </table>
             </div>
-            {{ knp_pagination_render(entities) }}
+        {% endfor %}
 
 
+    </div>
+    {{ knp_pagination_render(entities) }}
 
 
-            <!-- 节点内容 -->
-            <div class="h20"></div>
-            <div class="box">
-                <div class="box-cell">
-                    <div class="box-fr"><a href="#">浏览全部节点</a></div>
-                    <span class="box-fade"><strong>蓝房子</strong> / 节点导航</span>
-                </div>
+    <!-- 节点内容 -->
+    <div class="h20"></div>
+    <div class="box">
+        <div class="box-cell">
+            <div class="box-fr"><a href="#">浏览全部节点</a></div>
+            <span class="box-fade"><strong>蓝房子</strong> / 节点导航</span>
+        </div>
 
-                {% for category in categories %}
-                {% if loop.last %}
-                <div class="box-inner">
-                {% else %}
-                <div class="box-cell">
+        {% for category in categories %}
+        {% if loop.last %}
+        <div class="box-inner">
+            {% else %}
+            <div class="box-cell">
                 {% endif %}
 
 
-                    <table cellpadding="0" cellspacing="0" border="0">
-                        <tbody>
-                        <tr>
-                            <td align="right" width="60">
-                                <span class="box-fade">{{ category.name }}</span>
-                            </td>
-                            <td style="line-height: 200%; padding-left: 10px;">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tbody>
+                    <tr>
+                        <td align="right" width="60">
+                            <span class="box-fade">{{ category.name }}</span>
+                        </td>
+                        <td style="line-height: 200%; padding-left: 10px;">
 
-                                {% if category.nodes %}
-                                    {% set nodes=category.nodes %}
-                                    {% for node in nodes %}
-                                        {% if node.status %}
-                                            {% if node.enabled %}
-                                                <a href="#" style="font-size: 14px;"> {{ node.name }}</a>&nbsp; &nbsp;
-                                            {% endif %}
+                            {% if category.nodes %}
+                                {% set nodes=category.nodes %}
+                                {% for node in nodes %}
+                                    {% if node.status %}
+                                        {% if node.enabled %}
+                                            <a href="#" style="font-size: 14px;"> {{ node.name }}</a>&nbsp; &nbsp;
                                         {% endif %}
+                                    {% endif %}
 
 
-                                    {% endfor %}
-                                {% endif %}
+                                {% endfor %}
+                            {% endif %}
 
 
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            {% endfor%}
+
+
+
+        </div>
+        <!-- 节点下的帖子样式 start -->
+        <div class="h20"></div>
+        <div class="box">
+            <div class="box_header"><div style="float: left; display: inline-block; margin-right: 10px; margin-bottom: 10px;">
+                    <img src="//cdn.v2ex.com/navatar/94f6/d7e0/300_large.png?m=1414132464" border="0" align="default" width="auto">
                 </div>
+                <div class="fr f12"><span class="box_snow">主题总数</span> <strong class="box_gray">5573</strong></div><a href="/">V2EX</a> <span class="box_chevron">&nbsp;?&nbsp;</span> 程序员
 
-                {% endfor%}
-
-
-
-                </div>
-                <!-- 节点下的帖子样式 start -->
-                <div class="h20"></div>
-                <div class="box">
-                    <div class="box_header"><div style="float: left; display: inline-block; margin-right: 10px; margin-bottom: 10px;">
-                            <img src="//cdn.v2ex.com/navatar/94f6/d7e0/300_large.png?m=1414132464" border="0" align="default" width="auto">
-                        </div>
-                        <div class="fr f12"><span class="box_snow">主题总数</span> <strong class="box_gray">5573</strong></div><a href="/">V2EX</a> <span class="box_chevron">&nbsp;›&nbsp;</span> 程序员
-
-                        <div class="h10"></div>
-                        <span class="f12 box_gray">While code monkeys are not eating bananas, they're coding.</span>
+                <div class="h10"></div>
+                <span class="f12 box_gray">While code monkeys are not eating bananas, they're coding.</span>
 
 
-                    </div>
-                    <div class="box-cell box-item" style="border-top-left-radius: 3px; border-top-right-radius: 3px;">
-                        <div style="position: absolute; margin: -10px -10px 0 650px;"></div>
-                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                            <tbody>
-                            <tr>
+            </div>
+            <div class="box-cell box-item" style="border-top-left-radius: 3px; border-top-right-radius: 3px;">
+                <div style="position: absolute; margin: -10px -10px 0 650px;"></div>
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tbody>
+                    <tr>
 
-                                <td width="48" valign="top" align="center">
-                                    <a href="#">
-                                        <img
-                                                src="//cdn.v2ex.com/avatar/d2f5/3008/20948_normal.png?m=1380207520" class="box-avatar" border="0"
-                                                align="default">
-                                    </a>
-                                </td>
-                                <td width="10"></td>
+                        <td width="48" valign="top" align="center">
+                            <a href="#">
+                                <img
+                                        src="//cdn.v2ex.com/avatar/d2f5/3008/20948_normal.png?m=1380207520" class="box-avatar" border="0"
+                                        align="default">
+                            </a>
+                        </td>
+                        <td width="10"></td>
 
-                                <td width="auto" valign="middle">
+                        <td width="auto" valign="middle">
                                     <span class="box-item-title">
                                         <a href="#">为啥我的 pro 更新到 10.9.5还是显示 10.9.3</a>
                                     </span>
-                                    <div class="h_5"></div>
+                            <div class="h_5"></div>
                                     <span class="box-small box-fade">
                                         <div class="box-votes"></div>
                                         <a class="box-node" href="#">Mac OS X</a>
-                                        &nbsp;•&nbsp;
+                                        &nbsp;?&nbsp;
                                         <strong>
                                             <a href="#">erse</a>
-                                        </strong> &nbsp;•&nbsp; 37 分钟前 &nbsp;•&nbsp; 最后回复来自
+                                        </strong> &nbsp;?&nbsp; 37 分钟前 &nbsp;?&nbsp; 最后回复来自
                                         <strong>
                                             <a href="#">chuxiwen</a>
                                         </strong>
                                     </span>
-                                </td>
-                                <td width="50" align="right" valign="middle">
-                                    <a href="test1#" class="box-count-livid">1</a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        </td>
+                        <td width="50" align="right" valign="middle">
+                            <a href="test1#" class="box-count-livid">1</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- 节点下的帖子样式 end -->
+    </div>
+
+    <!-- right bar -->
+    <div class="col-md-4">
+        <div class="h20"></div>
+        <div class="box">
+            <div class="box-cell">
+                <strong>蓝房子</strong>
+                <div class="box-fade">
+                    欢迎来到蓝房子
                 </div>
-                <!-- 节点下的帖子样式 end -->
+            </div>
+            <div class="box-inner">
+
+                {% if app.user %}
+                    {% if appUser.avatar %}
+                        <img src="{{vich_uploader_asset(appUser,'userImage')|imagine_filter('small_image')}}"/>
+                    {% else %}
+                        <img src="{{ asset('bundles/blackhouseappbluehouseapp/images/user_default.png') }}"/>
+
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="h20"></div>
+        <div class="box">
+            <div class="box-cell">
+                <strong>清除屏蔽</strong>
+            </div>
+            <div class="box-cell">
+                <div style="text-align: center">
+                    <a href="#" class="super normal button">一键清除节点屏蔽</a>
+                </div>
+            </div>
+            <div class="box-cell">
+                <div style="text-align: center">
+                    <a href="#" class="super normal button">一键清除帖子屏蔽</a>
+                </div>
+            </div>
+            <div class="box-inner">
+                <div style="text-align: center">
+                    <a href="#" class="super normal button">一键清除用户屏蔽</a>
+                </div>
+            </div>
         </div>
 
-        <!-- right bar -->
-            <div class="col-md-4">
-                <div class="h20"></div>
-                <div class="box">
-                    <div class="box-cell">
-                        <strong>蓝房子</strong>
-                        <div class="box-fade">
-                            欢迎来到蓝房子
-                        </div>
-                    </div>
-                    <div class="box-inner">
-
-                        {% if app.user %}
-                            {% if appUser.avatar %}
-                                <img src="{{vich_uploader_asset(appUser,'userImage')|imagine_filter('small_image')}}"/>
-                            {% else %}
-                                <img src="{{ asset('bundles/blackhouseappbluehouseapp/images/user_default.png') }}"/>
-
-                            {% endif %}
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="h20"></div>
-                <div class="box">
-                    <div class="box-cell">
-                        <strong>清除屏蔽</strong>
-                    </div>
-                    <div class="box-cell">
-                        <div style="text-align: center">
-                            <a href="#" class="super normal button">一键清除节点屏蔽</a>
-                        </div>
-                    </div>
-                    <div class="box-cell">
-                        <div style="text-align: center">
-                            <a href="#" class="super normal button">一键清除帖子屏蔽</a>
-                        </div>
-                    </div>
-                    <div class="box-inner">
-                        <div style="text-align: center">
-                            <a href="#" class="super normal button">一键清除用户屏蔽</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
     </div>
-</div>
+    </div>
+    </div>
 {% endblock %}

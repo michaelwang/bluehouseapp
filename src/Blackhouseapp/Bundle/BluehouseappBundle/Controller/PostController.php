@@ -54,15 +54,14 @@ class PostController extends Controller
                 }
             }
         }
-
-
-
-
+    if($currentCategory!=null){
         $nodes = $currentCategory->getNodes();
 
         if (count($nodes) > 0) {
             $currentNode = $nodes[0];
         }
+    }
+
         $repo = $em->getRepository('BlackhouseappBluehouseappBundle:Post');
 
         $query = $repo->createQueryBuilder('p')
@@ -71,7 +70,7 @@ class PostController extends Controller
             ->orderBy('p.lastCommentTime', 'desc')
             ->where('p.status = :status')
             ->andWhere('c.id = :categoryId')
-            ->setParameters(array('status' => true, 'categoryId' => $currentCategory->getId()))
+            ->setParameters(array('status' => true, 'categoryId' => ($currentCategory==null?0:$currentCategory->getId())))
             ->getQuery();
 
         $entities = $this->get('knp_paginator')->paginate($query, $page, 50);
@@ -109,7 +108,7 @@ return array();
      */
     public function indexAction(Request $request)
     {
-
+/*
         $wh_content = $request->headers->get('WH-CONTEXT');
 
         $em = $this->getDoctrine()->getManager();
@@ -154,8 +153,8 @@ return array();
             return $response;
 
         }
-
-
+*/
+        return $this->redirect($this->generateUrl('post_by_category'));
     }
 
     /**
