@@ -5,12 +5,12 @@
     <div class="h20"></div>
     <div class="box">
         <!-- 节点下的帖子样式 start -->
-        <div class="h20"></div>
         <div class="box">
             <div class="box_header"><div style="float: left; display: inline-block; margin-right: 10px; margin-bottom: 10px;">
 
     {% if currentNode.attachment %}
         <img src="{{vich_uploader_asset(currentNode,'image')|imagine_filter('avatar_image')}}" border="0" align="default" width="auto"/>
+
     {% endif %}
 
             </div>
