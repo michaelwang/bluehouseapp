@@ -96,7 +96,7 @@ class Member extends BaseUser
      *     mimeTypes={"image/png","image/jpeg","image/pjpeg",
      *                          "image/jpg","image/gif"}
      * )
-     * @Vich\UploadableField(mapping="discuss_image", fileNameProperty="avatar")
+     * @Vich\UploadableField(mapping="memeber_image", fileNameProperty="avatar")
      *
      * @var File $image
      */
