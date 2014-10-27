@@ -46,7 +46,7 @@
                             <li>
 
                                 {% if is_granted('ROLE_ADMIN') %}
-                                <span class="glyphicon">
+                                    <span class="glyphicon">
                                         <a href="#">
                                             {% if appUser.avatar %}
                                                 <img src="{{vich_uploader_asset(appUser,'userImage')|imagine_filter('small_image')}}"/>
@@ -123,8 +123,6 @@
     </div>
 </div>
 
-
-
 <div class="body">
     <div class="container">
         {% block body %}
@@ -135,7 +133,7 @@
 <div class="footer">
     <div class="container">
         <div class="">
-            © 蓝房子
+             蓝房子
             <div class="pull-right">
                 关于我们
             </div>

@@ -6,30 +6,61 @@
     <div class="col-md-8">
     <div class="h20"></div>
     <div class="box">
-        <div class="box-inner" id="tabs" style="background-color: #fff; border-top-left-radius: 3px; border-top-right-radius: 3px;">
-            {% for category in categories %}
-                {% if category.getId()==currentCategory.getId() %}
-                    <a href="{{ path('post_by_category', { 'currentCategoryId': category.id }) }}" class="tab_current">{{ category.name }}</a>
+        <!-- 节点下的帖子样式 start -->
+        <div class="h20"></div>
+        <div class="box">
+            <div class="box_header"><div style="float: left; display: inline-block; margin-right: 10px; margin-bottom: 10px;">
+                    <img src="#" border="0" align="default" width="auto">
+                </div>
+                <div class="fr f12"><span class="box_snow">主题总数</span> <strong class="box_gray">5573</strong></div><a href="/">蓝房子</a>
+                <span class="box_chevron">&nbsp;>&nbsp;</span> {{ currentNode.name }}
 
-                {% else %}
-                    <a href="{{ path('post_by_category', { 'currentCategoryId': category.id }) }}" class="tab">{{ category.name }}</a>
-                {% endif%}
-            {% endfor %}
+                <div class="h10"></div>
+                <span class="f12 box_gray">While code monkeys are not eating bananas, they're coding.</span>
 
+
+            </div>
+            <div class="box-cell box-item" style="border-top-left-radius: 3px; border-top-right-radius: 3px;">
+                <div style="position: absolute; margin: -10px -10px 0 650px;"></div>
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tbody>
+                    <tr>
+
+                        <td width="48" valign="top" align="center">
+                            <a href="#">
+                                <img
+                                        src="//cdn.v2ex.com/avatar/d2f5/3008/20948_normal.png?m=1380207520" class="box-avatar" border="0"
+                                        align="default">
+                            </a>
+                        </td>
+                        <td width="10"></td>
+
+                        <td width="auto" valign="middle">
+                                    <span class="box-item-title">
+                                        <a href="#">为啥我的 pro 更新到 10.9.5还是显示 10.9.3</a>
+                                    </span>
+                            <div class="h_5"></div>
+                                    <span class="box-small box-fade">
+                                        <div class="box-votes"></div>
+                                        <a class="box-node" href="#">Mac OS X</a>
+                                        &nbsp;?&nbsp;
+                                        <strong>
+                                            <a href="#">erse</a>
+                                        </strong> &nbsp;?&nbsp; 37 分钟前 &nbsp;?&nbsp; 最后回复来自
+                                        <strong>
+                                            <a href="#">chuxiwen</a>
+                                        </strong>
+                                    </span>
+                        </td>
+                        <td width="50" align="right" valign="middle">
+                            <a href="test1#" class="box-count-livid">1</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="box-cell" style="background-color: #f9f9f9;">
-            {% if currentCategory%}
-                {% set nodes=currentCategory.nodes %}
-                {% for node in nodes %}
-                    <a href="{{ path('post_by_node', { 'currentNodeId': node.id }) }}" class="node">{{ node.name }}</a>
-                {% endfor %}
-                {% if currentNode%}
-                    <div class="fr">
-                        <a href="{{ path('post_new', { 'currentNodeId': currentNode.id }) }}" class="node">发表帖子</a>
-                    </div>
-                {% endif%}
-            {% endif%}
-        </div>
+        <!-- 节点下的帖子样式 end -->
 
 
         {% for entity in entities %}
