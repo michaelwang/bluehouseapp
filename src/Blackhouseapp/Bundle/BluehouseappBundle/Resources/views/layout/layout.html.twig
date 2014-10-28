@@ -79,6 +79,7 @@
                                     {{ appUser.username }}
                                 {% endif %}
                             </a>
+
                             <a href="#" class="top-btn">
                                 {% if appUser.avatar %}
                                     <img src="{{vich_uploader_asset(appUser,'userImage')|imagine_filter('small_image')}}"/>
@@ -86,6 +87,7 @@
                                     <img src="{{ asset('bundles/blackhouseappbluehouseapp/images/user_default.png') }}"/>
                                 {% endif %}
                             </a>
+
                         </div>
                     {% else %}
 
@@ -128,12 +130,14 @@
                         <div class="box-inner">
 
                             {% if app.user %}
+                            <a  href="{{ path('user_show', { 'username': appUser.username }) }}">
                                 {% if appUser.avatar %}
                                     <img src="{{vich_uploader_asset(appUser,'userImage')|imagine_filter('small_image')}}"/>
                                 {% else %}
                                     <img src="{{ asset('bundles/blackhouseappbluehouseapp/images/user_default.png') }}"/>
 
                                 {% endif %}
+                                </a>
                             {% endif %}
                         </div>
                     </div>

@@ -16,30 +16,23 @@ class PostType extends AbstractType
     {
         $builder
             ->add('title','text',array(
-                'label'=>'讨论标题(必填)',
+                'label'=>'标题(必填)',
                 'required'=>true,
                 'attr'=>array(
                     'class'=>'input-block-level',
-                    'placeholder'=>'讨论标题'
-
+                    'placeholder'=>'标题'
                 )
             ))
             ->add('content','textarea',array(
-                'label'=>'讨论内容(必填)',
+                'label'=>'主题内容(必填)',
                 'required'=>true,
                 'attr'=>array(
                     'class'=>'input-block-level',
                     'rows'=>10,
-                    'placeholder'=>'讨论内容.'
+                    'placeholder'=>'主题内容.'
                 )
             ))
-            ->add('node',null,array(
-                'label'=>'节点(必填)',
-                'required'=>true,
-                'attr'=>array(
-                    'class'=>'input-block-level'
-                )
-            ))
+
             ->add('创建','submit',array(
                 'attr'=>array(
                     'style'=>'margin-top:20px;'

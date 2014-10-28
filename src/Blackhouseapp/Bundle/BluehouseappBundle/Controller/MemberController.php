@@ -181,19 +181,10 @@ class MemberController  extends Controller
             throw $this->createNotFoundException('这个用户不存在');
         }
 
-        $repo = $em->getRepository('BlackhouseappBluehouseappBundle:Post');
-
-        $query = $repo->createQueryBuilder('a')
-            ->orderBy('a.modified', 'desc')
-            ->where('a.status = :status')
-            ->andWhere('a.member= :member')
-            ->setParameters(array('status' => true,'member'=>$entity))
-            ->setMaxResults(50)
-            ->setFirstResult(0)
-            ->getQuery();
 
 
-        $posts = $query->getResult();
+        $posts = $this->get('blackhouseapp_bluehouseapp.post')->getPostsByMember($entity);
+
         $lastComments = array();
         foreach ($posts  as $post){
             $lastComments[$post->getId()]=$this->get('blackhouseapp_bluehouseapp.post')->getLastComment($post);
@@ -201,17 +192,9 @@ class MemberController  extends Controller
         }
 
 
-        $repo = $em->getRepository('BlackhouseappBluehouseappBundle:PostComment');
 
-        $query = $repo->createQueryBuilder('a')
-            ->orderBy('a.modified', 'desc')
-            ->where('a.status = :status')
-            ->andWhere('a.member= :member')
-            ->setParameters(array('status' => true,'member'=>$entity))
-            ->setMaxResults(50)
-            ->setFirstResult(0)
-            ->getQuery();
-        $postComments= $query->getResult();
+        $postComments = $this->get('blackhouseapp_bluehouseapp.post')->getPostCommentsByMember($entity);
+
 
         $param['member'] = $entity;
         $param['posts'] = $posts;

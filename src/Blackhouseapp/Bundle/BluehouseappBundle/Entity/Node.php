@@ -7,10 +7,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Node
- *
+ * @UniqueEntity(
+ *     fields={"code", "name"},
+ *     message="节点代码或者节点名称不能与已有的节点重复"
+ * )
  * @ORM\Table()
  * @Vich\Uploadable
  * @ORM\Entity(repositoryClass="Blackhouseapp\Bundle\BluehouseappBundle\Entity\NodeRepository")
@@ -45,11 +48,36 @@ class Node
      */
     private $name;
 
+    /**
+     * @Assert\NotBlank(message="用户名不可为空")
+     * @Assert\Length(
+     *     min="4",
+     *     max="36",
+     *     minMessage="用户名不能少于4个字符",
+     *     maxMessage="用户名不能多于36个字符"
+     * )
+     * @Assert\Regex(
+     *    pattern="/^[A-z0-9]*$/i",
+     *    message="用户名只能使用英文字母和数字"
+     * )
+     */
+
+
 /**
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="节点代码不可为空")
+     * @Assert\Length(
+     *     min="2",
+     *     max="16",
+     *     minMessage="节点代码不能少于2个字符",
+     *     maxMessage="节点代码不能多于16个字符"
+     * )
+     * @Assert\Regex(
+     *    pattern="/^[A-z0-9]*$/i",
+     *    message="节点代码只能使用英文字母和数字"
+     * )
      */
     private $code;
 
@@ -77,6 +105,7 @@ class Node
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=512,nullable = true)
+     * @Assert\NotBlank(message="节点描述不可为空")
      */
     private $description;
 
