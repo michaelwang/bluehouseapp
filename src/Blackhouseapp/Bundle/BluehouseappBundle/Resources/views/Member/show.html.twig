@@ -135,9 +135,9 @@
             </span>
                     </td>
                     <td width="50" align="right" valign="middle">
-
+{% if post.commentCount>0 %}
                         <a href="{{ path('post_show', { 'id': post.id }) }}" class="box_count_livid">{{ post.commentCount }}</a>
-
+{% endif %}
                     </td>
                 </tr>
                 </tbody></table>

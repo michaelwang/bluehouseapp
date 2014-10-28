@@ -24,7 +24,7 @@
                 {% endfor %}
                 {% if currentNode%}
                     <div class="fr">
-                        <a href="{{ path('post_new', { 'currentNodeId': currentNode.id }) }}" class="node">发表帖子</a>
+                        <a href="{{ path('post_new', { 'nodeId': currentNode.id }) }}" class="node">创建新主题</a>
                     </div>
                 {% endif%}
             {% endif%}
@@ -56,8 +56,9 @@
                                         href="{{ path('post_show', { 'id': entity.id }) }}">{{ entity.title }}</a></span>
 
                             <div class="h_5"></div>
-                    <span class="box-small box-fade"><div class="box-votes"></div><a class="box-node" href="#">{{ entity.node.name }}</a> &nbsp;•&nbsp; <strong><a
-                                    href="{{ path('user_show', { 'username': entity.member.username }) }}">
+                    <span class="box-small box-fade"><div class="box-votes"></div>
+                        <a class="box-node" href="{{ path('post_by_node', { 'currentNodeId': entity.node.id }) }}">{{ entity.node.name }}</a> &nbsp;•&nbsp;
+                        <strong><a href="{{ path('user_show', { 'username': entity.member.username }) }}">
                                 {% if entity.member.nickname %}
                                     {{ entity.member.nickname }}
                                 {% else %}
