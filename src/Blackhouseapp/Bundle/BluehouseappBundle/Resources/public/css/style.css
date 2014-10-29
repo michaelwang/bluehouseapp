@@ -579,25 +579,22 @@ strong, b {
 .navbar-default{
     background: none;
     border: none;
+    margin: 0;
 }
 .navbar-collapse{
     background-image: url("../images/top_light.png");
     text-align: center;
     background-color: #f0f0f0;
-    height: 50px;
     background-size: 50px 50px;
+    border: none;
 }
 div.header{
     background-image: url("../images/top_light.png");
     text-align: center;
     background-color: #f0f0f0;
-    height: 50px;
     background-size: 50px 50px;
 }
-.navbar{
-    min-height: 50px;
-    height:50px;
-}
+
 .h5{
     height: 5px;
 }
@@ -873,4 +870,22 @@ a.box-count-livid:hover {
 }
 .box_snow{
     color:#e2e2e2;
+}
+.dropdown-menu a{
+    height: 50px;
+}
+.navbar-nav .open .dropdown-menu>li>a{
+    line-height: 50px;
+}
+.navbar-nav{
+    margin:0;
+}
+.navbar-nav>li>a{
+    padding:15px;
+}
+.navbar-nav .open .dropdown-menu>li>a, .navbar-nav .open .dropdown-menu .dropdown-header{
+    padding: 0 15px 0 25px;
+}
+.dropdown-menu{
+    padding: 0;
 }
