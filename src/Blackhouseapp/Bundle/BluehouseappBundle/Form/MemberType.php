@@ -52,7 +52,7 @@ class MemberType  extends AbstractType
                 'required'=>false,
                 'attr'=>array(
                     'class'=>'input-block-level',
-                    'placeholder'=>'http://weibo.com/username'
+                    'placeholder'=>'http://weibo.com/yourWeiboUsername'
                 )
             ))
             ->add('github','text',array(
@@ -60,7 +60,7 @@ class MemberType  extends AbstractType
                 'required'=>false,
                 'attr'=>array(
                     'class'=>'input-block-level',
-                    'placeholder'=>'http://github.com/username'
+                    'placeholder'=>'http://github.com/yourGithubUsername'
                 )
             ))
             ->add('description','textarea',array(

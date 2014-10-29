@@ -96,6 +96,7 @@ class MemberController  extends Controller
         $memberImageForm->handleRequest($request);
         if($memberImageForm->isValid()){
             $em = $this->getDoctrine()->getManager();
+            $member->setModified(new \DateTime());
             $em->persist($member);
             $em->flush();
             $this->get('session')->getFlashBag()->add('success','保存成功');
@@ -137,6 +138,7 @@ class MemberController  extends Controller
         $form->handleRequest($request);
         if($form->isValid()){
             $em = $this->getDoctrine()->getManager();
+            $member->setModified(new \DateTime());
             $em->persist($member);
             $em->flush();
             $this->get('session')->getFlashBag()->add('success','保存成功');
@@ -218,7 +220,7 @@ class MemberController  extends Controller
         $repo = $em->getRepository('BlackhouseappBluehouseappBundle:Member');
 
         $query = $repo->createQueryBuilder('a')
-            ->orderBy('a.lastLogin', 'desc')
+            ->orderBy('a.modified', 'desc')
             ->where('a.locked = :locked')
             ->setParameters(array('locked' => $locked))
             ->getQuery();

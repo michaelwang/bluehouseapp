@@ -19,7 +19,8 @@
         </div>
         <a href="{{ path('post')}}">蓝房子</a>
         {% if entity.node %}
-        <span class="box_chevron">&nbsp;›&nbsp;</span>{{ entity.node.name }}<a href="#"></a>
+        <span class="box_chevron">&nbsp;›&nbsp;</span>
+            <a href="{{ path('post_by_node', { 'currentNodeId': entity.node.id }) }}">{{ entity.node.name }}</a>
         {% endif %}
         <div class="box_sep10"></div>
         <h1>{{ entity.title }}</h1>
@@ -104,9 +105,8 @@
                                         {{ comment.member.username }}
                                     {% endif %}
 
-
                                 </a></strong>&nbsp; &nbsp;<span
-                                    class="box_fade box_small"> {{ comment.modified|date("Y-m-d H:m") }}</span>
+                                    class="box_fade box_small"> {{ comment.modified|date("Y-m-d H:m:s") }}</span>
 
                             <div class="sep5"></div>
                             <div class="reply_content">
