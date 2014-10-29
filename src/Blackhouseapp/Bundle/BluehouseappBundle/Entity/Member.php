@@ -92,7 +92,7 @@ class Member extends BaseUser
 
     /**
      * @Assert\File(
-     *     maxSize="2M",
+     *     maxSize="1M",
      *     mimeTypes={"image/png","image/jpeg","image/pjpeg",
      *                          "image/jpg","image/gif"}
      * )
@@ -118,15 +118,16 @@ class Member extends BaseUser
     protected $username;
 
 
-
-
     /**
      * @ORM\Column(name="weibo",type="string",length=255,nullable=true)
      * @assert\Length(
      *         max="255",
      *         maxMessage="不能超过255个字符"
      * )
-     * @Assert\Url(message="请使用合法的URL")
+     * @Assert\Regex(
+     *    pattern="/^(http):\/\/weibo.com\//",
+     *    message="请使用合法的微博地址"
+     * )
      */
     protected $weibo;
 
@@ -136,7 +137,10 @@ class Member extends BaseUser
      *         max="255",
      *         maxMessage="不能超过255个字符"
      * )
-     * @Assert\Url(message="请使用合法的URL")
+     * @Assert\Regex(
+     *    pattern="/^(http|https):\/\/github.com\//",
+     *    message="请使用合法的github地址"
+     * )
      */
     protected $github;
     /**

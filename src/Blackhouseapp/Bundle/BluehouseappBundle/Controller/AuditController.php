@@ -35,7 +35,7 @@ class AuditController extends Controller
             ->orderBy('a.id','desc')
             ->getQuery();
         $page = $request->query->get('page', 1);
-        $entities = $this->get('knp_paginator')->paginate($query, $page, 100);
+        $entities = $this->get('knp_paginator')->paginate($query, $page, 50);
 
         return array(
             'entities' => $entities,
@@ -88,7 +88,7 @@ class AuditController extends Controller
     public function deletePostCommentAction(Request $request)
     {
 
-        $postcommentId = $request->query->get('postcommentId', 0);
+        $postcommentId = $request->query->get('postCommentId', 0);
         $auditId = $request->query->get('auditId', 0);
 
         $em = $this->getDoctrine()->getManager();

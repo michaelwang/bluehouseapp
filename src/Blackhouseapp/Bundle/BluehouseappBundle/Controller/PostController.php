@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Blackhouseapp\Bundle\BluehouseappBundle\Entity\Post;
 use Blackhouseapp\Bundle\BluehouseappBundle\Form\PostType;
 use Blackhouseapp\Bundle\BluehouseappBundle\Entity\PostComment;
+use Blackhouseapp\Bundle\BluehouseappBundle\Entity\Audit;
 use Blackhouseapp\Bundle\BluehouseappBundle\Form\PostCommentType;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -288,6 +289,15 @@ class PostController extends Controller
             $em->persist($entity);
             $em->flush();
 
+
+            $audit = new Audit();
+            $audit->setEntityId($entity->getId());
+            $audit->setName($entity->getTitle().'|'.'by user:'.$current->getUsername().'('.$current->getNickname().')');
+            $audit->setContent($entity->getContent());
+            $audit->setType('post');
+            $em->persist($audit);
+            $em->flush();
+
             return $this->redirect($this->generateUrl('post_by_category',array('currentCategoryId' => $entity->getNode()->getCategory()->getId())));
         }
 
@@ -537,6 +547,15 @@ class PostController extends Controller
             $post->setLastCommentTime(new \DateTime());
             $em->persist($post);
             $em->flush();
+
+            $audit = new Audit();
+            $audit->setEntityId($comment->getId());
+            $audit->setName('by user:'.$current->getUsername().'('.$current->getNickname().')');
+            $audit->setContent($comment->getContent());
+            $audit->setType('post_comment');
+            $em->persist($audit);
+            $em->flush();
+
 
             return $this->redirect($this->generateUrl('post_show', array('id' => $post->getId())));
         }

@@ -13,7 +13,11 @@
     {% if member.avatar %}
         <tr>
                         <td width="120" style="text-align:right;">
-                            当前头像:
+                            头像
+                            <br>
+                            (小于1MB
+                            <br>
+                            JPG/PNF/GIF):
                         </td>
                         <td width="auto">
                             <img src="{{vich_uploader_asset(member,'userImage')|imagine_filter('avatar_image')}}" border="0"  align="default">&nbsp;
