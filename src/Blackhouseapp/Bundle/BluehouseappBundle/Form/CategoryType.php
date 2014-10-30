@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PostCommentType extends AbstractType
+class CategoryType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,17 +15,24 @@ class PostCommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content','textarea',array(
-                'label'=>'评论内容',
+
+            ->add('name','text',array(
+                'label'=>'名称(必填)',
                 'required'=>true,
                 'attr'=>array(
                     'class'=>'input-block-level',
-                    'rows'=>6
+                    'placeholder'=>'分类名称'
+
                 )
             ))
-            ->add('创建评论','submit',array(
+
+            ->add('no','text',array(
+                'label'=>'序号(必填)',
+                'required'=>true,
                 'attr'=>array(
-                    'style'=>'margin-top:20px'
+                    'class'=>'input-block-level',
+                    'placeholder'=>'显示序号'
+
                 )
             ))
         ;
@@ -37,7 +44,7 @@ class PostCommentType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Blackhouseapp\Bundle\BluehouseappBundle\Entity\PostComment'
+            'data_class' => 'Blackhouseapp\Bundle\BluehouseappBundle\Entity\Category'
         ));
     }
 
@@ -46,6 +53,6 @@ class PostCommentType extends AbstractType
      */
     public function getName()
     {
-        return 'blackhouseapp_bundle_bluehouseappbundle_postcomment';
+        return 'blackhouseapp_bundle_bluehouseappbundle_category';
     }
 }

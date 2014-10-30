@@ -147,6 +147,10 @@ liip_imagine:
             quality: 75
             filters:
                 thumbnail: { size: [48, 48], mode: outbound }
+        mini_image:
+            quality: 75
+            filters:
+                thumbnail: { size: [24, 24], mode: outbound }
         product_image:
                      quality: 75
                      filters:
@@ -169,15 +173,15 @@ knp_gaufrette:
         party_adapter:
             local:
                 directory: %kernel.root_dir%/../web/assets/party
-        desk_adapter:
+        node_adapter:
             local:
-                directory: %kernel.root_dir%/../web/assets/desk
+                directory: %kernel.root_dir%/../web/assets/node
         discuss_adapter:
             local:
                 directory: %kernel.root_dir%/../web/assets/discuss
-        misc_adapter:
+        member_adapter:
             local:
-                directory: %kernel.root_dir%/../web/assets/misc
+                directory: %kernel.root_dir%/../web/assets/member
     filesystems:
         image_fs:
             adapter:    image_adapter
@@ -185,12 +189,12 @@ knp_gaufrette:
             adapter:    avatar_adapter
         party_fs:
             adapter:    party_adapter
-        desk_fs:
-            adapter:    desk_adapter
+        node_fs:
+            adapter:    node_adapter
         discuss_fs:
             adapter:    discuss_adapter
-        misc_fs:
-            adapter:    misc_adapter
+        member_fs:
+            adapter:    member_adapter
 
 vich_uploader:
     db_driver: orm
@@ -216,10 +220,10 @@ vich_uploader:
             upload_destination: party_fs
             delete_on_remove: true
             inject_on_load: true
-        desk_image:
+        node_image:
             namer: vich_uploader.namer_uniqid
-            uri_prefix: /assets/desk
-            upload_destination: desk_fs
+            uri_prefix: /assets/node
+            upload_destination: node_fs
             delete_on_remove: true
             inject_on_load: true
         discuss_image:
@@ -228,9 +232,9 @@ vich_uploader:
             upload_destination: discuss_fs
             delete_on_remove: true
             inject_on_load: true
-        misc_image:
+        memeber_image:
             namer: vich_uploader.namer_uniqid
-            uri_prefix: /assets/misc
-            upload_destination: misc_fs
+            uri_prefix: /assets/member
+            upload_destination: member_fs
             delete_on_remove: true
             inject_on_load: true

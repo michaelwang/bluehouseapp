@@ -22,66 +22,28 @@
 </head>
 <body{% block bodyattr %}{% endblock bodyattr %}>
 
-    <div class="header">
-        <div class="container">
-            <nav class="navbar navbar-default" role="navigation">
-                <div class="container-fluid">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                                data-target="#bs-example-navbar-collapse-1">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="{{ path('welcome') }}">蓝房子</a>
-                    </div>
+<div class="header">
+    <div class="container">
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="top-logo" href="{{ path('post') }}">蓝房子</a>
+                </div>
 
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        {% if app.user %}
-                        <ul class="nav navbar-nav navbar-right">
-                            {% set appUser=app.user %}
-                            <li>
-
-
-                                <span class="glyphicon">
-                                        <a href="#">
-                                            {% if appUser.avatar %}
-                                            <img src="{{vich_uploader_asset(appUser,'userImage')|imagine_filter('small_image')}}"/>
-                                            {% else %}
-                                                <img src="{{ asset('bundles/blackhouseappbluehouseapp/images/user_default.png') }}"/>
-
-                                            {% endif %}
-                                        </a>
-                                        </span>
-
-
-
-
-                                </li>
-
-
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-
-                                     {{ app.user.username }}
-                                    <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ path('member_edit') }}">
-                                            <span class="glyphicon glyphicon-pencil"></span>
-                                            修改个人资料</a></li>
-                                    <li><a href="{{ path('fos_user_change_password') }}">
-                                            <span class="glyphicon glyphicon-lock"></span>
-                                            修改密码</a></li>
-                                    <li><a href="{{ path('fos_user_security_logout') }}">
-                                            <span class="glyphicon glyphicon-log-out"></span>
-                                            注销</a></li>
-                                </ul>
-                            </li>
-
-                            {% if is_granted('ROLE_ADMIN') %}
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="collapse-1">
+                    {% if app.user %}
+                        {% set appUser=app.user %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <ul class="nav navbar-nav navbar-right">
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle"
                                        data-toggle="dropdown"> 系统管理 <span class="caret"></span></a>
@@ -89,58 +51,129 @@
                                         <li><a href="{{ path('members_list') }}">
                                                 <span class="glyphicon glyphicon-user"></span>
                                                 用户管理</a></li>
+                                        <li><a href="{{ path('admin_category') }}">
+                                                <span class="glyphicon glyphicon-flag"></span>
+                                                分类管理</a></li>
+                                        <li><a href="{{ path('admin_node') }}">
+                                                <span class="glyphicon glyphicon-bookmark"></span>
+                                                节点管理</a></li>
+                                        <li><a href="{{ path('admin_audit') }}">
+                                                <span class="glyphicon glyphicon-bookmark"></span>
+                                                审计管理</a></li>
                                     </ul>
                                 </li>
-                            {% endif %}
-                        </ul>
-                        {% else %}
-
-                        {#<ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle"
-                                   data-toggle="dropdown">账户管理 <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ path('fos_user_security_login') }}">
-                                            登录</a></li>
-                                    <li><a href="{{ path('fos_user_registration_register') }}">
-                                            注册</a></li>
-
-                                </ul>
-                            </li>
-                        </ul>#}
-                            <div style="float:right;height:50px;line-height:50px;font-size:16px;">
-                                <a href="{{ path('welcome') }}" class="box_top">首页</a>&nbsp;&nbsp;&nbsp;
-                                <a href="{{ path('fos_user_registration_register') }}" class="box_top">注册</a>&nbsp;&nbsp;&nbsp;
-                                <a href="{{ path('fos_user_security_login') }}" class="box_top">登录</a>
-                            </div>
-
+                            </ul>
                         {% endif %}
-                    </div>
-                    <!-- /.navbar-collapse -->
 
+                        <div style="line-height:50px;font-size:16px;">
+
+                            <a href="{{ path('fos_user_security_logout') }}" class="top-btn">
+                                <span class="glyphicon glyphicon-log-out"></span>注销
+                            </a>
+                            <a href="{{ path('fos_user_change_password') }}" class="top-btn">
+                                <span class="glyphicon glyphicon-lock"></span>修改密码
+                            </a>
+                            <a href="{{ path('member_edit') }}" class="top-btn">
+                                <span class="glyphicon glyphicon-pencil"></span>修改个人资料
+                            </a>
+                            <a href="#"  class="top-btn">{% if appUser.nickname %}
+                                    {{ appUser.nickname }}
+                                {% else %}
+                                    {{ appUser.username }}
+                                {% endif %}
+                            </a>
+
+                            <a href="#" class="top-btn">
+                                {% if appUser.avatar %}
+                                    <img src="{{vich_uploader_asset(appUser,'userImage')|imagine_filter('small_image')}}"/>
+                                {% else %}
+                                    <img src="{{ asset('bundles/blackhouseappbluehouseapp/images/user_default.png') }}"/>
+                                {% endif %}
+                            </a>
+                        </div>
+                    {% else %}
+
+                        <div style="line-height:50px;font-size:16px;">
+                            <a href="{{ path('fos_user_security_login') }}" class="top-btn">登录</a>
+                            <a href="{{ path('fos_user_registration_register') }}" class="top-btn">注册</a>
+                        </div>
+
+                    {% endif %}
                 </div>
-                <!-- /.container-fluid -->
-            </nav>
-        </div>
+                <!-- /.navbar-collapse -->
+
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
     </div>
-
-
+</div>
 
 <div class="body">
     <div class="container">
-        <div class="box_sep20"></div>
-        {% block body %}
-        {% endblock %}
-        <div class="box_sep20"></div>
+        <div class="row">
+            <div class="col-md-9">
+                {% block body %}
+                {% endblock %}
+            </div>
+            <div class="col-md-3">
+
+                <!-- right bar -->
+
+                {% block rightbar %}
+                    <div class="h20"></div>
+                    <div class="box">
+                        <div class="box-cell">
+                            <strong>蓝房子</strong>
+                            <div class="box-fade">
+                                欢迎来到蓝房子
+                            </div>
+                        </div>
+                        <div class="box-inner">
+
+                            {% if app.user %}
+                            <a  href="{{ path('user_show', { 'username': appUser.username }) }}">
+                                {% if appUser.avatar %}
+                                    <img src="{{vich_uploader_asset(appUser,'userImage')|imagine_filter('small_image')}}"/>
+                                {% else %}
+                                    <img src="{{ asset('bundles/blackhouseappbluehouseapp/images/user_default.png') }}"/>
+
+                                {% endif %}
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {#<div class="h20"></div>#}
+                    {#<div class="box">#}
+                        {#<div class="box-cell">#}
+                            {#<strong>清除屏蔽</strong>#}
+                        {#</div>#}
+                        {#<div class="box-cell">#}
+                            {#<div style="text-align: center">#}
+                                {#<a href="#" class="super normal button">一键清除节点屏蔽</a>#}
+                            {#</div>#}
+                        {#</div>#}
+                        {#<div class="box-cell">#}
+                            {#<div style="text-align: center">#}
+                                {#<a href="#" class="super normal button">一键清除帖子屏蔽</a>#}
+                            {#</div>#}
+                        {#</div>#}
+                        {#<div class="box-inner">#}
+                            {#<div style="text-align: center">#}
+                                {#<a href="#" class="super normal button">一键清除用户屏蔽</a>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</div>#}
+                {% endblock %}
+            </div>
+
+        </div>
     </div>
+    <div class="h20"></div>
 </div>
 <div class="footer">
     <div class="container">
-        <div class="">
-            © 蓝房子
-            <div class="pull-right">
-                关于我们
-            </div>
+        <div style="text-align: center">
+            ©2014 蓝房子  <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备14029861号-2</a>
         </div>
     </div>
 </div>

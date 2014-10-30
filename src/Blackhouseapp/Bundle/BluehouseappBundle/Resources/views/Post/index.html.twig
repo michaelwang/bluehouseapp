@@ -1,27 +1,38 @@
 {% extends "BlackhouseappBluehouseappBundle:layout:layout.html.twig" %}
 
 {% block title %}蓝房子{% endblock %}
-{% block body -%}
+{% block body %}
+
+    <div class="h20"></div>
     <div class="box">
-        <table class="table  table-striped table-hover table-condensed">
+        <div class="box-inner" id="tabs" style="background-color: #fff; border-top-left-radius: 3px; border-top-right-radius: 3px;">
+            {% for category in categories %}
+                {% if category.getId()==currentCategory.getId() %}
+                    <a href="{{ path('post_by_category', { 'currentCategoryId': category.id }) }}" class="tab_current">{{ category.name }}</a>
 
-            <tr>
-                <td colspan=8>
+                {% else %}
+                    <a href="{{ path('post_by_category', { 'currentCategoryId': category.id }) }}" class="tab">{{ category.name }}</a>
+                {% endif%}
+            {% endfor %}
 
-                    <div class="clearfix">
-                        <div class="pull-right">
-                            <a href="{{ path('post_new') }}">
-                                我要提问
-                            </a>
-                        </div>
+        </div>
+        <div class="box-cell" style="background-color: #f9f9f9;">
+            {% if currentCategory%}
+                {% set nodes=currentCategory.nodes %}
+                {% for node in nodes %}
+                    <a href="{{ path('post_by_node', { 'currentNodeId': node.id }) }}" class="node">{{ node.name }}</a>
+                {% endfor %}
+                {% if currentNode%}
+                    <div class="fr">
+                        <a href="{{ path('post_new', { 'nodeId': currentNode.id }) }}" class="node">创建新主题</a>
                     </div>
+                {% endif%}
+            {% endif%}
+        </div>
 
-                </td>
-            </tr>
 
-        </table>
         {% for entity in entities %}
-            <div class="box_cell box_item" style="border-top-left-radius: 3px; border-top-right-radius: 3px;">
+            <div class="box-cell box-item" style="border-top-left-radius: 3px; border-top-right-radius: 3px;">
                 <div style="position: absolute; margin: -10px -10px 0px 650px;"></div>
                 <table cellpadding="0" cellspacing="0" border="0" width="100%">
                     <tbody>
@@ -31,7 +42,7 @@
 
                             <a href="{{ path('user_show', { 'username': member.username }) }}">
                                 {% if entity.member.avatar %}
-                                <img src="{{vich_uploader_asset(member,'userImage')|imagine_filter('small_image')}}"/>
+                                    <img src="{{vich_uploader_asset(member,'userImage')|imagine_filter('small_image')}}"/>
                                 {% else %}
                                     <img src="{{ asset('bundles/blackhouseappbluehouseapp/images/user_default.png') }}"/>
                                 {% endif %}
@@ -41,12 +52,13 @@
                         </td>
                         <td width="10"></td>
 
-                        <td width="auto" valign="middle"><span class="box_item_title"><a
+                        <td width="auto" valign="middle"><span class="box-item-title"><a
                                         href="{{ path('post_show', { 'id': entity.id }) }}">{{ entity.title }}</a></span>
 
-                            <div class="sep5"></div>
-                    <span class="box_small box_fade"><div class="votes"></div><a class="box_node" href="#"></a> &nbsp;•&nbsp; <strong><a
-                                    href="{{ path('user_show', { 'username': entity.member.username }) }}">
+                            <div class="h_5"></div>
+                    <span class="box-small box-fade"><div class="box-votes"></div>
+                        <a class="box-node" href="{{ path('post_by_node', { 'currentNodeId': entity.node.id }) }}">{{ entity.node.name }}</a> &nbsp;•&nbsp;
+                        <strong><a href="{{ path('user_show', { 'username': entity.member.username }) }}">
                                 {% if entity.member.nickname %}
                                     {{ entity.member.nickname }}
                                 {% else %}
@@ -59,9 +71,9 @@
                             <a
                                     href="{{ path('user_show', { 'username': member.username }) }}">
                                 {% if member.nickname %}
-                                {{ member.nickname }}
+                                    {{ member.nickname }}
                                 {% else %}
-                                {{ member.username }}
+                                    {{ member.username }}
                                 {% endif %}
                             </a>
                         </strong>
@@ -69,9 +81,9 @@
                     </span>
                         </td>
                         <td width="50" align="right" valign="middle">
-
-                            <a href="#" class="box_count_livid">{{ entity.commentCount }}</a>
-
+                            {%  if entity.commentCount>0 %}
+                                <a href="#" class="box-count-livid">{{ entity.commentCount }}</a>
+                            {% endif %}
                         </td>
                     </tr>
                     </tbody>
@@ -83,4 +95,51 @@
 
     </div>
     {{ knp_pagination_render(entities) }}
+
+
+    <!-- 节点内容 -->
+    <div class="h20"></div>
+    <div class="box">
+        <div class="box-cell">
+            <div class="box-fr"><a href="#">浏览全部节点</a></div>
+            <span class="box-fade"><strong>蓝房子</strong> / 节点导航</span>
+        </div>
+
+        {% for category in categories %}
+            {% if loop.last %}
+                <div class="box-inner">
+            {% else %}
+                <div class="box-cell">
+            {% endif %}
+                    <table cellpadding="0" cellspacing="0" border="0">
+                        <tbody>
+                            <tr>
+                                <td align="right" width="60">
+                                    <span class="box-fade">{{ category.name }}</span>
+                                </td>
+                                <td style="line-height: 200%; padding-left: 10px;">
+
+                                    {% if category.nodes %}
+                                        {% set nodes=category.nodes %}
+                                        {% for node in nodes %}
+                                            {% if node.status %}
+                                                {% if node.enabled %}
+                                                    <a href="{{ path('post_by_node', { 'currentNodeId': node.id }) }}" style="font-size: 14px;"> {{ node.name }}</a>&nbsp; &nbsp;
+                                                {% endif %}
+                                            {% endif %}
+
+
+                                        {% endfor %}
+                                    {% endif %}
+
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        {% endfor%}
+    </div>
+
+
 {% endblock %}

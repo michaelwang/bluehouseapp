@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Blackhouseapp\Bundle\BluehouseappBundle\Entity\Post;
 use Blackhouseapp\Bundle\BluehouseappBundle\Form\PostType;
 use Blackhouseapp\Bundle\BluehouseappBundle\Entity\PostComment;
+use Blackhouseapp\Bundle\BluehouseappBundle\Entity\Audit;
 use Blackhouseapp\Bundle\BluehouseappBundle\Form\PostCommentType;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,6 +22,193 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class PostController extends Controller
 {
+
+    /**
+     * Lists all Post entities.
+     *
+     * @Route("/post/node/{currentNodeId}", name="post_by_node")
+     * @Method("GET")
+     */
+    public function listPostsByNodeAction(Request $request,$currentNodeId=0)
+    {
+        $wh_content = $request->headers->get('WH-CONTEXT');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $page = $request->query->get('page', 1);
+
+        $categories = $this->get('blackhouseapp_bluehouseapp.post')->getAllEnableCategories();
+
+        $currentCategory = null;
+        $currentNode = null;
+        if($currentNodeId==0){
+            if (count($categories) > 0) {
+                $currentCategory = $categories[0];
+                $currentCategoryId=$currentCategory->getId();
+            }
+        }else{
+            $currentNode = $em->getRepository('BlackhouseappBluehouseappBundle:Node')->find($currentNodeId);
+
+            if (!$currentNode) {
+                throw $this->createNotFoundException('此节点不存在.');
+            }
+
+
+        }
+        if($currentCategory!=null){
+            $nodes = $currentCategory->getNodes();
+
+            if (count($nodes) > 0) {
+                $currentNode = $nodes[0];
+            }
+        }
+
+        $repo = $em->getRepository('BlackhouseappBluehouseappBundle:Post');
+
+        $query = $repo->createQueryBuilder('p')
+            ->innerJoin('p.node', 'n')
+            ->innerJoin('p.member', 'm')
+            ->innerJoin('n.category', 'c')
+            ->orderBy('p.lastCommentTime', 'desc')
+            ->where('n.id = :currentNodeId')
+            ->andWhere('p.status = :postStatus')
+            ->andWhere('p.enabled = :postEnabled')
+            ->andWhere('n.status = :nodeStatus')
+            ->andWhere('n.enabled = :nodeEnabled')
+            ->andWhere('c.status = :cStatus')
+            ->andWhere('c.enabled = :cEnabled')
+            ->andWhere('m.locked = :mLocked')
+            ->setParameters(array('currentNodeId' =>$currentNodeId,
+                'postStatus' => true,'postEnabled' => true,
+                'nodeStatus'=>true,'nodeEnabled'=>true,
+                'cStatus'=>true,'cEnabled'=>true,
+                'mLocked'=>false
+            ))
+            ->getQuery();
+
+        $entities = $this->get('knp_paginator')->paginate($query, $page, 50);
+        $serializer = $this->get('jms_serializer');
+
+        if ($wh_content == '' || $wh_content == null) {
+            $lastComments = array();
+            foreach ($entities as $entity) {
+                $lastComments[$entity->getId()] = $this->get('blackhouseapp_bluehouseapp.post')->getLastComment($entity);
+            }
+
+            $postCounts= $this->get('blackhouseapp_bluehouseapp.post')->countPostsByNode($currentNodeId);
+
+            return $this->render('BlackhouseappBluehouseappBundle:Post:postsByNode.html.twig',
+
+                array(
+                    'entities' => $entities,
+                    'categories' => $categories,
+                    'lastComments' => $lastComments,
+                    'currentCategory' => $currentCategory,
+                    'currentNode' => $currentNode,
+                    'postCounts'=>$postCounts
+
+                )
+            );
+
+            //  return;
+        }
+        else
+        return array();
+    }
+
+    /**
+     * Lists all Post entities.
+     *
+     * @Route("/post/category/{currentCategoryId}", name="post_by_category")
+     * @Method("GET")
+     */
+    public function listPostsByCategoryAction(Request $request,$currentCategoryId=0)
+    {
+        $wh_content = $request->headers->get('WH-CONTEXT');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $page = $request->query->get('page', 1);
+
+        $categories = $this->get('blackhouseapp_bluehouseapp.post')->getAllEnableCategories();
+
+        $currentCategory = null;
+        $currentNode = null;
+        if($currentCategoryId==0){
+        if (count($categories) > 0) {
+            $currentCategory = $categories[0];
+            $currentCategoryId=$currentCategory->getId();
+        }
+        }else{
+            foreach ($categories as $category) {
+                if($currentCategoryId==$category->getId()){
+                    $currentCategory=$category;
+                    break;
+                }
+            }
+            if (!$currentCategory) {
+                throw $this->createNotFoundException('此分类不存在.');
+            }
+
+        }
+    if($currentCategory!=null){
+        $nodes = $currentCategory->getNodes();
+
+        if (count($nodes) > 0) {
+            $currentNode = $nodes[0];
+        }
+    }
+
+        $repo = $em->getRepository('BlackhouseappBluehouseappBundle:Post');
+
+        $query = $repo->createQueryBuilder('p')
+            ->innerJoin('p.node', 'n')
+            ->innerJoin('p.member', 'm')
+            ->innerJoin('n.category', 'c')
+            ->orderBy('p.lastCommentTime', 'desc')
+             ->where('c.id = :categoryId')
+            ->andWhere('p.status = :postStatus')
+            ->andWhere('p.enabled = :postEnabled')
+            ->andWhere('n.status = :nodeStatus')
+            ->andWhere('n.enabled = :nodeEnabled')
+            ->andWhere('c.status = :cStatus')
+            ->andWhere('c.enabled = :cEnabled')
+            ->andWhere('m.locked = :mLocked')
+            ->setParameters(array( 'categoryId' => ($currentCategory==null?0:$currentCategory->getId()),
+                'postStatus' => true,'postEnabled' => true,
+                'nodeStatus'=>true,'nodeEnabled'=>true,
+                'cStatus'=>true,'cEnabled'=>true,
+                'mLocked'=>false
+
+            ))
+            ->getQuery();
+
+        $entities = $this->get('knp_paginator')->paginate($query, $page, 50);
+        $serializer = $this->get('jms_serializer');
+
+        if ($wh_content == '' || $wh_content == null) {
+            $lastComments = array();
+            foreach ($entities as $entity) {
+                $lastComments[$entity->getId()] = $this->get('blackhouseapp_bluehouseapp.post')->getLastComment($entity);
+            }
+
+
+            return $this->render('BlackhouseappBluehouseappBundle:Post:index.html.twig',
+
+                array(
+                    'entities' => $entities,
+                    'categories' => $categories,
+                    'lastComments' => $lastComments,
+                    'currentCategory' => $currentCategory,
+                    'currentNode' => $currentNode
+
+                )
+            );
+
+          //  return;
+        }
+            return array();
+    }
     /**
      * Lists all Post entities.
      *
@@ -30,33 +218,41 @@ class PostController extends Controller
      */
     public function indexAction(Request $request)
     {
+/*
         $wh_content = $request->headers->get('WH-CONTEXT');
 
         $em = $this->getDoctrine()->getManager();
 
         $page = $request->query->get('page', 1);
+
+        $categories = $this->get('blackhouseapp_bluehouseapp.post')->getAllEnableCategories();
+
+        $currentCategory = null;
+        $currentNode = null;
+        if (count($categories) > 0) {
+            $currentCategory = $categories[0];
+        }
+        $nodes = $currentCategory->getNodes();
+
+        if (count($nodes) > 0) {
+            $currentNode = $nodes[0];
+        }
         $repo = $em->getRepository('BlackhouseappBluehouseappBundle:Post');
 
-        $query = $repo->createQueryBuilder('a')
-            ->orderBy('a.lastCommentTime', 'desc')
-            ->where('a.status = :status')
-            ->setParameters(array('status' => true))
+        $query = $repo->createQueryBuilder('p')
+            ->innerJoin('p.node', 'n')
+            ->innerJoin('n.category', 'c')
+            ->orderBy('p.lastCommentTime', 'desc')
+            ->where('p.status = :status')
+            ->andWhere('c.id = :categoryId')
+            ->setParameters(array('status' => true, 'categoryId' => $currentCategory->getId()))
             ->getQuery();
 
         $entities = $this->get('knp_paginator')->paginate($query, $page, 50);
         $serializer = $this->get('jms_serializer');
+
         if ($wh_content == '' || $wh_content == null) {
-            $lastComments = array();
-            foreach ($entities  as $entity){
-                $lastComments[$entity->getId()]=$this->get('blackhouseapp_bluehouseapp.post')->getLastComment($entity);
-
-            }
-
-
-            return array(
-                'entities' => $entities,
-                'lastComments' => $lastComments
-            );
+              return $this->redirect($this->generateUrl('post_by_category'));
         } else {
 
             $data = array(
@@ -64,36 +260,45 @@ class PostController extends Controller
             );
             $response = new Response($serializer->serialize($data, 'json'));
             $response->headers->set('Content-Type', 'text/html;; charset=utf-8');
-
-
             return $response;
 
         }
-
-
+*/
+        return $this->redirect($this->generateUrl('post_by_category'));
     }
 
     /**
      * Creates a new Post entity.
      *
-     * @Route("/member/post/", name="post_create")
+     * @Route("/member/post/{nodeId}", name="post_create")
      * @Method("POST")
      * @Template("BlackhouseappBluehouseappBundle:Post:new.html.twig")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request,$nodeId)
     {
         $entity = new Post();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity,$nodeId);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $current = $this->get('security.context')->getToken()->getUser();
             $entity->setMember($current);
             $em = $this->getDoctrine()->getManager();
+            $node = $em->getRepository('BlackhouseappBluehouseappBundle:Node')->find($nodeId);
+            $entity->setNode($node);
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('post'));
+
+            $audit = new Audit();
+            $audit->setEntityId($entity->getId());
+            $audit->setName($entity->getTitle().'|'.'by user:'.$current->getUsername().'('.$current->getNickname().')');
+            $audit->setContent($entity->getContent());
+            $audit->setType('post');
+            $em->persist($audit);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('post_by_category',array('currentCategoryId' => $entity->getNode()->getCategory()->getId())));
         }
 
         return array(
@@ -109,13 +314,12 @@ class PostController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Post $entity)
+    private function createCreateForm(Post $entity,$currentNodeId)
     {
         $form = $this->createForm(new PostType(), $entity, array(
-            'action' => $this->generateUrl('post_create'),
+            'action' => $this->generateUrl('post_create',array('nodeId' =>$currentNodeId)),
             'method' => 'POST',
         ));
-
 
 
         return $form;
@@ -128,15 +332,34 @@ class PostController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
+    public function newAction(Request $request)
     {
-        $entity = new Post();
-        $form = $this->createCreateForm($entity);
+        $nodeId = $request->query->get('nodeId', 0);
 
-        return array(
-            'entity' => $entity,
-            'form' => $form->createView(),
-        );
+        $currentNode=$this->get('blackhouseapp_bluehouseapp.post')->getNode($nodeId);
+
+
+        $entity = new Post();
+        $entity->setNode($currentNode);
+
+        $nodes=$currentNode->getCategory()->getNodes();
+
+        $form = $this->createCreateForm($entity,$nodeId);
+
+        $current = $this->get('security.context')->getToken()->getUser();
+        $member = $this->getDoctrine()->getManager()
+            ->getRepository('BlackhouseappBluehouseappBundle:Member')
+            ->find($current->getId());
+
+        if ($member->getAvatar() != '')
+
+            return array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            );
+        else {
+            return $this->redirect($this->generateUrl('member_needAvatarImage', array()));
+        }
     }
 
     /**
@@ -153,19 +376,9 @@ class PostController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $query = $this->getDoctrine()->getManager()
-            ->getRepository('BlackhouseappBluehouseappBundle:Post')
-            ->createQueryBuilder('c')
-            ->where('c.id = :id')
-            ->andWhere('c.status = :status')
-            ->setParameters(array(':id' => $id,'status'=>true))
-            ->getQuery();
 
-        try {
-            $post =  $query->getSingleResult();
-        } catch (\Doctrine\Orm\NoResultException $e) {
-            $post = null;
-        }
+        $post =$this->get('blackhouseapp_bluehouseapp.post')->getPost($id);
+
 
         if (!$post || !$post->getStatus()) {
             throw $this->createNotFoundException('这个帖子不存在');
@@ -208,7 +421,7 @@ class PostController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('BlackhouseappBluehouseappBundle:Post')->find($id);
+        $entity =$this->get('blackhouseapp_bluehouseapp.post')->getPost($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Post entity.');
@@ -252,7 +465,7 @@ class PostController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('BlackhouseappBluehouseappBundle:Post')->find($id);
+        $entity = $this->get('blackhouseapp_bluehouseapp.post')->getPost($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Post entity.');
@@ -278,7 +491,7 @@ class PostController extends Controller
     }
 
 
-        /**
+    /**
      * Deletes a Post entity.
      *
      * @Route("/manager/post_delete/{id}", name="post_delete")
@@ -288,21 +501,20 @@ class PostController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
-        $post = $em->getRepository('BlackhouseappBluehouseappBundle:Post')->find($id);
-        if($post){
+        $post =$this->get('blackhouseapp_bluehouseapp.post')->getPost($id);
+        if ($post) {
             if (!$post) {
                 throw $this->createNotFoundException('Unable to find Post entity.');
             }
             $post->setModified(new \DateTime());
             $post->setStatus(false);
-          //  $em->remove($post);
+            //  $em->remove($post);
             $em->flush();
         }
-        $this->get('session')->getFlashBag()->add('success','删除成功');
+        $this->get('session')->getFlashBag()->add('success', '删除成功');
         return $this->redirect($this->generateUrl('post'));
 
     }
-
 
 
     /**
@@ -314,7 +526,7 @@ class PostController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
-        $post = $em->getRepository('BlackhouseappBluehouseappBundle:Post')->find($id);
+        $post =$this->get('blackhouseapp_bluehouseapp.post')->getPost($id);
         if (!$post || !$post->getStatus()) {
             throw $this->createNotFoundException("这个帖子不存在");
         }
@@ -335,6 +547,15 @@ class PostController extends Controller
             $post->setLastCommentTime(new \DateTime());
             $em->persist($post);
             $em->flush();
+
+            $audit = new Audit();
+            $audit->setEntityId($comment->getId());
+            $audit->setName('by user:'.$current->getUsername().'('.$current->getNickname().')');
+            $audit->setContent($comment->getContent());
+            $audit->setType('post_comment');
+            $em->persist($audit);
+            $em->flush();
+
 
             return $this->redirect($this->generateUrl('post_show', array('id' => $post->getId())));
         }
@@ -362,13 +583,23 @@ class PostController extends Controller
     {
         $query = $this->getDoctrine()->getManager()
             ->getRepository('BlackhouseappBluehouseappBundle:PostComment')
-            ->createQueryBuilder('c')
-            ->where('c.post = :post')
-            ->andWhere('c.status = :status')
-            ->setParameters(array(':post' => $post->getId(),'status'=>true))
-            ->orderBy('c.id', 'asc')
+            ->createQueryBuilder('pc')
+            ->innerJoin('pc.member', 'm')
+            ->innerJoin('pc.post', 'p')
+            ->where('pc.post = :post')
+            ->andWhere('pc.status = :pcStatus')
+            ->andWhere('pc.enabled = :pcEnabled')
+            ->andWhere('p.status = :postStatus')
+            ->andWhere('p.enabled = :postEnabled')
+            ->andWhere('m.locked = :mLocked')
+            ->setParameters(array(':post' => $post,
+                 'pcStatus' => true, 'pcEnabled' => true,
+                'postStatus' => true,'postEnabled' => true,
+                'mLocked'=>false
+            ))
+            ->orderBy('pc.id', 'asc')
             ->getQuery();
-        $comments = $this->get('knp_paginator')->paginate($query, $page,50);
+        $comments = $this->get('knp_paginator')->paginate($query, $page, 50);
         return $comments;
     }
 

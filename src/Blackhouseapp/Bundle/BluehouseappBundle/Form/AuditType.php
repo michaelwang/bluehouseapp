@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PostCommentType extends AbstractType
+class AuditType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,19 +15,11 @@ class PostCommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content','textarea',array(
-                'label'=>'评论内容',
-                'required'=>true,
-                'attr'=>array(
-                    'class'=>'input-block-level',
-                    'rows'=>6
-                )
-            ))
-            ->add('创建评论','submit',array(
-                'attr'=>array(
-                    'style'=>'margin-top:20px'
-                )
-            ))
+            ->add('name')
+            ->add('type')
+            ->add('content')
+            ->add('status')
+            ->add('version')
         ;
     }
     
@@ -37,7 +29,7 @@ class PostCommentType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Blackhouseapp\Bundle\BluehouseappBundle\Entity\PostComment'
+            'data_class' => 'Blackhouseapp\Bundle\BluehouseappBundle\Entity\Audit'
         ));
     }
 
@@ -46,6 +38,6 @@ class PostCommentType extends AbstractType
      */
     public function getName()
     {
-        return 'blackhouseapp_bundle_bluehouseappbundle_postcomment';
+        return 'blackhouseapp_bundle_bluehouseappbundle_audit';
     }
 }
