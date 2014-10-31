@@ -64,7 +64,7 @@
                                 {% else %}
                                     {{ entity.member.username }}
                                 {% endif %}
-                            </a></strong> &nbsp;•&nbsp; {{ entity.modified|date("Y-m-d H:m") }}
+                            </a></strong> &nbsp;•&nbsp; {{ entity.modified|date("Y-m-d H:i") }}
                         {% if lastComments[entity.id] %}
                             {% set member= lastComments[entity.id].member %}
                             &nbsp;•&nbsp; 最后回复来自 <strong>
