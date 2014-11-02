@@ -6,6 +6,7 @@
     <parameters>
         <parameter key="blackhouseapp_bluehouseapp.mail.class">Blackhouseapp\Bundle\BluehouseappBundle\Service\MailService</parameter>
         <parameter key="blackhouseapp_bluehouseapp.post.class">Blackhouseapp\Bundle\BluehouseappBundle\Service\PostService</parameter>
+        <parameter key="blackhouseapp_bluehouseapp.registration.listener.class">Blackhouseapp\Bundle\BluehouseappBundle\Listener\SecurityRegistrationListener</parameter>	
     </parameters>
     <services>
         <service id="blackhouseapp_bluehouseapp.mail" class="%blackhouseapp_bluehouseapp.mail.class%">
@@ -19,6 +20,10 @@
             <argument type="service" id="router">route</argument>
             <argument type="service" id="request">req</argument>
         </service>
+        <service id="blackhouseapp_bludehouseapp.registrationListener" class="%blackhouseapp_bluehouseapp.registration.listener.class%">
+            <tag name="kernel.event_subscriber"/>
+            <argument type="service" id="doctrine.orm.entity_manager">em</argument>	    
+        </service>	
     </services>
     <!--
     <services>

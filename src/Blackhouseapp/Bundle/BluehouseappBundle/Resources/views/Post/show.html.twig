@@ -34,7 +34,7 @@
                     {{ entity.member.username }}
                 {% endif %}
             </a>
-            · {{ entity.modified|date("Y-m-d H:m") }}</small>
+            · {{ entity.modified|date("Y-m-d H:i") }}</small>
     </div>
     <div class="box_cell">
 
@@ -68,7 +68,7 @@
         </div>
         {% if  entity.commentCount>0 %}
         <span class="box_gray">{{ entity.commentCount }} 回复 &nbsp;
-            <strong class="snow">|</strong> &nbsp;直到 {{ entity.lastCommentTime|date("Y-m-d H:m") }}
+            <strong class="snow">|</strong> &nbsp;直到 {{ entity.lastCommentTime|date("Y-m-d H:i") }}
         </span>
         {% endif %}
 
