@@ -21,6 +21,16 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("UAIPBaned")
+     * @Template()
+     */
+    public function banedIPsAction()
+    {
+        return  array();
+    }    
+
+    
+    /**
      * @Route("/hi/{name}")
      * @Template()
      */
