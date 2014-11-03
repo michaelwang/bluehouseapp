@@ -22,7 +22,8 @@
         </service>
         <service id="blackhouseapp_bludehouseapp.registrationListener" class="%blackhouseapp_bluehouseapp.registration.listener.class%">
             <tag name="kernel.event_subscriber"/>
-            <argument type="service" id="doctrine.orm.entity_manager">em</argument>	    
+            <argument type="service" id="doctrine.orm.entity_manager">em</argument>
+            <argument type="service" id="router" />
         </service>	
     </services>
     <!--

@@ -37,6 +37,13 @@ class UserBehavior
     private $actionName;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="clientIP", type="string", length=100)
+     */    
+    private $clientIP;
+    
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="actionTimestamp", type="datetimetz")
@@ -128,5 +135,28 @@ class UserBehavior
     public function getUserId()
     {
         return $this->userId;
+    }
+
+    /**
+     * Set clientIP
+     *
+     * @param string $clientIP
+     * @return UserBehavior
+     */
+    public function setClientIP($clientIP)
+    {
+        $this->clientIP = $clientIP;
+
+        return $this;
+    }
+
+    /**
+     * Get clientIP
+     *
+     * @return string 
+     */
+    public function getClientIP()
+    {
+        return $this->clientIP;
     }
 }
