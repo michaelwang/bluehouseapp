@@ -88,7 +88,7 @@ class NodeController extends Controller
      */
     private function createCreateForm(Node $entity)
     {
-        $form = $this->createForm(new NodeType(false), $entity, array(
+        $form = $this->createForm(new NodeType(false,$this->getDoctrine()->getManager()), $entity, array(
             'action' => $this->generateUrl('admin_node_create'),
             'method' => 'POST',
         ));
@@ -177,7 +177,7 @@ class NodeController extends Controller
     */
     private function createEditForm(Node $entity)
     {
-        $form = $this->createForm(new NodeType(true), $entity, array(
+        $form = $this->createForm(new NodeType(true,$this->getDoctrine()->getManager()), $entity, array(
             'action' => $this->generateUrl('admin_node_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

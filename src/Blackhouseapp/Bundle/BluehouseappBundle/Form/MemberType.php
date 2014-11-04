@@ -55,12 +55,12 @@ class MemberType  extends AbstractType
                     'placeholder'=>'http://weibo.com/yourWeiboUsername'
                 )
             ))
-            ->add('github','text',array(
-                'label'=>'Github地址',
+            ->add('oschina','text',array(
+                'label'=>'OSC地址',
                 'required'=>false,
                 'attr'=>array(
                     'class'=>'input-block-level',
-                    'placeholder'=>'http://github.com/yourGithubUsername'
+                    'placeholder'=>'http://my.oschina.net/yourOSCUsername'
                 )
             ))
             ->add('description','textarea',array(

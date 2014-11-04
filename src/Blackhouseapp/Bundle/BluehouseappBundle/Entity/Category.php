@@ -68,6 +68,7 @@ class Category
 
     /**
      * @ORM\OneToMany(targetEntity="Node", mappedBy="category",cascade="remove")
+     * @ORM\OrderBy({"no" = "ASC"})
      */
     protected $nodes;
 

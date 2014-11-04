@@ -143,6 +143,21 @@ class Member extends BaseUser
      * )
      */
     protected $github;
+
+    /**
+     * @ORM\Column(name="oschina",type="string",length=255,nullable=true)
+     * @assert\Length(
+     *         max="255",
+     *         maxMessage="不能超过255个字符"
+     * )
+     * @Assert\Regex(
+     *    pattern="/^(http|https):\/\/my.oschina.net\//",
+     *    message="请使用合法的oschina地址"
+     * )
+     */
+    protected $oschina;
+
+
     /**
      * @ORM\Column(name="city",type="string",length=60,nullable=true)
      * @Assert\Length(
@@ -358,6 +373,22 @@ class Member extends BaseUser
     public function getAvatar()
     {
         return $this->avatar;
+    }
+
+    /**
+     * @param mixed $oschina
+     */
+    public function setOschina($oschina)
+    {
+        $this->oschina = $oschina;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOschina()
+    {
+        return $this->oschina;
     }
 
 

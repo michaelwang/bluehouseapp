@@ -32,8 +32,6 @@ class CategoryController extends Controller
         $page = $request->query->get('page', 1);
         $repo = $em->getRepository('BlackhouseappBluehouseappBundle:Category');
 
-
-
          $query = $repo->createQueryBuilder('a')
             ->orderBy('a.no', 'desc')
             ->where('a.status = :status')

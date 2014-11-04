@@ -122,8 +122,8 @@ class MemberController  extends Controller
             ->find($current->getId());
 
         $isEdit = $member->getAvatar()!='';
-        $memberType = new MemberImageType($isEdit);
-        $memberImageForm = $this->createForm($memberType,$member,array(
+            $memberImageType = new MemberImageType($isEdit);
+        $memberImageForm = $this->createForm($memberImageType,$member,array(
             'action'=>$this->generateUrl('member_update_image'),
             'method'=>'POST'
         ));
@@ -192,8 +192,6 @@ class MemberController  extends Controller
             $lastComments[$post->getId()]=$this->get('blackhouseapp_bluehouseapp.post')->getLastComment($post);
 
         }
-
-
 
         $postComments = $this->get('blackhouseapp_bluehouseapp.post')->getPostCommentsByMember($entity);
 
