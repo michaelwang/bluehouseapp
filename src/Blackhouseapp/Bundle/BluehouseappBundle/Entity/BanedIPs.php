@@ -31,21 +31,21 @@ class BanedIPs
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="timestamp", type="datetimetz")
+     * @ORM\Column(name="timestamp", type="datetime")
      */
     private $timestamp;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fromDate", type="datetimetz")
+     * @ORM\Column(name="fromDate", type="datetime")
      */
     private $fromDate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="toDate", type="datetimetz")
+     * @ORM\Column(name="toDate", type="datetime")
      */
     private $toDate;
 

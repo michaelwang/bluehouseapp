@@ -46,7 +46,7 @@ class UserBehavior
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="actionTimestamp", type="datetimetz")
+     * @ORM\Column(name="actionTimestamp", type="datetime")
      */
     private $actionTimestamp;
 
