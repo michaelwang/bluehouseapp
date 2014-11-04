@@ -39,7 +39,7 @@ class UserBehavior
     /**
      * @var string
      *
-     * @ORM\Column(name="clientIP", type="string", length=100)
+     * @ORM\Column(name="clientIP", type="string", length=100,nullable = true)
      */    
     private $clientIP;
     
