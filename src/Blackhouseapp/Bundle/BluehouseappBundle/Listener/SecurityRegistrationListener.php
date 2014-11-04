@@ -40,20 +40,31 @@ class SecurityRegistrationListener implements EventSubscriberInterface
     {
        $request =  $event->getRequest();
        $ip = $request->getClientIp(false);
-       $banedIPsRepo = $this->em->getRepository('BlackhouseappBluehouseappBundle:BanedIPs');
-       $banedIP =  $banedIPsRepo->findByIp($ip);
-       if ($banedIP != null){
-           $event->setResponse(new RedirectResponse('/UAIPBaned'));
-       }
+        if($ip!=''){
+            $banedIPsRepo = $this->em->getRepository('BlackhouseappBluehouseappBundle:BanedIPs');
+            $banedIP =  $banedIPsRepo->findByIp($ip);
+            if ($banedIP != null){
+                $event->setResponse(new RedirectResponse('/UAIPBaned'));
+            }
+        }
+
     }
     
     public function onRegistrationSuccess(UserEvent $event)
     {
-        $userBehaviorRepo = $this->em->getRepository('BlackhouseappBluehouseappBundle:UserBehavior');
-        $userBehavior = new UserBehavior();
-        $userBehavior->setActionName('REGISTRATION_COMPLETED');
-        $userBehavior->setUserId($event->getUser()->getId());
-        $this->em->persist($userBehavior);
-        $this->em->flush();
+
+        $request =  $event->getRequest();
+        $ip = $request->getClientIp(false);
+        if($ip!=''){
+            $userBehaviorRepo = $this->em->getRepository('BlackhouseappBluehouseappBundle:UserBehavior');
+            $userBehavior = new UserBehavior();
+            $userBehavior->setActionName('REGISTRATION_COMPLETED');
+            $userBehavior->setUserId($event->getUser()->getId());
+            $userBehavior->setClientIP($ip);
+            $this->em->persist($userBehavior);
+            $this->em->flush();
+        }
+
+
     }
 }
