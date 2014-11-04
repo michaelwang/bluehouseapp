@@ -71,17 +71,15 @@ class PostController extends Controller
             ->innerJoin('n.category', 'c')
             ->orderBy('p.lastCommentTime', 'desc')
             ->where('n.id = :currentNodeId')
-            ->andWhere('p.status = :postStatus')
-            ->andWhere('p.enabled = :postEnabled')
-            ->andWhere('n.status = :nodeStatus')
-            ->andWhere('n.enabled = :nodeEnabled')
-            ->andWhere('c.status = :cStatus')
-            ->andWhere('c.enabled = :cEnabled')
+            ->andWhere('p.status = :status')
+            ->andWhere('p.enabled = :enabled')
+            ->andWhere('n.status = :status')
+            ->andWhere('n.enabled = :enabled')
+            ->andWhere('c.status = :status')
+            ->andWhere('c.enabled = :enabled')
             ->andWhere('m.locked = :mLocked')
             ->setParameters(array('currentNodeId' =>$currentNodeId,
-                'postStatus' => true,'postEnabled' => true,
-                'nodeStatus'=>true,'nodeEnabled'=>true,
-                'cStatus'=>true,'cEnabled'=>true,
+                'status' => true,'enabled' => true,
                 'mLocked'=>false
             ))
             ->getQuery();
@@ -167,17 +165,15 @@ class PostController extends Controller
             ->innerJoin('n.category', 'c')
             ->orderBy('p.lastCommentTime', 'desc')
              ->where('c.id = :categoryId')
-            ->andWhere('p.status = :postStatus')
-            ->andWhere('p.enabled = :postEnabled')
-            ->andWhere('n.status = :nodeStatus')
-            ->andWhere('n.enabled = :nodeEnabled')
-            ->andWhere('c.status = :cStatus')
-            ->andWhere('c.enabled = :cEnabled')
+            ->andWhere('p.status = :status')
+            ->andWhere('p.enabled = :enabled')
+            ->andWhere('n.status = :status')
+            ->andWhere('n.enabled = :enabled')
+            ->andWhere('c.status = :status')
+            ->andWhere('c.enabled = :enabled')
             ->andWhere('m.locked = :mLocked')
             ->setParameters(array( 'categoryId' => ($currentCategory==null?0:$currentCategory->getId()),
-                'postStatus' => true,'postEnabled' => true,
-                'nodeStatus'=>true,'nodeEnabled'=>true,
-                'cStatus'=>true,'cEnabled'=>true,
+                'status'=>true,'enabled'=>true,
                 'mLocked'=>false
 
             ))
@@ -587,14 +583,13 @@ class PostController extends Controller
             ->innerJoin('pc.member', 'm')
             ->innerJoin('pc.post', 'p')
             ->where('pc.post = :post')
-            ->andWhere('pc.status = :pcStatus')
-            ->andWhere('pc.enabled = :pcEnabled')
-            ->andWhere('p.status = :postStatus')
-            ->andWhere('p.enabled = :postEnabled')
+            ->andWhere('pc.status = :status')
+            ->andWhere('pc.enabled = :enabled')
+            ->andWhere('p.status = :status')
+            ->andWhere('p.enabled = :enabled')
             ->andWhere('m.locked = :mLocked')
             ->setParameters(array(':post' => $post,
-                 'pcStatus' => true, 'pcEnabled' => true,
-                'postStatus' => true,'postEnabled' => true,
+                 'status' => true, 'enabled' => true,
                 'mLocked'=>false
             ))
             ->orderBy('pc.id', 'asc')

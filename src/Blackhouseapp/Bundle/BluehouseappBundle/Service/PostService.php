@@ -97,18 +97,15 @@ class PostService {
             ->innerJoin('n.category', 'c')
             ->where('p.member = :member')
             ->andWhere('m.locked = :mLocked')
-            ->andWhere('p.status = :postStatus')
-            ->andWhere('p.enabled = :postEnabled')
-            ->andWhere('n.status = :nodeStatus')
-            ->andWhere('n.enabled = :nodeEnabled')
-            ->andWhere('c.status = :cStatus')
-            ->andWhere('c.enabled = :cEnabled')
-            ->andWhere('m.locked = :mLocked')
+            ->andWhere('p.status = :status')
+            ->andWhere('p.enabled = :enabled')
+            ->andWhere('n.status = :status')
+            ->andWhere('n.enabled = :enabled')
+            ->andWhere('c.status = :status')
+            ->andWhere('c.enabled = :enabled')
             ->setParameters(array(':member' => $member,
                     'mLocked' => false,
-                'postStatus' => true,'postEnabled' => true,
-                'nodeStatus'=>true,'nodeEnabled'=>true,
-                'cStatus'=>true,'cEnabled'=>true,
+                'status' => true,'enabled' => true,
                 'mLocked'=>false
             ))
            ->orderBy('p.modified', 'desc')
@@ -136,20 +133,17 @@ class PostService {
             ->innerJoin('p.node', 'n')
             ->innerJoin('n.category', 'c')
             ->where('pc.member = :member')
-            ->andWhere('pc.status = :pcStatus')
-            ->andWhere('pc.enabled = :pcEnabled')
-            ->andWhere('p.status = :postStatus')
-            ->andWhere('p.enabled = :postEnabled')
-            ->andWhere('n.status = :nodeStatus')
-            ->andWhere('n.enabled = :nodeEnabled')
-            ->andWhere('c.status = :cStatus')
-            ->andWhere('c.enabled = :cEnabled')
+            ->andWhere('pc.status = :status')
+            ->andWhere('pc.enabled = :enabled')
+            ->andWhere('p.status = :status')
+            ->andWhere('p.enabled = :enabled')
+            ->andWhere('n.status = :status')
+            ->andWhere('n.enabled = :enabled')
+            ->andWhere('c.status = :status')
+            ->andWhere('c.enabled = :enabled')
             ->andWhere('m.locked = :mLocked')
             ->setParameters(array(':member' => $member,
-                'pcStatus' => true, 'pcEnabled' => true,
-                'postStatus' => true,'postEnabled' => true,
-                'nodeStatus'=>true,'nodeEnabled'=>true,
-                'cStatus'=>true,'cEnabled'=>true,
+                'status' => true, 'enabled' => true,
                 'mLocked'=>false
             ))
             ->orderBy('p.modified', 'desc')
@@ -176,17 +170,15 @@ class PostService {
             ->innerJoin('p.node', 'n')
             ->innerJoin('n.category', 'c')
             ->where('p.id = :id')
-            ->andWhere('p.status = :postStatus')
-            ->andWhere('p.enabled = :postEnabled')
-            ->andWhere('n.status = :nodeStatus')
-            ->andWhere('n.enabled = :nodeEnabled')
-            ->andWhere('c.status = :cStatus')
-            ->andWhere('c.enabled = :cEnabled')
+            ->andWhere('p.status = :status')
+            ->andWhere('p.enabled = :enabled')
+            ->andWhere('n.status = :status')
+            ->andWhere('n.enabled = :enabled')
+            ->andWhere('c.status = :status')
+            ->andWhere('c.enabled = :enabled')
             ->andWhere('m.locked = :mLocked')
             ->setParameters(array(':id' => $postId,
-                'postStatus' => true,'postEnabled' => true,
-                'nodeStatus'=>true,'nodeEnabled'=>true,
-                'cStatus'=>true,'cEnabled'=>true,
+                'status' => true,'enabled' => true,
                 'mLocked'=>false
             ))
             ->getQuery();
