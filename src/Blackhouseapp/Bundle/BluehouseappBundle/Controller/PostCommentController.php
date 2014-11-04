@@ -22,7 +22,6 @@ class PostCommentController extends Controller
      *
      * @Route("/postcomment/{id}", name="postcomment_show")
      * @Method("GET")
-     * @Template()
      */
     public function showAction(Request $request, $id)
     {
