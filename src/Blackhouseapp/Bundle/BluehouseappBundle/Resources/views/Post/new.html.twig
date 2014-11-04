@@ -1,9 +1,9 @@
 {% extends "BlackhouseappBluehouseappBundle:layout:layout.html.twig" %}
 
 {% block body -%}
-    <h2>创建帖子
+    <h2>创建主题
         {% if entity.node %}
-        (节点:{{ entity.node.name }})</h2>
+        (所属节点:{{ entity.node.name }})</h2>
         {% endif %}
     <div style="width: 100%">
         <div style="margin: 20px">

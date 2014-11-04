@@ -64,7 +64,7 @@
                     {% if  member.oschina  %}
             <div class="box_sep5"></div>
 
-            <div class="box_icon box_github">
+            <div class="box_icon box_osChina">
                 <a href="{{ member.oschina }}" target="_blank">
                     {{ member.oschina }}
                 </a>
@@ -84,7 +84,7 @@
         </div>
            {% if  member.description  %}
         <div class="box_cell">
-            {{ member.description|raw|nl2br}}
+            {{ member.description|striptags|raw|nl2br}}
         </div>
            {% endif %}
     </div>
@@ -191,7 +191,7 @@
          {% else %}
              <div class="box_inner">
           {% endif %}
-            <div class="box_reply_content">{{ postComment.content|raw|nl2br }}</div>
+            <div class="box_reply_content">{{ postComment.content|striptags|raw|nl2br }}</div>
         </div>
     {% endfor %}
 

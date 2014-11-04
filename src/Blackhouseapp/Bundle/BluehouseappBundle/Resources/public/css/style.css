@@ -417,7 +417,9 @@ img.box_avatar {
 .box_github{
     background: url('../images/github.png') no-repeat;
 }
-
+.box_osChina{
+    background: url('../images/osChina.png') no-repeat;
+}
 /* COUNT */
 
 a.box_count_orange:link, a.box_count_orange:active {

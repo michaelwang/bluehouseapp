@@ -38,7 +38,7 @@
     </div>
     <div class="box_cell">
 
-        <div class="topic_content">{{ entity.content |raw|nl2br }}</div>
+        <div class="topic_content">{{ entity.content |striptags|raw|nl2br }}</div>
 
     </div>
     {% if is_granted('ROLE_MANAGER')%}
@@ -110,7 +110,7 @@
 
                             <div class="sep5"></div>
                             <div class="reply_content">
-                                {{ comment.content|raw|nl2br }}
+                                {{comment.content|striptags|raw|nl2br}}
                             </div>
                             {% if is_granted('ROLE_MANAGER')%}
                                 <a onclick="return confirm('您确定要删除这个回复吗?')"

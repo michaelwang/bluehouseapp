@@ -28,10 +28,10 @@
 
                 {%  if entity.type=='post' %}
                     <a href="{{ path('post_show', { 'id': entity.entityId }) }}">
-                        {{ entity.content |raw|nl2br}}
+                        {{ entity.content |striptags|raw|nl2br}}
                     </a>
                 {% else %}
-                    {{ entity.content |raw|nl2br}}
+                    {{ entity.content |striptags|raw|nl2br}}
                     {% endif %}
                 </td>
                 <td>
