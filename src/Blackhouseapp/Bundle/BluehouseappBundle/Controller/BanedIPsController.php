@@ -76,7 +76,6 @@ class BanedIPsController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }
@@ -165,7 +164,7 @@ class BanedIPsController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+
 
         return $form;
     }
@@ -240,7 +239,7 @@ class BanedIPsController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('admin_banedips_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => '删除'))
             ->getForm()
         ;
     }

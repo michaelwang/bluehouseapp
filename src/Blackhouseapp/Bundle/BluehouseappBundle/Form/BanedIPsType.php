@@ -15,9 +15,31 @@ class BanedIPsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('ip')
-            ->add('fromDate')
-            ->add('toDate')
+            ->add('ip','text',array(
+                'label'=>'IP',
+                'required'=>true,
+                'attr'=>array(
+                    'class'=>'input-block-level',
+                    'placeholder'=>'请输入要屏蔽的IP'
+                )
+            ))
+            ->add('fromDate',null,array(
+                'label'=>'开始时间',
+                'required'=>true,
+                'attr'=>array(
+
+                )))
+            ->add('toDate',null,array(
+                'label'=>'结束时间',
+                'required'=>true,
+                'attr'=>array(
+
+                )))
+            ->add('保存','submit',array(
+                'attr'=>array(
+                    'style'=>'margin-top:20px;'
+                )
+            ))
         ;
     }
     
