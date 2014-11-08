@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Blackhouseapp\Bundle\BluehouseappBundle\Entity\PostComment;
 use Blackhouseapp\Bundle\BluehouseappBundle\Form\PostCommentType;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,7 +29,7 @@ class PostManagerController extends Controller
         $post =$this->get('blackhouseapp_bluehouseapp.post')->getPost($id);
         if ($post) {
             if (!$post) {
-                throw $this->createNotFoundException('Unable to find Post entity.');
+                throw new NotFoundHttpException('Unable to find Post entity.');
             }
             $post->setModified(new \DateTime());
             $post->setStatus(false);

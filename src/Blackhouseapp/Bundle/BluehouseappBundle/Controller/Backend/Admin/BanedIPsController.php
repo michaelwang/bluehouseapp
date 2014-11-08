@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Blackhouseapp\Bundle\BluehouseappBundle\Entity\BanedIPs;
 use Blackhouseapp\Bundle\BluehouseappBundle\Form\BanedIPsType;
-
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * BanedIPs controller.
  *
@@ -112,7 +112,7 @@ class BanedIPsController extends Controller
         $entity = $em->getRepository('BlackhouseappBluehouseappBundle:BanedIPs')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find BanedIPs entity.');
+            throw new NotFoundHttpException('Unable to find BanedIPs entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -137,7 +137,7 @@ class BanedIPsController extends Controller
         $entity = $em->getRepository('BlackhouseappBluehouseappBundle:BanedIPs')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find BanedIPs entity.');
+            throw new NotFoundHttpException('Unable to find BanedIPs entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -217,7 +217,7 @@ class BanedIPsController extends Controller
             $entity = $em->getRepository('BlackhouseappBluehouseappBundle:BanedIPs')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find BanedIPs entity.');
+                throw new NotFoundHttpException('Unable to find BanedIPs entity.');
             }
 
             $em->remove($entity);

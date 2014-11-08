@@ -13,7 +13,7 @@ use Blackhouseapp\Bundle\BluehouseappBundle\Entity\Member;
 use Blackhouseapp\Bundle\BluehouseappBundle\Form\MemberType;
 use Blackhouseapp\Bundle\BluehouseappBundle\Form\MemberImageType;
 
-
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class MemberController extends Controller
 {
 
@@ -174,7 +174,7 @@ class MemberController extends Controller
 
 
         if (!$entity) {
-            throw $this->createNotFoundException('这个用户不存在');
+            throw new NotFoundHttpException('这个用户不存在');
         }
 
 

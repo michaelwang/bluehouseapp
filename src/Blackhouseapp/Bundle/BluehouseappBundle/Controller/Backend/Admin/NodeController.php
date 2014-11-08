@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Blackhouseapp\Bundle\BluehouseappBundle\Entity\Node;
 use Blackhouseapp\Bundle\BluehouseappBundle\Form\NodeType;
-
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * Node controller.
  *
@@ -130,7 +130,7 @@ class NodeController extends Controller
         $entity = $em->getRepository('BlackhouseappBluehouseappBundle:Node')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('此节点不存在.');
+            throw new NotFoundHttpException('此节点不存在.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -155,7 +155,7 @@ class NodeController extends Controller
         $entity = $em->getRepository('BlackhouseappBluehouseappBundle:Node')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('此节点不存在.');
+            throw new NotFoundHttpException('此节点不存在.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -200,7 +200,7 @@ class NodeController extends Controller
         $entity = $em->getRepository('BlackhouseappBluehouseappBundle:Node')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('此节点不存在.');
+            throw new NotFoundHttpException('此节点不存在.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -232,7 +232,7 @@ class NodeController extends Controller
             $entity = $em->getRepository('BlackhouseappBluehouseappBundle:Node')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('此节点不存在.');
+                throw new NotFoundHttpException('此节点不存在.');
             }
             $entity->setModified(new \DateTime());
             $entity->setStatus(false);

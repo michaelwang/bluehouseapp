@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Blackhouseapp\Bundle\BluehouseappBundle\Entity\Category;
 use Blackhouseapp\Bundle\BluehouseappBundle\Form\CategoryType;
-
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * Category controller.
  *
@@ -135,7 +135,7 @@ class CategoryController extends Controller
         }
 
         if (!$entity) {
-            throw $this->createNotFoundException('这个分类不存在.');
+            throw new NotFoundHttpException('这个分类不存在.');
         }
 
 

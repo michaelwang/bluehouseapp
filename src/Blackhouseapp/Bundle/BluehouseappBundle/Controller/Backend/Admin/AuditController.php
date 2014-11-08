@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Blackhouseapp\Bundle\BluehouseappBundle\Entity\Audit;
 use Blackhouseapp\Bundle\BluehouseappBundle\Form\AuditType;
-
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * Audit controller.
  *
@@ -61,7 +61,7 @@ class AuditController extends Controller
 
         if ($post) {
             if (!$post) {
-                throw $this->createNotFoundException('此帖不存在.');
+                throw new NotFoundHttpException('此帖不存在.');
             }
             $post->setModified(new \DateTime());
             $post->setStatus(false);
@@ -69,7 +69,7 @@ class AuditController extends Controller
 
             $entity = $em->getRepository('BlackhouseappBluehouseappBundle:Audit')->find($auditId);
             if (!$entity) {
-                throw $this->createNotFoundException('此审计不存在.');
+                throw new NotFoundHttpException('此审计不存在.');
             }
             $em->remove($entity);
             $em->flush();
@@ -96,7 +96,7 @@ class AuditController extends Controller
 
         if ($postComment) {
             if (!$postComment) {
-                throw $this->createNotFoundException('此评论不存在.');
+                throw new NotFoundHttpException('此评论不存在.');
             }
             $postComment->setModified(new \DateTime());
             $postComment->setStatus(false);
@@ -104,7 +104,7 @@ class AuditController extends Controller
 
             $entity = $em->getRepository('BlackhouseappBluehouseappBundle:Audit')->find($auditId);
             if (!$entity) {
-                throw $this->createNotFoundException('此审计不存在.');
+                throw new NotFoundHttpException('此审计不存在.');
             }
             $em->remove($entity);
             $em->flush();

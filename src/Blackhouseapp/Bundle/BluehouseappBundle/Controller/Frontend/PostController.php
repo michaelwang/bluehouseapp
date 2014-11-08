@@ -13,9 +13,8 @@ use Blackhouseapp\Bundle\BluehouseappBundle\Form\PostType;
 use Blackhouseapp\Bundle\BluehouseappBundle\Entity\PostComment;
 use Blackhouseapp\Bundle\BluehouseappBundle\Entity\Audit;
 use Blackhouseapp\Bundle\BluehouseappBundle\Form\PostCommentType;
-
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
 /**
  * Post controller.
  *
@@ -50,7 +49,7 @@ class PostController extends Controller
             $currentNode = $em->getRepository('BlackhouseappBluehouseappBundle:Node')->find($currentNodeId);
 
             if (!$currentNode) {
-                throw $this->createNotFoundException('此节点不存在.');
+                throw new NotFoundHttpException('此节点不存在.');
             }
 
 
@@ -145,7 +144,7 @@ class PostController extends Controller
                 }
             }
             if (!$currentCategory) {
-                throw $this->createNotFoundException('此分类不存在.');
+                throw new NotFoundHttpException('此分类不存在.');
             }
 
         }
@@ -377,7 +376,7 @@ class PostController extends Controller
 
 
         if (!$post || !$post->getStatus()) {
-            throw $this->createNotFoundException('这个帖子不存在');
+            throw new NotFoundHttpException('这个帖子不存在');
         }
         $param['entity'] = $post;
 

@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Blackhouseapp\Bundle\BluehouseappBundle\Entity\PostComment;
 use Blackhouseapp\Bundle\BluehouseappBundle\Form\PostCommentType;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * PostComment controller.
  *
@@ -41,7 +42,7 @@ class PostCommentController extends Controller
         }
 
         if (!$entity) {
-            throw $this->createNotFoundException('这个评论不存在');
+            throw new NotFoundHttpException('这个评论不存在');
         }
 
         $wh_content=$request->headers->get('WH-CONTEXT');

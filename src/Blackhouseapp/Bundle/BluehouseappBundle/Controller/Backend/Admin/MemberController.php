@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Blackhouseapp\Bundle\BluehouseappBundle\Entity\Member;
 use Blackhouseapp\Bundle\BluehouseappBundle\Form\MemberType;
 use Blackhouseapp\Bundle\BluehouseappBundle\Form\MemberImageType;
-
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class MemberController  extends Controller
 {
