@@ -4,10 +4,12 @@ namespace Blackhouseapp\Bundle\BluehouseappBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
- * Category
- *
+ * @UniqueEntity(
+ *     fields={"name"},
+ *     message="分类名称不能与已有的分类重复"
+ * )
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Blackhouseapp\Bundle\BluehouseappBundle\Entity\CategoryRepository")
  */

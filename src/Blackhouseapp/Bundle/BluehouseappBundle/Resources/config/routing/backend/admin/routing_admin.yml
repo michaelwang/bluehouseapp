@@ -1,0 +1,4 @@
+blakhouseapp_bluehouseapp_admin:
+     resource: "@BlackhouseappBluehouseappBundle/Controller/Backend/Admin/"
+     type:     annotation
+     prefix:   /

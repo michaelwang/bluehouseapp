@@ -11,8 +11,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @UniqueEntity(
- *     fields={"code", "name"},
- *     message="节点代码或者节点名称不能与已有的节点重复"
+ *     fields={"code"},
+ *     message="节点代码不能与已有的节点重复"
  * )
  * @ORM\Table()
  * @Vich\Uploadable
@@ -47,20 +47,6 @@ class Node
      * @Assert\NotBlank()
      */
     private $name;
-
-    /**
-     * @Assert\NotBlank(message="用户名不可为空")
-     * @Assert\Length(
-     *     min="4",
-     *     max="36",
-     *     minMessage="用户名不能少于4个字符",
-     *     maxMessage="用户名不能多于36个字符"
-     * )
-     * @Assert\Regex(
-     *    pattern="/^[A-z0-9]*$/i",
-     *    message="用户名只能使用英文字母和数字"
-     * )
-     */
 
 
 /**

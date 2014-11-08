@@ -1,7 +1,12 @@
-blackhouseapp_bluehouseapp:
-    resource: "@BlackhouseappBluehouseappBundle/Controller/"
-    type:     annotation
-    prefix:   /
+routing_admin:
+        resource: "@BlackhouseappBluehouseappBundle/Resources/config/routing/backend/admin/routing_admin.yml"
+routing_manager:
+        resource: "@BlackhouseappBluehouseappBundle/Resources/config/routing/backend/manager/routing_manager.yml"
+routing_frontEnd:
+        resource: "@BlackhouseappBluehouseappBundle/Resources/config/routing/frontend/routing_frontEnd.yml"
+
+
+
 
 _imagine:
     resource: .

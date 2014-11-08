@@ -1,0 +1,17 @@
+{% extends "BlackhouseappBluehouseappBundle:Backend/Admin/layout:layout.html.twig" %}
+{% block title %}修改屏蔽IP{% endblock %}
+
+{% block body -%}
+    <h1>编辑屏蔽IP</h1>
+
+    {{ form(edit_form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_banedips') }}">
+           返回列表
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

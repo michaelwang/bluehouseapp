@@ -1,0 +1,44 @@
+{% extends "BlackhouseappBluehouseappBundle:Backend/Admin/layout:layout.html.twig" %}
+{% block title %}  显示屏蔽IP{% endblock %}
+{% block body -%}
+    <h1>屏蔽IP管理</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Ip</th>
+                <td>{{ entity.ip }}</td>
+            </tr>
+            <tr>
+                <th>创建时间</th>
+                <td>{{ entity.timestamp|date("Y-m-d H:i") }}</td>
+            </tr>
+            <tr>
+                <th>开始日期</th>
+                <td>{{ entity.fromDate|date("Y-m-d H:i") }}</td>
+            </tr>
+            <tr>
+                <th>结束日期</th>
+                <td>{{ entity.toDate|date("Y-m-d H:i") }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_banedips') }}">
+            返回列表
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('admin_banedips_edit', { 'id': entity.id }) }}">
+           编辑
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}
