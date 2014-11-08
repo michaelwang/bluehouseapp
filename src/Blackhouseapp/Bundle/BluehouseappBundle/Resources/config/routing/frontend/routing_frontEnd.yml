@@ -1,4 +1,4 @@
-blakhouseapp_bluehouseapp_frontEnd:
+blakhouseapp_bluehouseapp_frontend:
     resource: "@BlackhouseappBluehouseappBundle/Controller/Frontend/"
     type:     annotation
     prefix:   /
