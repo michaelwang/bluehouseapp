@@ -238,3 +238,8 @@ vich_uploader:
             upload_destination: member_fs
             delete_on_remove: true
             inject_on_load: true
+
+david_badura_faker:
+  locale: en_EN
+
+

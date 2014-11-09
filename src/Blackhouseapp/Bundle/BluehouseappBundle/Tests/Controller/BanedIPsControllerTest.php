@@ -7,7 +7,15 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class BanedIPsControllerTest extends WebTestCase
 {
 
-    public function testLoginScenario()
+    public function getIP()
+    {
+        $client = static::createClient();
+        $container = $client->getContainer();
+        $fake = $container->get('davidbadura_faker.faker');
+        return $fake->ipv4;
+    }
+    
+    public function testAddBanedIPScenario()
     {
         $client = static::createClient();
         
@@ -30,18 +38,26 @@ class BanedIPsControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/banedips");
         $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
 
+        $container = $client->getContainer();
+        $fake = $container->get('davidbadura_faker.faker');
+        $ipAddress = $fake->ipv4;
+        
         $form = $crawler->selectButton('Create')->form(array(
-          'blackhouseapp_bundle_bluehouseappbundle_banedips[ip]'  => '12.23.45.66',
+          'blackhouseapp_bundle_bluehouseappbundle_banedips[ip]'  => $ipAddress,
           'blackhouseapp_bundle_bluehouseappbundle_banedips[fromDate][date][year]'  => '2015',
-          'blackhouseapp_bundle_bluehouseappbundle_banedips[fromDate][date][month]'  => '12',
+          'blackhouseapp_bundle_bluehouseappbundle_banedips[fromDate][date][month]'  =>'12',
           'blackhouseapp_bundle_bluehouseappbundle_banedips[fromDate][date][day]' => '21',
           'blackhouseapp_bundle_bluehouseappbundle_banedips[toDate][date][year]' => '2017',
           'blackhouseapp_bundle_bluehouseappbundle_banedips[toDate][date][month]' => '1',
-          'blackhouseapp_bundle_bluehouseappbundle_banedips[toDate][date][day]' => '12' ,               )); 
+          'blackhouseapp_bundle_bluehouseappbundle_banedips[toDate][date][day]' => '12' ,   
+
+       )); 
+
         $client->submit($form);
         $crawler = $client->followRedirect(true);
-        $this->assertGreaterThan(0, $crawler->filter('td:contains("12.23.45.66")')->count(), 'Missing element td:contains("12.23.45.66")');        
+        $this->assertGreaterThan(0, $crawler->filter('td:contains("'.strval($ipAddress).'")')->count(), 'Missing element td:contains("'.strval($ipAddress).'")');        
     }
+    
     /*
     public function testCompleteScenario()
     {
