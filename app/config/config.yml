@@ -238,3 +238,11 @@ vich_uploader:
             upload_destination: member_fs
             delete_on_remove: true
             inject_on_load: true
+monolog:
+    handlers:
+        main:
+            type:   stream
+            path:   "%kernel.logs_dir%/%kernel.environment%.log"
+            level:  debug
+        console:
+            type:   console

@@ -15,7 +15,8 @@ class WelcomeController extends Controller
      */
     public function indexAction()
     {
-
+        $logger = $this->get('logger');
+        $logger->info('I just got the logger');
         return  array();
 
     }
