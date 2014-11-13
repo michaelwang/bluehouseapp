@@ -1,0 +1,4 @@
+bluehouse_backend:
+        resource: "@BlackhouseappBluehouseappBundle/Resources/config/routing/backend/main.yml"
+bluehouse_frontend:
+        resource: "@BlackhouseappBluehouseappBundle/Resources/config/routing/frontend/main.yml"

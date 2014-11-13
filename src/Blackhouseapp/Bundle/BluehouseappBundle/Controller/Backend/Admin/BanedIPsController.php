@@ -9,39 +9,35 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Blackhouseapp\Bundle\BluehouseappBundle\Entity\BanedIPs;
 use Blackhouseapp\Bundle\BluehouseappBundle\Form\BanedIPsType;
+use Blackhouseapp\Bundle\BluehouseappBundle\Controller\Resource\ResourceController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * BanedIPs controller.
  *
- * @Route("/admin/banedips")
  */
-class BanedIPsController extends Controller
+class BanedIPsController extends ResourceController
 {
 
     /**
      * Lists all BanedIPs entities.
-     *
-     * @Route("/", name="admin_banedips")
-     * @Method("GET")
-     * @Template()
-     */
+
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('BlackhouseappBluehouseappBundle:BanedIPs')->findAll();
 
-        return array(
+        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/BanedIPs:index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
+
+
     }
+   */
     /**
      * Creates a new BanedIPs entity.
      *
-     * @Route("/", name="admin_banedips_create")
-     * @Method("POST")
-     * @Template("BlackhouseappBluehouseappBundle:Backend/Admin/BanedIPs:new.html.twig")
-     */
+
     public function createAction(Request $request)
     {
         $entity = new BanedIPs();
@@ -55,20 +51,21 @@ class BanedIPsController extends Controller
 
             return $this->redirect($this->generateUrl('admin_banedips_show', array('id' => $entity->getId())));
         }
-
-        return array(
+        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/BanedIPs:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
-    }
+        ));
 
+
+    }
+     */
     /**
      * Creates a form to create a BanedIPs entity.
      *
      * @param BanedIPs $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
-     */
+
     private function createCreateForm(BanedIPs $entity)
     {
         $form = $this->createForm(new BanedIPsType(), $entity, array(
@@ -79,32 +76,28 @@ class BanedIPsController extends Controller
 
         return $form;
     }
-
+     */
     /**
      * Displays a form to create a new BanedIPs entity.
      *
-     * @Route("/new", name="admin_banedips_new")
-     * @Method("GET")
-     * @Template()
-     */
+
     public function newAction()
     {
         $entity = new BanedIPs();
         $form   = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/BanedIPs:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
-    }
+        ));
 
+
+    }
+     */
     /**
      * Finds and displays a BanedIPs entity.
      *
-     * @Route("/{id}", name="admin_banedips_show")
-     * @Method("GET")
-     * @Template()
-     */
+
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -117,19 +110,17 @@ class BanedIPsController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
+        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/BanedIPs:show.html.twig', array(
+            'entity' => $entity,
+            'delete_form'   => $deleteForm->createView(),
+        ));
 
+
+    }
+     */
     /**
      * Displays a form to edit an existing BanedIPs entity.
-     *
-     * @Route("/{id}/edit", name="admin_banedips_edit")
-     * @Method("GET")
-     * @Template()
-     */
+
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -143,20 +134,22 @@ class BanedIPsController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/BanedIPs:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
-    }
+        ));
 
+
+    }
+     */
     /**
     * Creates a form to edit a BanedIPs entity.
     *
     * @param BanedIPs $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
-    */
+
     private function createEditForm(BanedIPs $entity)
     {
         $form = $this->createForm(new BanedIPsType(), $entity, array(
@@ -168,13 +161,12 @@ class BanedIPsController extends Controller
 
         return $form;
     }
+    */
+
     /**
      * Edits an existing BanedIPs entity.
      *
-     * @Route("/{id}", name="admin_banedips_update")
-     * @Method("PUT")
-     * @Template("BlackhouseappBluehouseappBundle:Backend/Admin/BanedIPs:edit.html.twig")
-     */
+
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -194,19 +186,17 @@ class BanedIPsController extends Controller
 
             return $this->redirect($this->generateUrl('admin_banedips_edit', array('id' => $id)));
         }
-
-        return array(
+        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/BanedIPs:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
+
     }
+   */
     /**
      * Deletes a BanedIPs entity.
-     *
-     * @Route("/{id}", name="admin_banedips_delete")
-     * @Method("DELETE")
-     */
+
     public function deleteAction(Request $request, $id)
     {
         $form = $this->createDeleteForm($id);
@@ -226,14 +216,14 @@ class BanedIPsController extends Controller
 
         return $this->redirect($this->generateUrl('admin_banedips'));
     }
-
+     */
     /**
      * Creates a form to delete a BanedIPs entity by id.
      *
      * @param mixed $id The entity id
      *
      * @return \Symfony\Component\Form\Form The form
-     */
+
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
@@ -243,4 +233,8 @@ class BanedIPsController extends Controller
             ->getForm()
         ;
     }
+
+
+
+     */
 }

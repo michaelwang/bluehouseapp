@@ -48,7 +48,7 @@
                                     <a href="#" class="dropdown-toggle"
                                        data-toggle="dropdown"> 系统管理 <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="{{ path('members_list') }}">
+                                        <li><a href="{{ path('members_list',{ 'locked': '0' }) }}">
                                                 <span class="glyphicon glyphicon-user"></span>
                                                 用户管理</a></li>
                                         <li><a href="{{ path('admin_category') }}">

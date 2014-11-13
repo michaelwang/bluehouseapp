@@ -20,7 +20,9 @@
             {% if currentCategory%}
                 {% set nodes=currentCategory.nodes %}
                 {% for node in nodes %}
+                    {% if node.status and node.enabled %}
                     <a href="{{ path('post_by_node', { 'currentNodeId': node.id }) }}" class="node">{{ node.name }}</a>
+                       {% endif %}
                 {% endfor %}
                 {% if currentNode%}
                     <div class="fr">

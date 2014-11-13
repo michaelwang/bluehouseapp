@@ -13,17 +13,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * Audit controller.
  *
- * @Route("/admin/audit")
  */
 class AuditController extends Controller
 {
 
     /**
      * Lists all Audit entities.
-     *
-     * @Route("/", name="admin_audit")
-     * @Method("GET")
-     * @Template()
      */
     public function indexAction(Request $request)
     {
@@ -37,9 +32,11 @@ class AuditController extends Controller
         $page = $request->query->get('page', 1);
         $entities = $this->get('knp_paginator')->paginate($query, $page, 50);
 
-        return array(
+        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/Audit:index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
+
+
     }
 
 
@@ -47,8 +44,6 @@ class AuditController extends Controller
     /**
      * Deletes a Post entity.
      *
-     * @Route("/post_delete", name="admin_audit_post_delete")
-     * @Method({"GET","DELETE"})
      */
     public function deletePostAction(Request $request)
     {
@@ -81,9 +76,6 @@ class AuditController extends Controller
 
     /**
      * Deletes a Post entity.
-     *
-     * @Route("/postcomment_delete", name="admin_audit_postcomment_delete")
-     * @Method({"GET","DELETE"})
      */
     public function deletePostCommentAction(Request $request)
     {

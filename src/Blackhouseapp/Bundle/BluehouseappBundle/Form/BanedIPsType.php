@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class BanedIPsType extends AbstractType
+class BanedIPsType extends AbstractResourceType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -58,6 +58,6 @@ class BanedIPsType extends AbstractType
      */
     public function getName()
     {
-        return 'blackhouseapp_bundle_bluehouseappbundle_banedips';
+        return 'blackhouseapp_bluehouseapp_banedIPs';
     }
 }

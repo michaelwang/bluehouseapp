@@ -13,7 +13,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * Node controller.
  *
- * @Route("/admin/node")
  */
 class NodeController extends Controller
 {
@@ -21,10 +20,6 @@ class NodeController extends Controller
 
     /**
      * Lists all Node entities.
-     *
-     * @Route("/", name="admin_node")
-     * @Method("GET")
-     * @Template()
      */
     public function indexAction(Request $request)
     {
@@ -44,10 +39,10 @@ class NodeController extends Controller
         $entities = $this->get('knp_paginator')->paginate($query, $page, 50);
 
 
-
-        return array(
+        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/Node:index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
+
     }
 
 
@@ -55,9 +50,6 @@ class NodeController extends Controller
     /**
      * Creates a new Node entity.
      *
-     * @Route("/", name="admin_node_create")
-     * @Method("POST")
-     * @Template("BlackhouseappBluehouseappBundle:Backend/Admin/Node:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -72,11 +64,11 @@ class NodeController extends Controller
 
             return $this->redirect($this->generateUrl('admin_node_show', array('id' => $entity->getId())));
         }
-
-        return array(
+        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/Node:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
+
     }
 
     /**
@@ -101,27 +93,23 @@ class NodeController extends Controller
     /**
      * Displays a form to create a new Node entity.
      *
-     * @Route("/new", name="admin_node_new")
-     * @Method("GET")
-     * @Template()
      */
     public function newAction()
     {
         $entity = new Node();
         $form   = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/Node:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
+
+
     }
 
     /**
      * Finds and displays a Node entity.
      *
-     * @Route("/{id}", name="admin_node_show")
-     * @Method("GET")
-     * @Template()
      */
     public function showAction($id)
     {
@@ -135,18 +123,18 @@ class NodeController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+
+
+        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/Node:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
+
+
     }
 
     /**
      * Displays a form to edit an existing Node entity.
-     *
-     * @Route("/{id}/edit", name="admin_node_edit")
-     * @Method("GET")
-     * @Template()
      */
     public function editAction($id)
     {
@@ -160,12 +148,14 @@ class NodeController extends Controller
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
-
-        return array(
+        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/Node:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
+
+
+
     }
 
     /**
@@ -188,10 +178,6 @@ class NodeController extends Controller
     }
     /**
      * Edits an existing Node entity.
-     *
-     * @Route("/{id}", name="admin_node_update")
-     * @Method("PUT")
-     * @Template("BlackhouseappBluehouseappBundle:Backend/Admin/Node:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -213,17 +199,17 @@ class NodeController extends Controller
             return $this->redirect($this->generateUrl('admin_node_edit', array('id' => $id)));
         }
 
-        return array(
+        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/Node:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
+
+
     }
     /**
      * Deletes a Node entity.
      *
-     * @Route("/node_delete/{id}", name="admin_node_delete")
-     * @Method({"GET","DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {
@@ -261,8 +247,6 @@ class NodeController extends Controller
 
 
     /**
-     * @Route("/enable/{id}",name="node_enable")
-     * @Method({"GET"})
      */
     public function enableAction(Request $request,$id)
     {
@@ -277,8 +261,6 @@ class NodeController extends Controller
     }
 
     /**
-     * @Route("/disable/{id}",name="node_disable")
-     * @Method({"GET"})
      */
     public function disableAction(Request $request,$id)
     {

@@ -20,6 +20,7 @@
         "sensio/generator-bundle": "~2.3",
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
+        "friendsofsymfony/rest-bundle": "~1.0",
         "knplabs/gaufrette": "0.2.*@dev",
         "vich/uploader-bundle": "0.9",
         "knplabs/knp-gaufrette-bundle": "dev-master",
@@ -35,7 +36,8 @@
         "simplepie/simplepie": "dev-master",
         "slackiss/slackend-twigextra-bundle": "2.3.*@dev",
         "hwi/oauth-bundle": "0.4.*@dev",
-        "sensio/buzz-bundle": "dev-master"
+        "sensio/buzz-bundle": "dev-master",
+        "pagerfanta/pagerfanta": "1.0.*@dev"
 
     },
     "scripts": {

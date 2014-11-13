@@ -3,9 +3,10 @@
 namespace  Blackhouseapp\Bundle\BluehouseappBundle\Doctrine\ORM;
 use Doctrine\ORM\EntityRepository as BaseEntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
 
-
-class EntityRepository  extends BaseEntityRepository {
+class EntityRepository  extends BaseEntityRepository implements RepositoryInterface{
 
     /**
      * {@inheritdoc}
@@ -88,6 +89,21 @@ class EntityRepository  extends BaseEntityRepository {
             ->getQuery()
             ->getResult()
             ;
+    }
+
+
+    public function createPaginator(array $criteria = null, array $orderBy = null)
+    {
+        $queryBuilder = $this->getCollectionQueryBuilder();
+
+        $this->applyCriteria($queryBuilder, $criteria);
+        $this->applySorting($queryBuilder, $orderBy);
+
+        return $this->getPaginator($queryBuilder);
+    }
+    public function getPaginator(QueryBuilder $queryBuilder)
+    {
+        return new Pagerfanta(new DoctrineORMAdapter($queryBuilder, true, false));
     }
     /**
      * @return QueryBuilder

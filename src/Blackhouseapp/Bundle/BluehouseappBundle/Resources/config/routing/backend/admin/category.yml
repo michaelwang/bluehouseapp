@@ -1,0 +1,37 @@
+admin_category:
+    path:     /
+    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.category:indexAction" }
+
+admin_category_show:
+    path:     /{id}/show
+    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.category:showAction" }
+
+admin_category_new:
+    path:     /new
+    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.category:newAction" }
+
+admin_category_create:
+    path:     /create
+    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.category:createAction" }
+    requirements: { _method: post }
+
+admin_category_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.category:editAction" }
+
+admin_category_update:
+    path:     /{id}/update
+    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.category:updateAction" }
+    requirements: { _method: post|put }
+
+admin_category_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.category:deleteAction" }
+    requirements: { _method: get|post|delete }
+
+category_enable:
+    path:    /enable/{id}
+    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.category:enableAction" }
+category_disable:
+    path:     /disable/{id}
+    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.category:disableAction" }

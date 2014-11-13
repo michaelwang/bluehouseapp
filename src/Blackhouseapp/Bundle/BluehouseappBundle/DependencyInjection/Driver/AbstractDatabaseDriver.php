@@ -94,7 +94,7 @@ abstract class AbstractDatabaseDriver implements DatabaseDriverInterface
     {
         $definition = new Definition($class);
         $definition
-          //  ->setArguments(array($this->getConfigurationDefinition()))
+           ->setArguments(array($this->getConfigurationDefinition()))
             ->addMethodCall('setContainer', array(new Reference('service_container')))
         ;
 
@@ -146,4 +146,21 @@ abstract class AbstractDatabaseDriver implements DatabaseDriverInterface
     {
         return sprintf('%s.%s.%s%s', $this->prefix, $key, $this->resourceName, $suffix);
     }
+
+
+    protected function getConfigurationDefinition()
+    {
+        $definition = new Definition('Blackhouseapp\Bundle\BluehouseappBundle\Controller\Resource\Configuration');
+        $definition
+            ->setFactoryService('blackhouseapp_bluehouseapp.controller.configuration_factory')
+            ->setFactoryMethod('createConfiguration')
+            ->setArguments(array($this->prefix, $this->resourceName, $this->templates))
+            ->setPublic(false)
+        ;
+
+        return $definition;
+    }
+
+
+
 }

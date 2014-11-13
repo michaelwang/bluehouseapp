@@ -57,9 +57,13 @@ class PostController extends Controller
         if($currentCategory!=null){
             $nodes = $currentCategory->getNodes();
 
-            if (count($nodes) > 0) {
-                $currentNode = $nodes[0];
+            foreach ($nodes as $node) {
+                if($node->getStatus() and $node->getEnabled()){
+                    $currentNode=$node;
+                    break;
+                }
             }
+
         }
 
         $repo = $em->getRepository('BlackhouseappBluehouseappBundle:Post');

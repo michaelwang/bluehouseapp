@@ -19,12 +19,11 @@ class MemberController  extends Controller
 
 
     /**
-     * @Route("/admin/members/list/{locked}",name="members_list")
-     * @Template()
-     * @Method({"GET"})
      */
-    public function listAction(Request $request,$locked=0)
+    public function listAction(Request $request)
     {
+
+        $locked = $request->query->get('locked', 0);
 
         $em = $this->getDoctrine()->getManager();
 
@@ -51,18 +50,18 @@ class MemberController  extends Controller
         $qb->setParameter('locked', true);
         $inactiveCount = $qb->getQuery()->getSingleScalarResult();
 
-        return array(
+
+        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/Member:list.html.twig', array(
             'entities' => $entities,
             'activeCount' => $activeCount,
-              'inactiveCount' => $inactiveCount
+            'inactiveCount' => $inactiveCount
+        ));
 
-        );
+
     }
 
 
     /**
- * @Route("/admin/member/enable/{id}",name="member_enable")
- * @Method({"GET"})
  */
     public function enableAction(Request $request,$id)
     {
@@ -77,8 +76,6 @@ class MemberController  extends Controller
     }
 
     /**
-     * @Route("/admin/member/disable/{id}",name="member_disable")
-     * @Method({"GET"})
      */
     public function disableAction(Request $request,$id)
     {

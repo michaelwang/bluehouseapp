@@ -1,6 +1,7 @@
 {% extends "BlackhouseappBluehouseappBundle:Backend/Admin/layout:layout.html.twig" %}
 {% block title %}  显示屏蔽IP{% endblock %}
 {% block body -%}
+    {%  set entity=banedIPs %}
     <h1>屏蔽IP管理</h1>
 
     <table class="record_properties">
@@ -39,6 +40,6 @@
            编辑
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
+
 </ul>
 {% endblock %}

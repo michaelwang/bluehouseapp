@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: John
- * Date: 14-10-20
- * Time: 下午10:09
- */
+
 
 namespace Blackhouseapp\Bundle\BluehouseappBundle\Form;
 

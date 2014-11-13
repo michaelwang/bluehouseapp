@@ -13,7 +13,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * Category controller.
  *
- * @Route("/admin/category")
  */
 class CategoryController extends Controller
 {
@@ -21,9 +20,6 @@ class CategoryController extends Controller
     /**
      * Lists all Category entities.
      *
-     * @Route("/", name="admin_category")
-     * @Method("GET")
-     * @Template()
      */
     public function indexAction(Request $request)
     {
@@ -38,16 +34,16 @@ class CategoryController extends Controller
             ->setParameters(array('status' => true))
             ->getQuery();
         $entities = $this->get('knp_paginator')->paginate($query, $page, 50);
-        return array(
+
+        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/Category:index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
+
+
     }
     /**
      * Creates a new Category entity.
      *
-     * @Route("/", name="admin_category_create")
-     * @Method("POST")
-     * @Template("BlackhouseappBluehouseappBundle:Backend/Admin/Category:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -63,10 +59,12 @@ class CategoryController extends Controller
             return $this->redirect($this->generateUrl('admin_category_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/Category:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
+
+
     }
 
     /**
@@ -90,28 +88,25 @@ class CategoryController extends Controller
 
     /**
      * Displays a form to create a new Category entity.
-     *
-     * @Route("/new", name="admin_category_new")
-     * @Method("GET")
-     * @Template()
+
      */
     public function newAction()
     {
         $entity = new Category();
         $form   = $this->createCreateForm($entity);
 
-        return array(
+
+        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/Category:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
+
+
     }
 
     /**
      * Finds and displays a Category entity.
      *
-     * @Route("/{id}", name="admin_category_show")
-     * @Method("GET")
-     * @Template()
      */
     public function showAction($id)
     {
@@ -139,18 +134,15 @@ class CategoryController extends Controller
         }
 
 
+        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/Category:show.html.twig', array(
+            'entity' => $entity
+        ));
 
-        return array(
-            'entity'      => $entity
-        );
     }
 
     /**
      * Displays a form to edit an existing Category entity.
      *
-     * @Route("/{id}/edit", name="admin_category_edit")
-     * @Method("GET")
-     * @Template()
      */
     public function editAction($id)
     {
@@ -165,11 +157,11 @@ class CategoryController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/Category:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -193,9 +185,6 @@ class CategoryController extends Controller
     /**
      * Edits an existing Category entity.
      *
-     * @Route("/{id}", name="admin_category_update")
-     * @Method("PUT")
-     * @Template("BlackhouseappBluehouseappBundle:Backend/Admin/Category:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -232,17 +221,16 @@ class CategoryController extends Controller
             return $this->redirect($this->generateUrl('admin_category_edit', array('id' => $id)));
         }
 
-        return array(
+        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/Category:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'edit_form'   => $editForm->createView()
+        ));
 
-        );
+
     }
     /**
      * Deletes a Category entity.
      *
-     * @Route("/category_delete/{id}", name="admin_category_delete")
-     * @Method({"GET","DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {
@@ -281,8 +269,6 @@ class CategoryController extends Controller
 
 
     /**
-     * @Route("/enable/{id}",name="category_enable")
-     * @Method({"GET"})
      */
     public function enableAction(Request $request,$id)
     {
@@ -297,8 +283,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * @Route("/disable/{id}",name="category_disable")
-     * @Method({"GET"})
      */
     public function disableAction(Request $request,$id)
     {
