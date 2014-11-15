@@ -37,7 +37,7 @@
         "slackiss/slackend-twigextra-bundle": "2.3.*@dev",
         "hwi/oauth-bundle": "0.4.*@dev",
         "sensio/buzz-bundle": "dev-master",
-	"davidbadura/faker-bundle": "1.0.*"
+	"davidbadura/faker-bundle": "1.0.*",
         "pagerfanta/pagerfanta": "1.0.*@dev"
 
     },
