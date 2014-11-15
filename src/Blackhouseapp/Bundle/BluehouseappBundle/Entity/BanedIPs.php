@@ -3,10 +3,12 @@
 namespace Blackhouseapp\Bundle\BluehouseappBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
- * BanedIPs
- *
+ * @UniqueEntity(
+ *     fields={"ip"},
+ *     message="该IP已经被禁止过"
+ * )
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Blackhouseapp\Bundle\BluehouseappBundle\Entity\BanedIPsRepository")
  */

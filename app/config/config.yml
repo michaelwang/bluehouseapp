@@ -242,4 +242,12 @@ vich_uploader:
 david_badura_faker:
   locale: en_EN
 
+monolog:
+    handlers:
+        main:
+            type:   stream
+            path:   "%kernel.logs_dir%/%kernel.environment%.log"
+            level:  debug
+        console:
+            type:   console
 

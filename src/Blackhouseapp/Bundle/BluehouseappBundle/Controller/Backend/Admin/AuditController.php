@@ -1,0 +1,111 @@
+<?php
+
+namespace Blackhouseapp\Bundle\BluehouseappBundle\Controller\Backend\Admin;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Blackhouseapp\Bundle\BluehouseappBundle\Entity\Audit;
+use Blackhouseapp\Bundle\BluehouseappBundle\Form\AuditType;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+/**
+ * Audit controller.
+ *
+ */
+class AuditController extends Controller
+{
+
+    /**
+     * Lists all Audit entities.
+     */
+    public function indexAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repo=$em->getRepository('BlackhouseappBluehouseappBundle:Audit');
+        $query = $repo->createQueryBuilder('a')
+            ->where('a.status = :status')
+            ->setParameters(array('status'=>true ))
+            ->orderBy('a.id','desc')
+            ->getQuery();
+        $page = $request->query->get('page', 1);
+        $entities = $this->get('knp_paginator')->paginate($query, $page, 50);
+
+        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/Audit:index.html.twig', array(
+            'entities' => $entities,
+        ));
+
+
+    }
+
+
+
+    /**
+     * Deletes a Post entity.
+     *
+     */
+    public function deletePostAction(Request $request)
+    {
+
+        $postId = $request->query->get('postId', 0);
+        $auditId = $request->query->get('auditId', 0);
+
+        $em = $this->getDoctrine()->getManager();
+        $post = $em->getRepository('BlackhouseappBluehouseappBundle:Post')->find($postId);
+
+        if ($post) {
+            if (!$post) {
+                throw new NotFoundHttpException('此帖不存在.');
+            }
+            $post->setModified(new \DateTime());
+            $post->setStatus(false);
+            $em->flush();
+
+            $entity = $em->getRepository('BlackhouseappBluehouseappBundle:Audit')->find($auditId);
+            if (!$entity) {
+                throw new NotFoundHttpException('此审计不存在.');
+            }
+            $em->remove($entity);
+            $em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('admin_audit'));
+
+    }
+
+    /**
+     * Deletes a Post entity.
+     */
+    public function deletePostCommentAction(Request $request)
+    {
+
+        $postcommentId = $request->query->get('postCommentId', 0);
+        $auditId = $request->query->get('auditId', 0);
+
+        $em = $this->getDoctrine()->getManager();
+        $postComment = $em->getRepository('BlackhouseappBluehouseappBundle:PostComment')->find($postcommentId);
+
+        if ($postComment) {
+            if (!$postComment) {
+                throw new NotFoundHttpException('此评论不存在.');
+            }
+            $postComment->setModified(new \DateTime());
+            $postComment->setStatus(false);
+            $em->flush();
+
+            $entity = $em->getRepository('BlackhouseappBluehouseappBundle:Audit')->find($auditId);
+            if (!$entity) {
+                throw new NotFoundHttpException('此审计不存在.');
+            }
+            $em->remove($entity);
+            $em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('admin_audit'));
+
+    }
+
+
+
+}

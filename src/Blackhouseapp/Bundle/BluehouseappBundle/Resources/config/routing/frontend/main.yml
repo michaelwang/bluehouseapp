@@ -1,0 +1,3 @@
+bluehouseapp_frontend:
+    resource: @BlackhouseappBluehouseappBundle/Resources/config/routing/frontend/routing_frontEnd.yml
+    prefix: /

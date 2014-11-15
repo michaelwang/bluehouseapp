@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Trsteel\CkeditorBundle\TrsteelCkeditorBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new \FOS\RestBundle\FOSRestBundle(),
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),

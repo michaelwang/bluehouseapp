@@ -1,0 +1,39 @@
+admin_node:
+    path:     /
+    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.node:indexAction" }
+
+admin_node_show:
+    path:     /{id}/show
+    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.node:showAction" }
+
+admin_node_new:
+    path:     /new
+    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.node:newAction" }
+
+admin_node_create:
+    path:     /create
+    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.node:createAction" }
+    requirements: { _method: post }
+
+admin_node_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.node:editAction" }
+
+admin_node_update:
+    path:     /{id}/update
+    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.node:updateAction" }
+    requirements: { _method: post|put }
+
+admin_node_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.node:deleteAction" }
+    requirements: { _method: get|post|delete }
+
+node_enable:
+    path:     /enable/{id}
+    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.node:enableAction" }
+    requirements: { _method: get|post }
+node_disable:
+    path:     /disable/{id}
+    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.node:disableAction" }
+    requirements: { _method: get|post }

@@ -1,0 +1,8 @@
+bluehouseapp_backend:
+    resource: @BlackhouseappBluehouseappBundle/Resources/config/routing/backend/admin/routing_admin.yml
+    prefix: /admin
+
+
+bluehouseapp_manager:
+    resource: @BlackhouseappBluehouseappBundle/Resources/config/routing/backend/manager/routing_manager.yml
+    prefix: /manager

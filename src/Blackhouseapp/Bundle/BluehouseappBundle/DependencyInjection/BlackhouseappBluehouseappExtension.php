@@ -6,6 +6,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\Config\Definition\Processor;
+use Blackhouseapp\Bundle\BluehouseappBundle\DependencyInjection\Driver\DatabaseDriverFactory;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 /**
  * This is the class that loads and manages your bundle configuration
@@ -14,6 +18,7 @@ use Symfony\Component\DependencyInjection\Loader;
  */
 class BlackhouseappBluehouseappExtension extends Extension
 {
+    protected $applicationName = 'blackhouseapp_bluehouseapp';
     /**
      * {@inheritdoc}
      */
@@ -24,5 +29,80 @@ class BlackhouseappBluehouseappExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+
+        $config = $this->process($config, $container);
+        $this->loadDatabaseDriver($config, $loader, $container);
+        $classes = isset($config['classes']) ? $config['classes'] : array();
+            $this->mapClassParameters($classes, $container);
+        $this->mapClassFormType($classes, $container);
+
+        $container->setParameter('blackhouseapp_bluehouseapp.resource.settings', $config['settings']);
     }
+    protected function process(array $config, ContainerBuilder $container)
+    {
+        // Override if needed.
+        return $config;
+    }
+
+    protected function loadDatabaseDriver(array $config, XmlFileLoader $loader, ContainerBuilder $container)
+    {
+        foreach ($config['classes'] as $model => $classes) {
+            if (array_key_exists('model', $classes)) {
+                DatabaseDriverFactory::get(
+                    'orm',
+                    $container,
+                    $this->applicationName,
+                    $model,
+                    isset($config['object_manager']) ? $config['object_manager'] : 'default',
+                    isset($config['templates'][$model]) ? $config['templates'][$model] : ''
+                )->load($classes);
+            }
+        }
+
+
+
+
+        if ($container->hasParameter('blackhouseapp_bluehouseapp.config.classes')) {
+            $classes = array_merge($config['classes'] , $container->getParameter('blackhouseapp_bluehouseapp.config.classes'));
+        }
+
+        $container->setParameter('blackhouseapp_bluehouseapp.config.classes', $config['classes'] );
+
+        return array($config, $loader);
+
+    }
+
+    protected function mapClassParameters(array $classes, ContainerBuilder $container)
+    {
+        foreach ($classes as $model => $serviceClasses) {
+            foreach ($serviceClasses as $service => $class) {
+                $container->setParameter(
+                    sprintf(
+                        '%s.%s.%s.class',
+                        $this->applicationName,
+                        $service === 'form' ? 'form.type' : $service,
+                        $model
+                    ),
+                    $class
+                );
+            }
+        }
+    }
+    protected function mapClassFormType(array $classes, ContainerBuilder $container)
+    {
+        foreach ($classes as $model => $serviceClasses) {
+            if (array_key_exists('model', $serviceClasses)) {
+                if (array_key_exists('form', $serviceClasses)) {
+
+                    $definition = new Definition( $serviceClasses['form']);
+                    $definition
+                        ->setArguments(array($serviceClasses['model'], array()))
+                        ->addTag('form.type', array('alias' => 'blackhouseapp_bluehouseapp_'.$model));
+                    $container->setDefinition('blackhouseapp_bluehouseapp.form.type.'.$model, $definition);
+                }
+            }
+        }
+    }
+
+
 }
