@@ -18,6 +18,30 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class BanedIPsController extends ResourceController
 {
 
+
+    public function indexAction(Request $request)
+    {
+
+        $repo=$this->getRepository();
+
+        $results=$repo->createPaginator(array('status'=>true),array('id'=>'desc'));
+
+        $results->setCurrentPage($request->get('page', 1), true, true);
+        $results->setMaxPerPage($this->config->getPaginationMaxPerPage());
+
+        $view = $this
+            ->view()
+            ->setTemplate($this->config->getTemplate('index.html'))
+            ->setData(array(
+                'banedIPs'    => $results
+            ))
+        ;
+
+        return $this->handleView($view);
+    }
+
+
+
     /**
      * Lists all BanedIPs entities.
 

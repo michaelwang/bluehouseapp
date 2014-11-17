@@ -1,15 +1,19 @@
 {% extends "BlackhouseappBluehouseappBundle:Backend/Admin/layout:layout.html.twig" %}
+{% from 'BlackhouseappBluehouseappBundle:Macros:misc.html.twig'  import pagination %}
+
+
 {% block title %}
     分类管理
 {% endblock %}
 {% block body -%}
+    {% set entities=categories %}
     <div class="page-header">
         <h2>分类管理 <small></small></h2>
     </div>
     <ol class="breadcrumb clearfix">
         <div class="clearfix">
             <div class="pull-left">
-                <a href="{{path('admin_category_new')}}"><button class="btn btn-primary">创建</button></a>
+                <a href="{{path('bluehouseapp_category_new')}}"><button class="btn btn-primary">创建</button></a>
             </div>
         </div>
     </ol>
@@ -32,7 +36,7 @@
             <tr>
 
                 <td>
-                    <a href="{{ path('admin_category_show', { 'id': entity.id }) }}">
+                    <a href="{{ path('bluehouseapp_category_show', { 'id': entity.id }) }}">
                     {{ entity.name }}
                     </a>
                 </td>
@@ -67,26 +71,26 @@
                 <ul>
 
                     <li>
-                        <a href="{{ path('admin_category_edit', { 'id': entity.id }) }}">编辑</a>
+                        <a href="{{ path('bluehouseapp_category_edit', { 'id': entity.id }) }}">编辑</a>
                     </li>
 
 
                     <li>
                         {% if entity.enabled %}
-                            <a href="{{path('category_disable',{id:entity.id})}}"
+                            <a href="{{path('bluehouseapp_category_disable',{id:entity.id})}}"
                                onclick="return confirm('您确定禁用{{entity.name}}吗？')">
                                 禁用
                             </a>
 
                         {% else %}
-                            <a href="{{path('category_enable',{id:entity.id})}}"
+                            <a href="{{path('bluehouseapp_category_enable',{id:entity.id})}}"
                                onclick="return confirm('您确定启动{{entity.name}}吗？')">
                                 启用
                             </a>
                         {% endif %}
                     </li>
                     <li>
-                        <a href="{{path('admin_category_delete',{id:entity.id})}}"
+                        <a href="{{path('bluehouseapp_category_delete',{id:entity.id})}}"
                            onclick="return confirm('您确定要删除{{entity.name}}吗？')">
                             删除
                         </a>
@@ -98,6 +102,6 @@
         </tbody>
 
     </table>
-    {{ knp_pagination_render(entities) }}
+    {{ pagination(entities) }}
 
     {% endblock %}

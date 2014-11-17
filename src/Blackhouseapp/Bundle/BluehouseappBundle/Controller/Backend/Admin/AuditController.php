@@ -2,13 +2,13 @@
 
 namespace Blackhouseapp\Bundle\BluehouseappBundle\Controller\Backend\Admin;
 
+use Blackhouseapp\Bundle\BluehouseappBundle\Controller\Resource\ResourceController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Blackhouseapp\Bundle\BluehouseappBundle\Entity\Audit;
-use Blackhouseapp\Bundle\BluehouseappBundle\Form\AuditType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Blackhouseapp\Bundle\BluehouseappBundle\Controller\Resource\ResourceController;
 /**
@@ -20,24 +20,29 @@ class AuditController extends ResourceController
 
     /**
      * Lists all Audit entities.
-
+     */    
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $repo=$em->getRepository('BlackhouseappBluehouseappBundle:Audit');
-        $query = $repo->createQueryBuilder('a')
-            ->where('a.status = :status')
-            ->setParameters(array('status'=>true ))
-            ->orderBy('a.id','desc')
-            ->getQuery();
-        $page = $request->query->get('page', 1);
-        $entities = $this->get('knp_paginator')->paginate($query, $page, 50);
 
-        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/Audit:index.html.twig', array(
-            'entities' => $entities,
-        ));
+        $repo=$this->getRepository();
+
+        $results=$repo->createPaginator(array('status'=>true),array('id'=>'desc'));
+
+        $results->setCurrentPage($request->get('page', 1), true, true);
+        $results->setMaxPerPage($this->config->getPaginationMaxPerPage());
+
+        $view = $this
+            ->view()
+            ->setTemplate($this->config->getTemplate('index.html'))
+            ->setData(array(
+                'entities'    => $results
+            ))
+        ;
+
+        return $this->handleView($view);
+
     }
-     */    
+
 
 
     /**
@@ -51,7 +56,7 @@ class AuditController extends ResourceController
         $auditId = $request->query->get('auditId', 0);
 
         $em = $this->getDoctrine()->getManager();
-        $post = $em->getRepository('BlackhouseappBluehouseappBundle:Post')->find($postId);
+        $post = $this->get('bluehouseapp.repository.post')->find($postId);
 
         if ($post) {
             if (!$post) {
@@ -61,7 +66,7 @@ class AuditController extends ResourceController
             $post->setStatus(false);
             $em->flush();
 
-            $entity = $em->getRepository('BlackhouseappBluehouseappBundle:Audit')->find($auditId);
+            $entity = $this->getRepository()->find($auditId);
             if (!$entity) {
                 throw new NotFoundHttpException('此审计不存在.');
             }
@@ -69,7 +74,7 @@ class AuditController extends ResourceController
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_audit'));
+        return $this->redirect($this->generateUrl('bluehouseapp_audit_index'));
 
     }
 
@@ -83,7 +88,7 @@ class AuditController extends ResourceController
         $auditId = $request->query->get('auditId', 0);
 
         $em = $this->getDoctrine()->getManager();
-        $postComment = $em->getRepository('BlackhouseappBluehouseappBundle:PostComment')->find($postcommentId);
+        $postComment = $this->get('bluehouseapp.repository.postcomment')->find($postcommentId);
 
         if ($postComment) {
             if (!$postComment) {
@@ -93,7 +98,7 @@ class AuditController extends ResourceController
             $postComment->setStatus(false);
             $em->flush();
 
-            $entity = $em->getRepository('BlackhouseappBluehouseappBundle:Audit')->find($auditId);
+            $entity = $this->getRepository()->find($auditId);
             if (!$entity) {
                 throw new NotFoundHttpException('此审计不存在.');
             }
@@ -101,7 +106,7 @@ class AuditController extends ResourceController
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_audit'));
+        return $this->redirect($this->generateUrl('bluehouseapp_audit_index'));
 
     }
 

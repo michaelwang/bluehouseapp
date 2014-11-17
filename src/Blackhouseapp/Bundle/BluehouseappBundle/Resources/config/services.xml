@@ -4,205 +4,77 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <parameters>
-        <parameter key="blackhouseapp_bluehouseapp.mail.class">Blackhouseapp\Bundle\BluehouseappBundle\Service\MailService</parameter>
-        <parameter key="blackhouseapp_bluehouseapp.post.class">Blackhouseapp\Bundle\BluehouseappBundle\Service\PostService</parameter>
-        <parameter key="blackhouseapp_bluehouseapp.registration.listener.class">Blackhouseapp\Bundle\BluehouseappBundle\Listener\SecurityRegistrationListener</parameter>
-        <parameter key="blackhouseapp_bluehouseapp.login.listener.class">Blackhouseapp\Bundle\BluehouseappBundle\Listener\LoginListener</parameter>
+        <parameter key="bluehouseapp.mail.class">Blackhouseapp\Bundle\BluehouseappBundle\Service\MailService</parameter>
+        <parameter key="bluehouseapp.post.class">Blackhouseapp\Bundle\BluehouseappBundle\Service\PostService</parameter>
+        <parameter key="bluehouseapp.registration.listener.class">Blackhouseapp\Bundle\BluehouseappBundle\Listener\SecurityRegistrationListener</parameter>
+        <parameter key="bluehouseapp.login.listener.class">Blackhouseapp\Bundle\BluehouseappBundle\Listener\LoginListener</parameter>
 
 
-        <parameter key="blackhouseapp_bluehouseapp.controller.configuration_factory.class">Blackhouseapp\Bundle\BluehouseappBundle\Controller\Resource\ConfigurationFactory</parameter>
+        <parameter key="bluehouseapp.controller.configuration_factory.class">Blackhouseapp\Bundle\BluehouseappBundle\Controller\Resource\ConfigurationFactory</parameter>
 
 
-        <parameter key="blackhouseapp_bluehouseapp.controller.parameters_parser.class">Blackhouseapp\Bundle\BluehouseappBundle\Controller\Resource\ParametersParser</parameter>
-        <parameter key="blackhouseapp_bluehouseapp.controller.parameters.class">Blackhouseapp\Bundle\BluehouseappBundle\Controller\Resource\Parameters</parameter>
-        <parameter key="blackhouseapp_bluehouseapp.event_subscriber.load_orm_metadata.class">Blackhouseapp\Bundle\BluehouseappBundle\EventListener\LoadORMMetadataSubscriber</parameter>
-        <parameter key="blackhouseapp_bluehouseapp.event_subscriber.kernel_controller.class">Blackhouseapp\Bundle\BluehouseappBundle\EventListener\KernelControllerSubscriber</parameter>
-        <parameter key="blackhouseapp_bluehouseapp.event_subscriber.kernel_request.class">Blackhouseapp\Bundle\BluehouseappBundle\EventListener\KernelRequestSubscriber</parameter>
+        <parameter key="bluehouseapp.controller.parameters_parser.class">Blackhouseapp\Bundle\BluehouseappBundle\Controller\Resource\ParametersParser</parameter>
+        <parameter key="bluehouseapp.controller.parameters.class">Blackhouseapp\Bundle\BluehouseappBundle\Controller\Resource\Parameters</parameter>
+        <parameter key="bluehouseapp.event_subscriber.load_orm_metadata.class">Blackhouseapp\Bundle\BluehouseappBundle\EventListener\LoadORMMetadataSubscriber</parameter>
+        <parameter key="bluehouseapp.event_subscriber.kernel_controller.class">Blackhouseapp\Bundle\BluehouseappBundle\EventListener\KernelControllerSubscriber</parameter>
+        <parameter key="bluehouseapp.event_subscriber.kernel_request.class">Blackhouseapp\Bundle\BluehouseappBundle\EventListener\KernelRequestSubscriber</parameter>
 
-        <!--
-                <parameter key="blackhouseapp_bluehouseapp.model.audit.class">Blackhouseapp\Bundle\BluehouseappBundle\Entity\Audit</parameter>
-                <parameter key="blackhouseapp_bluehouseapp.model.banedips.class">Blackhouseapp\Bundle\BluehouseappBundle\Entity\BanedIPs</parameter>
-                <parameter key="blackhouseapp_bluehouseapp.model.category.class">Blackhouseapp\Bundle\BluehouseappBundle\Entity\Category</parameter>
-                <parameter key="blackhouseapp_bluehouseapp.model.member.class">Blackhouseapp\Bundle\BluehouseappBundle\Entity\Member</parameter>
-                <parameter key="blackhouseapp_bluehouseapp.model.node.class">Blackhouseapp\Bundle\BluehouseappBundle\Entity\Node</parameter>
-                <parameter key="blackhouseapp_bluehouseapp.model.post.class">Blackhouseapp\Bundle\BluehouseappBundle\Entity\Post</parameter>
-                <parameter key="blackhouseapp_bluehouseapp.model.postComment.class">Blackhouseapp\Bundle\BluehouseappBundle\Entity\PostComment</parameter>
 
-                <parameter key="blackhouseapp_bluehouseapp.repository.audit.class">Blackhouseapp\Bundle\BluehouseappBundle\Doctrine\ORM\EntityRepository</parameter>
-                <parameter key="blackhouseapp_bluehouseapp.repository.banedips.class">Blackhouseapp\Bundle\BluehouseappBundle\Doctrine\ORM\EntityRepository</parameter>
-                <parameter key="blackhouseapp_bluehouseapp.repository.category.class">Blackhouseapp\Bundle\BluehouseappBundle\Doctrine\ORM\EntityRepository</parameter>
-                <parameter key="blackhouseapp_bluehouseapp.repository.member.class">Blackhouseapp\Bundle\BluehouseappBundle\Doctrine\ORM\EntityRepository</parameter>
-                <parameter key="blackhouseapp_bluehouseapp.repository.node.class">Blackhouseapp\Bundle\BluehouseappBundle\Doctrine\ORM\EntityRepository</parameter>
-                <parameter key="blackhouseapp_bluehouseapp.repository.post.class">Blackhouseapp\Bundle\BluehouseappBundle\Doctrine\ORM\EntityRepository</parameter>
-                <parameter key="blackhouseapp_bluehouseapp.repository.postComment.class">Blackhouseapp\Bundle\BluehouseappBundle\Doctrine\ORM\EntityRepository</parameter>
-        -->
     </parameters>
     <services>
 
-        <service id="blackhouseapp_bluehouseapp.controller.configuration_factory" class="%blackhouseapp_bluehouseapp.controller.configuration_factory.class%">
-            <argument type="service" id="blackhouseapp_bluehouseapp.controller.parameters_parser" />
-            <argument>%blackhouseapp_bluehouseapp.resource.settings%</argument>
+        <service id="bluehouseapp.controller.configuration_factory" class="%bluehouseapp.controller.configuration_factory.class%">
+            <argument type="service" id="bluehouseapp.controller.parameters_parser" />
+            <argument>%bluehouseapp.resource.settings%</argument>
         </service>
-        <service id="blackhouseapp_bluehouseapp.controller.parameters_parser" class="%blackhouseapp_bluehouseapp.controller.parameters_parser.class%">
+        <service id="bluehouseapp.controller.parameters_parser" class="%bluehouseapp.controller.parameters_parser.class%">
 
         </service>
-        <service id="blackhouseapp_bluehouseapp.controller.parameters" class="%blackhouseapp_bluehouseapp.controller.parameters.class%" />
+        <service id="bluehouseapp.controller.parameters" class="%bluehouseapp.controller.parameters.class%" />
 
 
-        <service id="blackhouseapp_bluehouseapp.controller.configuration_factory" class="%blackhouseapp_bluehouseapp.controller.configuration_factory.class%">
-            <argument type="service" id="blackhouseapp_bluehouseapp.controller.parameters_parser" />
-            <argument>%blackhouseapp_bluehouseapp.resource.settings%</argument>
+        <service id="bluehouseapp.controller.configuration_factory" class="%bluehouseapp.controller.configuration_factory.class%">
+            <argument type="service" id="bluehouseapp.controller.parameters_parser" />
+            <argument>%bluehouseapp.resource.settings%</argument>
         </service>
 
-        <service id="blackhouseapp_bluehouseapp.event_subscriber.load_orm_metadata" class="%blackhouseapp_bluehouseapp.event_subscriber.load_orm_metadata.class%">
-            <argument>%blackhouseapp_bluehouseapp.config.classes%</argument>
+        <service id="bluehouseapp.event_subscriber.load_orm_metadata" class="%bluehouseapp.event_subscriber.load_orm_metadata.class%">
+            <argument>%bluehouseapp.config.classes%</argument>
             <tag name="doctrine.event_subscriber" />
         </service>
 
-        <service id="blackhouseapp_bluehouseapp.event_subscriber.kernel_controller" class="%blackhouseapp_bluehouseapp.event_subscriber.kernel_controller.class%">
-            <argument type="service" id="blackhouseapp_bluehouseapp.controller.parameters_parser" />
-            <argument type="service" id="blackhouseapp_bluehouseapp.controller.parameters" />
-            <argument>%blackhouseapp_bluehouseapp.resource.settings%</argument>
+        <service id="bluehouseapp.event_subscriber.kernel_controller" class="%bluehouseapp.event_subscriber.kernel_controller.class%">
+            <argument type="service" id="bluehouseapp.controller.parameters_parser" />
+            <argument type="service" id="bluehouseapp.controller.parameters" />
+            <argument>%bluehouseapp.resource.settings%</argument>
             <tag name="kernel.event_subscriber" />
         </service>
-        <!--
-        <service id="blackhouseapp_bluehouseapp.manager.audit" alias="doctrine.orm.entity_manager" />
-        <service id="blackhouseapp_bluehouseapp.manager.banedips" alias="doctrine.orm.entity_manager" />
-        <service id="blackhouseapp_bluehouseapp.manager.category" alias="doctrine.orm.entity_manager" />
-        <service id="blackhouseapp_bluehouseapp.manager.member" alias="doctrine.orm.entity_manager" />
-        <service id="blackhouseapp_bluehouseapp.manager.node" alias="doctrine.orm.entity_manager" />
-        <service id="blackhouseapp_bluehouseapp.manager.post" alias="doctrine.orm.entity_manager" />
-        <service id="blackhouseapp_bluehouseapp.manager.postComment" alias="doctrine.orm.entity_manager" />
-
-        <service id="blackhouseapp_bluehouseapp.repository.audit" class="%blackhouseapp_bluehouseapp.repository.audit.class%">
-            <argument type="service" id="blackhouseapp_bluehouseapp.manager.audit" />
-            <argument type="service">
-                <service
-                        factory-service="doctrine.orm.default_entity_manager"
-                        factory-method="getClassMetadata"
-                        class="Doctrine\ORM\Mapping\ClassMetadata"
-                        >
-                    <argument>%blackhouseapp_bluehouseapp.model.audit.class%</argument>
-                </service>
-            </argument>
-        </service>
-        <service id="blackhouseapp_bluehouseapp.repository.banedips" class="%blackhouseapp_bluehouseapp.repository.banedips.class%">
-            <argument type="service" id="blackhouseapp_bluehouseapp.manager.banedips" />
-            <argument type="service">
-                <service
-                        factory-service="doctrine.orm.default_entity_manager"
-                        factory-method="getClassMetadata"
-                        class="Doctrine\ORM\Mapping\ClassMetadata"
-                        >
-                    <argument>%blackhouseapp_bluehouseapp.model.banedips.class%</argument>
-                </service>
-            </argument>
-        </service>
-        <service id="blackhouseapp_bluehouseapp.repository.category" class="%blackhouseapp_bluehouseapp.repository.category.class%">
-            <argument type="service" id="blackhouseapp_bluehouseapp.manager.category" />
-            <argument type="service">
-                <service
-                        factory-service="doctrine.orm.default_entity_manager"
-                        factory-method="getClassMetadata"
-                        class="Doctrine\ORM\Mapping\ClassMetadata"
-                        >
-                    <argument>%blackhouseapp_bluehouseapp.model.category.class%</argument>
-                </service>
-            </argument>
-
-        </service>
-
-        <service id="blackhouseapp_bluehouseapp.repository.member" class="%blackhouseapp_bluehouseapp.repository.member.class%">
-            <argument type="service" id="blackhouseapp_bluehouseapp.manager.member" />
-            <argument type="service">
-                <service
-                        factory-service="doctrine.orm.default_entity_manager"
-                        factory-method="getClassMetadata"
-                        class="Doctrine\ORM\Mapping\ClassMetadata"
-                        >
-                    <argument>%blackhouseapp_bluehouseapp.model.member.class%</argument>
-                </service>
-            </argument>
-
-        </service>
-
-        <service id="blackhouseapp_bluehouseapp.repository.node" class="%blackhouseapp_bluehouseapp.repository.node.class%">
-            <argument type="service" id="blackhouseapp_bluehouseapp.manager.node" />
-            <argument type="service">
-                <service
-                        factory-service="doctrine.orm.default_entity_manager"
-                        factory-method="getClassMetadata"
-                        class="Doctrine\ORM\Mapping\ClassMetadata"
-                        >
-                    <argument>%blackhouseapp_bluehouseapp.model.node.class%</argument>
-                </service>
-            </argument>
-
-        </service>
-
-        <service id="blackhouseapp_bluehouseapp.repository.post" class="%blackhouseapp_bluehouseapp.repository.post.class%">
-            <argument type="service" id="blackhouseapp_bluehouseapp.manager.post" />
-            <argument type="service">
-                <service
-                        factory-service="doctrine.orm.default_entity_manager"
-                        factory-method="getClassMetadata"
-                        class="Doctrine\ORM\Mapping\ClassMetadata"
-                        >
-                    <argument>%blackhouseapp_bluehouseapp.model.post.class%</argument>
-                </service>
-            </argument>
-
-        </service>
-
-        <service id="blackhouseapp_bluehouseapp.repository.postComment" class="%blackhouseapp_bluehouseapp.repository.postComment.class%">
-            <argument type="service" id="blackhouseapp_bluehouseapp.manager.postComment" />
-            <argument type="service">
-                <service
-                        factory-service="doctrine.orm.default_entity_manager"
-                        factory-method="getClassMetadata"
-                        class="Doctrine\ORM\Mapping\ClassMetadata"
-                        >
-                    <argument>%blackhouseapp_bluehouseapp.model.postComment.class%</argument>
-                </service>
-            </argument>
-
-        </service>
--->
 
 
 
 
-
-        <service id="blackhouseapp_bluehouseapp.mail" class="%blackhouseapp_bluehouseapp.mail.class%">
+        <service id="bluehouseapp.mail" class="%bluehouseapp.mail.class%">
             <argument type="service" id="mailer">mailer</argument>
             <argument type="service" id="templating">template</argument>
         </service>
-        <service id="blackhouseapp_bluehouseapp.post" class="%blackhouseapp_bluehouseapp.post.class%" scope="request">
+        <service id="bluehouseapp.post" class="%bluehouseapp.post.class%" scope="request">
             <argument type="service" id="doctrine.orm.entity_manager">em</argument>
-            <argument type="service" id="blackhouseapp_bluehouseapp.mail">mail</argument>
+            <argument type="service" id="bluehouseapp.mail">mail</argument>
             <argument type="service" id="security.context">security</argument>
             <argument type="service" id="router">route</argument>
             <argument type="service" id="request">req</argument>
         </service>
-        <service id="blackhouseapp_bludehouseapp.registrationListener" class="%blackhouseapp_bluehouseapp.registration.listener.class%">
+        <service id="bluehouseapp.registrationListener" class="%bluehouseapp.registration.listener.class%">
             <tag name="kernel.event_subscriber"/>
             <argument type="service" id="doctrine.orm.entity_manager">em</argument>
             <argument type="service" id="router" />
         </service>
-        <service id="blackhouseapp_bludehouseapp.LoginListener" class="%blackhouseapp_bluehouseapp.login.listener.class%">
+        <service id="bluehouseapp.LoginListener" class="%bluehouseapp.login.listener.class%">
             <tag name="kernel.event_listener" event="security.interactive_login" method="onSecurityInteractiveLogin"/>
             <argument type="service" id="doctrine.orm.entity_manager">em</argument>
             <argument type="service" id="router" />
 	    <argument type="service" id="event_dispatcher" />
-        </service>		
-    </services>
-    <!--
-    <services>
-        <service id="blackhouseapp_bluehouseapp.example" class="Blackhouseapp\Bundle\BluehouseappBundle\Example">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
         </service>
     </services>
-    -->
+
 </container>

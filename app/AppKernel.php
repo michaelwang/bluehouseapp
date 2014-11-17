@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Knp\Bundle\TimeBundle\KnpTimeBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
+            new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Blackhouseapp\Bundle\BluehouseappBundle\BlackhouseappBluehouseappBundle(),
         );
 

@@ -3,6 +3,7 @@
     显示分类
 {% endblock %}
 {% block body -%}
+{% set entity=category %}
     <h1>显示分类</h1>
 
     <table class="record_properties">
@@ -40,11 +41,11 @@
 
         <ul class="record_actions">
     <li>
-        <a href="{{path('admin_category')}}"><button class="btn btn-primary">返回</button></a>
+        <a href="{{path('bluehouseapp_category_index')}}"><button class="btn btn-primary">返回</button></a>
 
     </li>
     <li>
-        <a href="{{path('admin_category_edit', { 'id': entity.id })}}">
+        <a href="{{path('bluehouseapp_category_edit', { 'id': entity.id })}}">
             <button class="btn btn-primary">编辑</button></a>
 
 

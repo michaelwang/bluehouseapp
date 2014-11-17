@@ -14,6 +14,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class BanedIPs
 {
+
+
     /**
      * @var integer
      *
@@ -54,9 +56,19 @@ class BanedIPs
     public function __construct()
     {
        $this->timestamp = new \DateTime();
+        $this->status = true;
     }
 
-    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="status", type="boolean")
+     */
+    private $status;
+
+
+
+
     /**
      * Get id
      *
@@ -158,4 +170,23 @@ class BanedIPs
     {
         return $this->toDate;
     }
+
+    /**
+     * @param boolean $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+
+
 }

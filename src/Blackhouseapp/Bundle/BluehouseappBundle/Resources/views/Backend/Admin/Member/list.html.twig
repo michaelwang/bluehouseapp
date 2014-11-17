@@ -1,4 +1,5 @@
 {% extends "BlackhouseappBluehouseappBundle:Backend/Admin/layout:layout.html.twig" %}
+{% from 'BlackhouseappBluehouseappBundle:Macros:misc.html.twig'  import pagination %}
 {% block title %}
     用户管理
 {% endblock %}
@@ -7,10 +8,10 @@
         <h2>用户管理 <small></small></h2>
     </div>
     <ol class="breadcrumb clearfix">
-        <li><a href="{{path('members_list', { 'locked':  '0'})}}">可用用户 <span class="label label-success">({{activeCount }})</span></a></li>
+        <li><a href="{{path('bluehouseapp_members_list', { 'locked':  '0'})}}">可用用户 <span class="label label-success">({{activeCount }})</span></a></li>
         </li>
         <li>
-            <a href="{{path('members_list', { 'locked':'1'})}}">禁用用户 <span class="label label-danger">({{inactiveCount }})</span></a>
+            <a href="{{path('bluehouseapp_members_list', { 'locked':'1'})}}">禁用用户 <span class="label label-danger">({{inactiveCount }})</span></a>
         </li>
     </ol>
 
@@ -62,10 +63,10 @@
                 <td>
 
                         {% if entity.locked %}
-                            <a href="{{path('member_enable',{id:entity.id})}}" onclick="return confirm('您确定要启用{{entity.username}}吗？')"><button class="btn btn-default">启用</button></a>
+                            <a href="{{path('bluehouseapp_member_enable',{id:entity.id})}}" onclick="return confirm('您确定要启用{{entity.username}}吗？')"><button class="btn btn-default">启用</button></a>
 
                          {% else %}
-                             <a href="{{path('member_disable',{id:entity.id})}}" onclick="return confirm('您确定要禁用{{entity.username}}吗？')"><button class="btn btn-default">禁用</button></a>
+                             <a href="{{path('bluehouseapp_member_disable',{id:entity.id})}}" onclick="return confirm('您确定要禁用{{entity.username}}吗？')"><button class="btn btn-default">禁用</button></a>
 
                         {% endif %}
 
@@ -76,5 +77,5 @@
         </tbody>
 
     </table>
-    {{ knp_pagination_render(entities) }}
+    {{ pagination(entities) }}
 {% endblock %}

@@ -10,17 +10,39 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Blackhouseapp\Bundle\BluehouseappBundle\Entity\Node;
 use Blackhouseapp\Bundle\BluehouseappBundle\Form\NodeType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Blackhouseapp\Bundle\BluehouseappBundle\Controller\Resource\ResourceController;
 /**
  * Node controller.
  *
  */
-class NodeController extends Controller
+class NodeController extends ResourceController
 {
 
+    public function indexAction(Request $request)
+    {
 
+        $repo=$this->getRepository();
+
+        $results=$repo->createPaginator(array('status'=>true),array('id'=>'desc'));
+
+        $results->setCurrentPage($request->get('page', 1), true, true);
+        $results->setMaxPerPage($this->config->getPaginationMaxPerPage());
+
+        $view = $this
+            ->view()
+            ->setTemplate($this->config->getTemplate('index.html'))
+            ->setData(array(
+                'nodes'    => $results
+            ))
+        ;
+
+        return $this->handleView($view);
+
+
+    }
     /**
      * Lists all Node entities.
-     */
+
     public function indexAction(Request $request)
     {
 
@@ -44,13 +66,13 @@ class NodeController extends Controller
         ));
 
     }
-
+     */
 
 
     /**
      * Creates a new Node entity.
      *
-     */
+
     public function createAction(Request $request)
     {
         $entity = new Node();
@@ -70,14 +92,14 @@ class NodeController extends Controller
         ));
 
     }
-
+     */
     /**
      * Creates a form to create a Node entity.
      *
      * @param Node $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
-     */
+
     private function createCreateForm(Node $entity)
     {
         $form = $this->createForm(new NodeType(false,$this->getDoctrine()->getManager()), $entity, array(
@@ -89,11 +111,11 @@ class NodeController extends Controller
 
         return $form;
     }
-
+     */
     /**
      * Displays a form to create a new Node entity.
      *
-     */
+
     public function newAction()
     {
         $entity = new Node();
@@ -106,11 +128,11 @@ class NodeController extends Controller
 
 
     }
-
+     */
     /**
      * Finds and displays a Node entity.
      *
-     */
+
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -132,10 +154,10 @@ class NodeController extends Controller
 
 
     }
-
+     */
     /**
      * Displays a form to edit an existing Node entity.
-     */
+
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -157,14 +179,14 @@ class NodeController extends Controller
 
 
     }
-
+     */
     /**
     * Creates a form to edit a Node entity.
     *
     * @param Node $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
-    */
+
     private function createEditForm(Node $entity)
     {
         $form = $this->createForm(new NodeType(true,$this->getDoctrine()->getManager()), $entity, array(
@@ -176,9 +198,10 @@ class NodeController extends Controller
 
         return $form;
     }
+   */
     /**
      * Edits an existing Node entity.
-     */
+
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -207,10 +230,11 @@ class NodeController extends Controller
 
 
     }
+     */
     /**
      * Deletes a Node entity.
      *
-     */
+
     public function deleteAction(Request $request, $id)
     {
 
@@ -227,14 +251,14 @@ class NodeController extends Controller
 
         return $this->redirect($this->generateUrl('admin_node'));
     }
-
+     */
     /**
      * Creates a form to delete a Node entity by id.
      *
      * @param mixed $id The entity id
      *
      * @return \Symfony\Component\Form\Form The form
-     */
+
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
@@ -244,34 +268,32 @@ class NodeController extends Controller
             ->getForm()
         ;
     }
-
+     */
 
     /**
      */
     public function enableAction(Request $request,$id)
     {
-        $node = $this->getDoctrine()->getManager()
-            ->getRepository('BlackhouseappBluehouseappBundle:Node')
+        $node = $this->getRepository()
             ->find($id);
 
         $em = $this->getDoctrine()->getManager();
         $node->setEnabled(true);
         $em->flush($node);
-        return $this->redirect($this->generateUrl('admin_node'));
+        return $this->redirect($this->generateUrl('bluehouseapp_node_index'));
     }
 
     /**
      */
     public function disableAction(Request $request,$id)
     {
-        $node = $this->getDoctrine()->getManager()
-            ->getRepository('BlackhouseappBluehouseappBundle:Node')
+        $node = $this->getRepository()
             ->find($id);
 
         $em = $this->getDoctrine()->getManager();
         $node->setEnabled(false);
         $em->flush($node);
-        return $this->redirect($this->generateUrl('admin_node'));
+        return $this->redirect($this->generateUrl('bluehouseapp_node_index'));
     }
 
 

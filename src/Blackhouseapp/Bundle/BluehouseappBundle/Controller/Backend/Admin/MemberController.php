@@ -8,13 +8,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+use Blackhouseapp\Bundle\BluehouseappBundle\Controller\Resource\ResourceController;
 use Blackhouseapp\Bundle\BluehouseappBundle\Entity\Member;
 use Blackhouseapp\Bundle\BluehouseappBundle\Form\MemberType;
 use Blackhouseapp\Bundle\BluehouseappBundle\Form\MemberImageType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class MemberController  extends Controller
+class MemberController  extends ResourceController
 {
 
 
@@ -22,42 +22,29 @@ class MemberController  extends Controller
      */
     public function listAction(Request $request)
     {
-
+        $repo = $this->getRepository();
         $locked = $request->query->get('locked', 0);
 
-        $em = $this->getDoctrine()->getManager();
+        $results =$repo->queryUserByLockedPaginator($locked);
 
-        $page = $request->query->get('page', 1);
-        $repo = $em->getRepository('BlackhouseappBluehouseappBundle:Member');
-
-        $query = $repo->createQueryBuilder('a')
-            ->orderBy('a.modified', 'desc')
-            ->where('a.locked = :locked')
-            ->setParameters(array('locked' => $locked))
-            ->getQuery();
-
-        $entities = $this->get('knp_paginator')->paginate($query, $page, 50);
+        $activeCount =$repo->countUserByLocked(false);
+        $inactiveCount =$repo->countUserByLocked(true);
 
 
+        $results->setCurrentPage($request->get('page', 1), true, true);
+        $results->setMaxPerPage($this->config->getPaginationMaxPerPage());
 
-        $qb = $repo->createQueryBuilder('a');
-        $qb->select('COUNT(a)');
-        $qb->where('a.locked = :locked');
+        $view = $this
+            ->view()
+            ->setTemplate($this->config->getTemplate('list.html'))
+            ->setData(array(
+                'entities'    => $results,
+                'activeCount' => $activeCount,
+                'inactiveCount' => $inactiveCount
+            ))
+        ;
 
-        $qb->setParameter('locked', false);
-        $activeCount = $qb->getQuery()->getSingleScalarResult();
-
-        $qb->setParameter('locked', true);
-        $inactiveCount = $qb->getQuery()->getSingleScalarResult();
-
-
-        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/Member:list.html.twig', array(
-            'entities' => $entities,
-            'activeCount' => $activeCount,
-            'inactiveCount' => $inactiveCount
-        ));
-
-
+        return $this->handleView($view);
     }
 
 
@@ -65,28 +52,28 @@ class MemberController  extends Controller
  */
     public function enableAction(Request $request,$id)
     {
-        $member = $this->getDoctrine()->getManager()
-            ->getRepository('BlackhouseappBluehouseappBundle:Member')
+        $member =$this->getRepository()
             ->find($id);
 
-        $em = $this->getDoctrine()->getManager();
+       $em = $this->getDoctrine()->getManager();
         $member->setLocked(false);
-        $em->flush($member);
-        return $this->redirect($this->generateUrl('members_list'));
+
+         $em->flush($member);
+        return $this->redirect($this->generateUrl('bluehouseapp_members_list'));
     }
 
     /**
      */
     public function disableAction(Request $request,$id)
     {
-        $member = $this->getDoctrine()->getManager()
-            ->getRepository('BlackhouseappBluehouseappBundle:Member')
+        $member = $this->getRepository()
             ->find($id);
         $em = $this->getDoctrine()->getManager();
         $member->setLocked(true);
-        $em->flush($member);
 
-        return $this->redirect($this->generateUrl('members_list'));
+       $em->flush($member);
+
+        return $this->redirect($this->generateUrl('bluehouseapp_members_list'));
     }
 
 

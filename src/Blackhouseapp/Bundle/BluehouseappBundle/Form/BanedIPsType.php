@@ -58,6 +58,6 @@ class BanedIPsType extends AbstractResourceType
      */
     public function getName()
     {
-        return 'blackhouseapp_bluehouseapp_banedIPs';
+        return 'bluehouseapp_banedIPs';
     }
 }

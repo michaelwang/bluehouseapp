@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
  */
 class BlackhouseappBluehouseappExtension extends Extension
 {
-    protected $applicationName = 'blackhouseapp_bluehouseapp';
+    protected $applicationName = 'bluehouseapp';
     /**
      * {@inheritdoc}
      */
@@ -36,7 +36,7 @@ class BlackhouseappBluehouseappExtension extends Extension
             $this->mapClassParameters($classes, $container);
         $this->mapClassFormType($classes, $container);
 
-        $container->setParameter('blackhouseapp_bluehouseapp.resource.settings', $config['settings']);
+        $container->setParameter('bluehouseapp.resource.settings', $config['settings']);
     }
     protected function process(array $config, ContainerBuilder $container)
     {
@@ -62,11 +62,11 @@ class BlackhouseappBluehouseappExtension extends Extension
 
 
 
-        if ($container->hasParameter('blackhouseapp_bluehouseapp.config.classes')) {
-            $classes = array_merge($config['classes'] , $container->getParameter('blackhouseapp_bluehouseapp.config.classes'));
+        if ($container->hasParameter('bluehouseapp.config.classes')) {
+            $classes = array_merge($config['classes'] , $container->getParameter('bluehouseapp.config.classes'));
         }
 
-        $container->setParameter('blackhouseapp_bluehouseapp.config.classes', $config['classes'] );
+        $container->setParameter('bluehouseapp.config.classes', $config['classes'] );
 
         return array($config, $loader);
 
@@ -97,8 +97,8 @@ class BlackhouseappBluehouseappExtension extends Extension
                     $definition = new Definition( $serviceClasses['form']);
                     $definition
                         ->setArguments(array($serviceClasses['model'], array()))
-                        ->addTag('form.type', array('alias' => 'blackhouseapp_bluehouseapp_'.$model));
-                    $container->setDefinition('blackhouseapp_bluehouseapp.form.type.'.$model, $definition);
+                        ->addTag('form.type', array('alias' => 'bluehouseapp_'.$model));
+                    $container->setDefinition('bluehouseapp.form.type.'.$model, $definition);
                 }
             }
         }

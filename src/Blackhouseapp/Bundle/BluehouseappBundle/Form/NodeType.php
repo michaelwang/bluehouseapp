@@ -95,6 +95,11 @@ class NodeType extends AbstractType
                     'placeholder'=>'节点简短介绍'
                 )
             ))
+            ->add('保存','submit',array(
+                'attr'=>array(
+                    'style'=>'margin-top:20px;'
+                )
+            ))
         ;
     }
     
@@ -113,6 +118,6 @@ class NodeType extends AbstractType
      */
     public function getName()
     {
-        return 'blackhouseapp_bundle_bluehouseappbundle_node';
+        return 'bluehouseapp_node';
     }
 }

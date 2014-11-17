@@ -1,15 +1,19 @@
 {% extends "BlackhouseappBluehouseappBundle:Backend/Admin/layout:layout.html.twig" %}
+{% from 'BlackhouseappBluehouseappBundle:Macros:misc.html.twig'  import pagination %}
+
+
 {% block title %}
     节点管理
 {% endblock %}
 {% block body -%}
+{%  set entities=nodes %}
     <div class="page-header">
         <h2>节点管理 <small></small></h2>
     </div>
     <ol class="breadcrumb clearfix">
         <div class="clearfix">
             <div class="pull-left">
-                <a href="{{path('admin_node_new')}}"><button class="btn btn-primary">创建</button></a>
+                <a href="{{path('bluehouseapp_node_new')}}"><button class="btn btn-primary">创建</button></a>
             </div>
         </div>
     </ol>
@@ -33,7 +37,7 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('admin_node_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+                <td><a href="{{ path('bluehouseapp_node_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
                 <td>   {{ entity.code }}
                 </td>
                 <td>
@@ -58,18 +62,18 @@
                 <ul>
 
                     <li>
-                        <a href="{{ path('admin_node_edit', { 'id': entity.id }) }}">编辑</a>
+                        <a href="{{ path('bluehouseapp_node_edit', { 'id': entity.id }) }}">编辑</a>
                     </li>
 
                     <li>
                     {% if entity.enabled %}
-                        <a href="{{path('node_disable',{id:entity.id})}}"
+                        <a href="{{path('bluehouseapp_node_disable',{id:entity.id})}}"
                            onclick="return confirm('您确定禁用{{entity.name}}吗？')">
                             禁用
                         </a>
 
                     {% else %}
-                        <a href="{{path('node_enable',{id:entity.id})}}"
+                        <a href="{{path('bluehouseapp_node_enable',{id:entity.id})}}"
                            onclick="return confirm('您确定启动{{entity.name}}吗？')">
                             启用
                         </a>
@@ -77,7 +81,7 @@
                     </li>
                     <li>
 
-                        <a href="{{path('admin_node_delete',{id:entity.id})}}"
+                        <a href="{{path('bluehouseapp_node_delete',{id:entity.id})}}"
                            onclick="return confirm('您确定要删除{{entity.name}}吗？')">
                             删除
                         </a>
@@ -91,5 +95,5 @@
         </tbody>
     </table>
 
-    {{ knp_pagination_render(entities) }}
+    {{ pagination(entities) }}
     {% endblock %}

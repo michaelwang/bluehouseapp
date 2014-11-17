@@ -22,6 +22,46 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class PostController extends Controller
 {
 
+
+
+
+    public function deleteAction(Request $request, $id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $post =$this->get('bluehouseapp.post')->getPost($id);
+        if ($post) {
+            if (!$post) {
+                throw new NotFoundHttpException('Unable to find Post entity.');
+            }
+            $post->setModified(new \DateTime());
+            $post->setStatus(false);
+            //  $em->remove($post);
+            $em->flush();
+        }
+        $this->get('session')->getFlashBag()->add('success', '删除成功');
+        return $this->redirect($this->generateUrl('post'));
+
+    }
+
+
+    public function deletePostCommentAction(Request $request,$id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $postComment = $em->getRepository('BlackhouseappBluehouseappBundle:PostComment')->find($id);
+        if($postComment){
+            // $em->remove($postComment);
+            $postComment->setModified(new \DateTime());
+            $postComment->setStatus(false);
+            $em->flush();
+            $em->persist($postComment->getPost());
+            $em->flush();
+        }
+        $this->get('session')->getFlashBag()->add('success','删除成功');
+        return $this->redirect($this->generateUrl('post_show', array('id' => $postComment->getPost()->getId())));
+    }
+
+
     /**
      * Lists all Post entities.
      *
@@ -36,7 +76,7 @@ class PostController extends Controller
 
         $page = $request->query->get('page', 1);
 
-        $categories = $this->get('blackhouseapp_bluehouseapp.post')->getAllEnableCategories();
+        $categories = $this->get('bluehouseapp.post')->getAllEnableCategories();
 
         $currentCategory = null;
         $currentNode = null;
@@ -93,10 +133,10 @@ class PostController extends Controller
         if ($wh_content == '' || $wh_content == null) {
             $lastComments = array();
             foreach ($entities as $entity) {
-                $lastComments[$entity->getId()] = $this->get('blackhouseapp_bluehouseapp.post')->getLastComment($entity);
+                $lastComments[$entity->getId()] = $this->get('bluehouseapp.post')->getLastComment($entity);
             }
 
-            $postCounts= $this->get('blackhouseapp_bluehouseapp.post')->countPostsByNode($currentNodeId);
+            $postCounts= $this->get('bluehouseapp.post')->countPostsByNode($currentNodeId);
 
             return $this->render('BlackhouseappBluehouseappBundle:Frontend/Post:postsByNode.html.twig',
 
@@ -131,7 +171,7 @@ class PostController extends Controller
 
         $page = $request->query->get('page', 1);
 
-        $categories = $this->get('blackhouseapp_bluehouseapp.post')->getAllEnableCategories();
+        $categories = $this->get('bluehouseapp.post')->getAllEnableCategories();
 
         $currentCategory = null;
         $currentNode = null;
@@ -188,7 +228,7 @@ class PostController extends Controller
         if ($wh_content == '' || $wh_content == null) {
             $lastComments = array();
             foreach ($entities as $entity) {
-                $lastComments[$entity->getId()] = $this->get('blackhouseapp_bluehouseapp.post')->getLastComment($entity);
+                $lastComments[$entity->getId()] = $this->get('bluehouseapp.post')->getLastComment($entity);
             }
 
 
@@ -224,7 +264,7 @@ class PostController extends Controller
 
         $page = $request->query->get('page', 1);
 
-        $categories = $this->get('blackhouseapp_bluehouseapp.post')->getAllEnableCategories();
+        $categories = $this->get('bluehouseapp.post')->getAllEnableCategories();
 
         $currentCategory = null;
         $currentNode = null;
@@ -335,7 +375,7 @@ class PostController extends Controller
     {
         $nodeId = $request->query->get('nodeId', 0);
 
-        $currentNode=$this->get('blackhouseapp_bluehouseapp.post')->getNode($nodeId);
+        $currentNode=$this->get('bluehouseapp.post')->getNode($nodeId);
 
 
         $entity = new Post();
@@ -376,7 +416,7 @@ class PostController extends Controller
         $em = $this->getDoctrine()->getManager();
 
 
-        $post =$this->get('blackhouseapp_bluehouseapp.post')->getPost($id);
+        $post =$this->get('bluehouseapp.post')->getPost($id);
 
 
         if (!$post || !$post->getStatus()) {
@@ -417,7 +457,7 @@ class PostController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
-        $post =$this->get('blackhouseapp_bluehouseapp.post')->getPost($id);
+        $post =$this->get('bluehouseapp.post')->getPost($id);
         if (!$post || !$post->getStatus()) {
             throw $this->createNotFoundException("这个帖子不存在");
         }

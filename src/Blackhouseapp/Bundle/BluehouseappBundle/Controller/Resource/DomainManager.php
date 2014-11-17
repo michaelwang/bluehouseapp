@@ -155,7 +155,11 @@ class DomainManager
             return null;
         }
 
-        $this->manager->remove($resource);
+        $accessor = PropertyAccess::createPropertyAccessor();
+        $accessor->setValue($resource,'status',false);
+
+
+      //  $this->manager->remove($resource);
         $this->manager->flush();
 
         if (null !== $this->flashHelper) {
