@@ -10,16 +10,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Blackhouseapp\Bundle\BluehouseappBundle\Entity\Audit;
 use Blackhouseapp\Bundle\BluehouseappBundle\Form\AuditType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Blackhouseapp\Bundle\BluehouseappBundle\Controller\Resource\ResourceController;
 /**
  * Audit controller.
  *
  */
-class AuditController extends Controller
+class AuditController extends ResourceController
 {
 
     /**
      * Lists all Audit entities.
-     */
+
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -35,10 +36,8 @@ class AuditController extends Controller
         return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/Audit:index.html.twig', array(
             'entities' => $entities,
         ));
-
-
     }
-
+     */    
 
 
     /**

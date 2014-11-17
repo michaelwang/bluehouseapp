@@ -39,6 +39,7 @@ class Configuration implements ConfigurationInterface
             ->addDefaultsIfNotSet()
             ->children()
             ->scalarNode('banedIPs')->defaultValue('BlackhouseappBluehouseappBundle:Backend/Admin/BanedIPs')->end()
+            ->scalarNode('audit')->defaultValue('BlackhouseappBluehouseappBundle:Backend/Admin/Audit')->end()
             ->end()
             ->end()
             ->end()

@@ -19,7 +19,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for entity in entities %}
+        {% for entity in audits %}
             <tr>
 
                 <td>id:{{ entity.id }}|type:{{ entity.type }}|name:{{ entity.name }}</td>
@@ -51,6 +51,6 @@
         {% endfor %}
         </tbody>
     </table>
-    {{ knp_pagination_render(entities) }}
+
 
     {% endblock %}
