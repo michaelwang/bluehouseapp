@@ -19,7 +19,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('blackhouseapp_bluehouseapp');
+        $rootNode = $treeBuilder->root('bluehouseapp');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
@@ -38,14 +38,15 @@ class Configuration implements ConfigurationInterface
             ->arrayNode('templates')
             ->addDefaultsIfNotSet()
             ->children()
+            ->scalarNode('audit')->defaultValue('BlackhouseappBluehouseappBundle:Backend/Admin/Audit')->end()
             ->scalarNode('banedIPs')->defaultValue('BlackhouseappBluehouseappBundle:Backend/Admin/BanedIPs')->end()
+            ->scalarNode('node')->defaultValue('BlackhouseappBluehouseappBundle:Backend/Admin/Node')->end()
+            ->scalarNode('category')->defaultValue('BlackhouseappBluehouseappBundle:Backend/Admin/Category')->end()
+            ->scalarNode('member')->defaultValue('BlackhouseappBluehouseappBundle:Backend/Admin/Member')->end()
             ->end()
             ->end()
             ->end()
             ->end();
-
-
-
     }
     /**
      * Adds `classes` section.
@@ -91,7 +92,7 @@ class Configuration implements ConfigurationInterface
             ->children()
             ->scalarNode('model')->defaultValue('Blackhouseapp\Bundle\BluehouseappBundle\Entity\Member')->end()
             ->scalarNode('controller')->defaultValue('Blackhouseapp\Bundle\BluehouseappBundle\Controller\Backend\Admin\MemberController')->end()
-            ->scalarNode('repository')->cannotBeEmpty()->end()
+            ->scalarNode('repository')->defaultValue('Blackhouseapp\Bundle\BluehouseappBundle\Entity\MemberRepository')->end()
             ->scalarNode('form')->defaultValue('Blackhouseapp\Bundle\BluehouseappBundle\Form\MemberType')->end()
             ->end()
             ->end()

@@ -1,30 +1,30 @@
-admin_banedips:
+bluehouseapp_banedips_index:
     path:     /
-    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.banedips:indexAction" }
+    defaults: { _controller: "bluehouseapp.controller.banedips:indexAction" }
 
-blackhouseapp_bluehouseapp_banedIPs_show:
+bluehouseapp_banedIPs_show:
     path:     /{id}/show
-    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.banedips:showAction" }
+    defaults: { _controller: "bluehouseapp.controller.banedips:showAction" }
 
-admin_banedips_new:
+bluehouseapp_banedips_new:
     path:     /new
-    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.banedips:createAction" }
+    defaults: { _controller: "bluehouseapp.controller.banedips:createAction" }
 
-admin_banedips_create:
+bluehouseapp_banedips_create:
     path:     /create
-    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.banedips:createAction" }
+    defaults: { _controller: "bluehouseapp.controller.banedips:createAction" }
     requirements: { _method: post }
 
-admin_banedips_edit:
+bluehouseapp_banedips_edit:
     path:     /{id}/edit
-    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.banedips:updateAction" }
+    defaults: { _controller: "bluehouseapp.controller.banedips:updateAction" }
 
-admin_banedips_update:
+bluehouseapp_banedips_update:
     path:     /{id}/update
-    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.banedips:updateAction" }
+    defaults: { _controller: "bluehouseapp.controller.banedips:updateAction" }
     requirements: { _method: post|put }
 
-admin_banedips_delete:
+bluehouseapp_banedips_delete:
     path:     /{id}/delete
-    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.banedips:deleteAction" }
+    defaults: { _controller: "bluehouseapp.controller.banedips:deleteAction" }
     requirements: { _method: get|post|delete }

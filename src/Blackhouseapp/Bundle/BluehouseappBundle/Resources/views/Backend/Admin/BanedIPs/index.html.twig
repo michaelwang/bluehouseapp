@@ -1,4 +1,7 @@
 {% extends "BlackhouseappBluehouseappBundle:Backend/Admin/layout:layout.html.twig" %}
+{% from 'BlackhouseappBluehouseappBundle:Macros:misc.html.twig'  import pagination %}
+
+
 {% block title %}
     禁止IP管理
 {% endblock %}
@@ -12,7 +15,7 @@
     <ol class="breadcrumb clearfix">
         <div class="clearfix">
             <div class="pull-left">
-                <a href="{{path('admin_banedips_new')}}"><button class="btn btn-primary">创建</button></a>
+                <a href="{{path('bluehouseapp_banedips_new')}}"><button class="btn btn-primary">创建</button></a>
             </div>
         </div>
     </ol>
@@ -32,7 +35,7 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('blackhouseapp_bluehouseapp_banedIPs_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="{{ path('bluehouseapp_banedIPs_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.ip }}</td>
                 <td>{{ entity.timestamp|date("Y-m-d H:i") }}</td>
                 <td>{{ entity.fromDate|date("Y-m-d H:i") }}</td>
@@ -40,10 +43,10 @@
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('blackhouseapp_bluehouseapp_banedIPs_show', { 'id': entity.id }) }}">显示</a>
+                        <a href="{{ path('bluehouseapp_banedIPs_show', { 'id': entity.id }) }}">显示</a>
                     </li>
                     <li>
-                        <a href="{{ path('admin_banedips_edit', { 'id': entity.id }) }}">编辑</a>
+                        <a href="{{ path('bluehouseapp_banedips_edit', { 'id': entity.id }) }}">编辑</a>
                     </li>
                 </ul>
                 </td>
@@ -51,5 +54,5 @@
         {% endfor %}
         </tbody>
     </table>
-
+    {{ pagination(entities) }}
     {% endblock %}

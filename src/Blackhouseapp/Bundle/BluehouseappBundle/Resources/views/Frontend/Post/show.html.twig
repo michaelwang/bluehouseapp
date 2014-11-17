@@ -43,7 +43,7 @@
     </div>
     {% if is_granted('ROLE_MANAGER')%}
         <a onclick="return confirm('您确定要删除这个帖子吗?')"
-           href="{{path('post_delete',{'id':entity.id})}}">删除</a>
+           href="{{path('bluehouseapp_post_delete',{'id':entity.id})}}">删除</a>
     {% endif %}
 
 </div>
@@ -114,7 +114,7 @@
                             </div>
                             {% if is_granted('ROLE_MANAGER')%}
                                 <a onclick="return confirm('您确定要删除这个回复吗?')"
-                                   href="{{path('postcomment_delete',{'id':comment.id})}}">删除</a>
+                                   href="{{path('bluehouseapp_postcomment_delete',{'id':comment.id})}}">删除</a>
                             {% endif %}
                         </td>
                     </tr>

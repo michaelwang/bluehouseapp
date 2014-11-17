@@ -35,6 +35,11 @@ class CategoryType extends AbstractType
 
                 )
             ))
+            ->add('保存','submit',array(
+                'attr'=>array(
+                    'style'=>'margin-top:20px;'
+                )
+            ))
         ;
     }
     
@@ -53,6 +58,6 @@ class CategoryType extends AbstractType
      */
     public function getName()
     {
-        return 'blackhouseapp_bundle_bluehouseappbundle_category';
+        return 'bluehouseapp_category';
     }
 }

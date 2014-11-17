@@ -179,15 +179,15 @@ class MemberController extends Controller
 
 
 
-        $posts = $this->get('blackhouseapp_bluehouseapp.post')->getPostsByMember($entity);
+        $posts = $this->get('bluehouseapp.post')->getPostsByMember($entity);
 
         $lastComments = array();
         foreach ($posts  as $post){
-            $lastComments[$post->getId()]=$this->get('blackhouseapp_bluehouseapp.post')->getLastComment($post);
+            $lastComments[$post->getId()]=$this->get('bluehouseapp.post')->getLastComment($post);
 
         }
 
-        $postComments = $this->get('blackhouseapp_bluehouseapp.post')->getPostCommentsByMember($entity);
+        $postComments = $this->get('bluehouseapp.post')->getPostCommentsByMember($entity);
 
 
         $param['member'] = $entity;

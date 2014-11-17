@@ -1,4 +1,6 @@
 {% extends "BlackhouseappBluehouseappBundle:Backend/Admin/layout:layout.html.twig" %}
+{% from 'BlackhouseappBluehouseappBundle:Macros:misc.html.twig'  import pagination %}
+
 {% block title %}
     审计管理
 {% endblock %}
@@ -38,11 +40,11 @@
                 <ul>
                     {% if entity.type=='post_comment' %}
                     <li>
-                        <a href="{{ path('admin_audit_postcomment_delete', { 'postCommentId': entity.entityId ,'auditId':entity.id}) }}"  onclick="return confirm('您确定删除内容为:{{entity.content}}的{{ entity.type }}吗？')">删除</a>
+                        <a href="{{ path('bluehouseapp_audit_postcomment_delete', { 'postCommentId': entity.entityId ,'auditId':entity.id}) }}"  onclick="return confirm('您确定删除内容为:{{entity.content}}的{{ entity.type }}吗？')">删除</a>
                     </li>
                     {% elseif entity.type=='post' %}
                         <li>
-                            <a href="{{ path('admin_audit_post_delete', { 'postId': entity.entityId ,'auditId':entity.id}) }}"  onclick="return confirm('您确定删除内容为:{{entity.content}}的{{ entity.type }}吗？')">删除</a>
+                            <a href="{{ path('bluehouseapp_audit_post_delete', { 'postId': entity.entityId ,'auditId':entity.id}) }}"  onclick="return confirm('您确定删除内容为:{{entity.content}}的{{ entity.type }}吗？')">删除</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -51,6 +53,6 @@
         {% endfor %}
         </tbody>
     </table>
-    {{ knp_pagination_render(entities) }}
+    {{ pagination(entities) }}
 
     {% endblock %}

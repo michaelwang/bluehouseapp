@@ -152,7 +152,7 @@ abstract class AbstractDatabaseDriver implements DatabaseDriverInterface
     {
         $definition = new Definition('Blackhouseapp\Bundle\BluehouseappBundle\Controller\Resource\Configuration');
         $definition
-            ->setFactoryService('blackhouseapp_bluehouseapp.controller.configuration_factory')
+            ->setFactoryService('bluehouseapp.controller.configuration_factory')
             ->setFactoryMethod('createConfiguration')
             ->setArguments(array($this->prefix, $this->resourceName, $this->templates))
             ->setPublic(false)

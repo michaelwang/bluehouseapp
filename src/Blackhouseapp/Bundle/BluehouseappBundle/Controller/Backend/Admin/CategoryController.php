@@ -10,17 +10,38 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Blackhouseapp\Bundle\BluehouseappBundle\Entity\Category;
 use Blackhouseapp\Bundle\BluehouseappBundle\Form\CategoryType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Blackhouseapp\Bundle\BluehouseappBundle\Controller\Resource\ResourceController;
 /**
  * Category controller.
  *
  */
-class CategoryController extends Controller
+class CategoryController extends ResourceController
 {
 
-    /**
+    public function indexAction(Request $request)
+    {
+
+        $repo=$this->getRepository();
+
+        $results=$repo->createPaginator(array('status'=>true),array('id'=>'desc'));
+
+        $results->setCurrentPage($request->get('page', 1), true, true);
+        $results->setMaxPerPage($this->config->getPaginationMaxPerPage());
+
+        $view = $this
+            ->view()
+            ->setTemplate($this->config->getTemplate('index.html'))
+            ->setData(array(
+                'categories'    => $results
+            ))
+        ;
+
+        return $this->handleView($view);
+    }
+        /**
      * Lists all Category entities.
      *
-     */
+
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -41,10 +62,11 @@ class CategoryController extends Controller
 
 
     }
+     */
     /**
      * Creates a new Category entity.
      *
-     */
+
     public function createAction(Request $request)
     {
         $entity = new Category();
@@ -66,14 +88,14 @@ class CategoryController extends Controller
 
 
     }
-
+     */
     /**
      * Creates a form to create a Category entity.
      *
      * @param Category $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
-     */
+
     private function createCreateForm(Category $entity)
     {
         $form = $this->createForm(new CategoryType(), $entity, array(
@@ -85,11 +107,11 @@ class CategoryController extends Controller
 
         return $form;
     }
-
+     */
     /**
      * Displays a form to create a new Category entity.
 
-     */
+
     public function newAction()
     {
         $entity = new Category();
@@ -103,11 +125,11 @@ class CategoryController extends Controller
 
 
     }
-
+     */
     /**
      * Finds and displays a Category entity.
      *
-     */
+
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -139,11 +161,11 @@ class CategoryController extends Controller
         ));
 
     }
-
+     */
     /**
      * Displays a form to edit an existing Category entity.
      *
-     */
+
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -163,14 +185,14 @@ class CategoryController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
-
+     */
     /**
     * Creates a form to edit a Category entity.
     *
     * @param Category $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
-    */
+
     private function createEditForm(Category $entity)
     {
         $form = $this->createForm(new CategoryType(), $entity, array(
@@ -182,10 +204,11 @@ class CategoryController extends Controller
 
         return $form;
     }
+    */
     /**
      * Edits an existing Category entity.
      *
-     */
+
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -228,10 +251,11 @@ class CategoryController extends Controller
 
 
     }
+    */
     /**
      * Deletes a Category entity.
      *
-     */
+
     public function deleteAction(Request $request, $id)
     {
 
@@ -249,14 +273,14 @@ class CategoryController extends Controller
 
         return $this->redirect($this->generateUrl('admin_category'));
     }
-
+     */
     /**
      * Creates a form to delete a Category entity by id.
      *
      * @param mixed $id The entity id
      *
      * @return \Symfony\Component\Form\Form The form
-     */
+
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
@@ -266,33 +290,31 @@ class CategoryController extends Controller
             ->getForm()
         ;
     }
-
+     */
 
     /**
      */
     public function enableAction(Request $request,$id)
     {
-        $category = $this->getDoctrine()->getManager()
-            ->getRepository('BlackhouseappBluehouseappBundle:Category')
+        $category =$this->getRepository()
             ->find($id);
 
         $em = $this->getDoctrine()->getManager();
         $category->setEnabled(true);
         $em->flush($category);
-        return $this->redirect($this->generateUrl('admin_category'));
+        return $this->redirect($this->generateUrl('bluehouseapp_category_index'));
     }
 
     /**
      */
     public function disableAction(Request $request,$id)
     {
-        $category = $this->getDoctrine()->getManager()
-            ->getRepository('BlackhouseappBluehouseappBundle:Category')
+        $category = $this->getRepository()
             ->find($id);
 
         $em = $this->getDoctrine()->getManager();
         $category->setEnabled(false);
         $em->flush($category);
-        return $this->redirect($this->generateUrl('admin_category'));
+        return $this->redirect($this->generateUrl('bluehouseapp_category_index'));
     }
 }

@@ -1,12 +1,13 @@
-admin_audit:
+bluehouseapp_audit_index:
     path:     /
-    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.audit:indexAction" }
+    defaults: { _controller: "bluehouseapp.controller.audit:indexAction" }
 
-admin_audit_post_delete:
+bluehouseapp_audit_post_delete:
     path:     /post_delete
-    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.audit:deletePostAction" }
+    defaults: { _controller: "bluehouseapp.controller.audit:deletePostAction" }
     requirements: { _method: get|post|delete }
-admin_audit_postcomment_delete:
+
+bluehouseapp_audit_postcomment_delete:
     path:     /postcomment_delete
-    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.audit:deletePostCommentAction" }
+    defaults: { _controller: "bluehouseapp.controller.audit:deletePostCommentAction" }
     requirements: { _method: get|post|delete }

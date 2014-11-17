@@ -1,39 +1,39 @@
-admin_node:
+bluehouseapp_node_index:
     path:     /
-    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.node:indexAction" }
+    defaults: { _controller: "bluehouseapp.controller.node:indexAction" }
 
-admin_node_show:
+bluehouseapp_node_show:
     path:     /{id}/show
-    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.node:showAction" }
+    defaults: { _controller: "bluehouseapp.controller.node:showAction" }
 
-admin_node_new:
+bluehouseapp_node_new:
     path:     /new
-    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.node:newAction" }
+    defaults: { _controller: "bluehouseapp.controller.node:createAction" }
 
-admin_node_create:
+bluehouseapp_node_create:
     path:     /create
-    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.node:createAction" }
+    defaults: { _controller: "bluehouseapp.controller.node:createAction" }
     requirements: { _method: post }
 
-admin_node_edit:
+bluehouseapp_node_edit:
     path:     /{id}/edit
-    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.node:editAction" }
+    defaults: { _controller: "bluehouseapp.controller.node:updateAction" }
 
-admin_node_update:
+bluehouseapp_node_update:
     path:     /{id}/update
-    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.node:updateAction" }
+    defaults: { _controller: "bluehouseapp.controller.node:updateAction" }
     requirements: { _method: post|put }
 
-admin_node_delete:
+bluehouseapp_node_delete:
     path:     /{id}/delete
-    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.node:deleteAction" }
+    defaults: { _controller: "bluehouseapp.controller.node:deleteAction" }
     requirements: { _method: get|post|delete }
 
-node_enable:
+bluehouseapp_node_enable:
     path:     /enable/{id}
-    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.node:enableAction" }
+    defaults: { _controller: "bluehouseapp.controller.node:enableAction" }
     requirements: { _method: get|post }
-node_disable:
+bluehouseapp_node_disable:
     path:     /disable/{id}
-    defaults: { _controller: "blackhouseapp_bluehouseapp.controller.node:disableAction" }
+    defaults: { _controller: "bluehouseapp.controller.node:disableAction" }
     requirements: { _method: get|post }

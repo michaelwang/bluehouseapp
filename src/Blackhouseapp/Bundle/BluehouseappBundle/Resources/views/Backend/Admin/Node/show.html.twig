@@ -3,6 +3,7 @@
     显示节点
 {% endblock %}
 {% block body -%}
+    {% set entity=node %}
     <h1>显示节点</h1>
 
     <table class="record_properties">
@@ -56,12 +57,12 @@
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('admin_node') }}">
+        <a href="{{ path('bluehouseapp_node_index') }}">
           返回列表
         </a>
     </li>
     <li>
-        <a href="{{ path('admin_node_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('bluehouseapp_node_edit', { 'id': entity.id }) }}">
           编辑
         </a>
     </li>
