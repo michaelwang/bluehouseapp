@@ -35,11 +35,7 @@ class BanedIPsType extends AbstractResourceType
                 'attr'=>array(
 
                 )))
-            ->add('保存','submit',array(
-                'attr'=>array(
-                    'style'=>'margin-top:20px;'
-                )
-            ))
+
         ;
     }
     
