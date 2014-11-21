@@ -1,5 +1,6 @@
 {% extends "BlackhouseappBluehouseappBundle:Backend/Admin/layout:layout.html.twig" %}
 {% from 'BlackhouseappBluehouseappBundle:Macros:misc.html.twig'  import pagination %}
+{% import 'BlackhouseappBluehouseappBundle:Macros:buttons.html.twig' as buttons %}
 
 
 {% block title %}
@@ -13,7 +14,7 @@
     <ol class="breadcrumb clearfix">
         <div class="clearfix">
             <div class="pull-left">
-                <a href="{{path('bluehouseapp_node_new')}}"><button class="btn btn-primary">创建</button></a>
+                {{ buttons.create(path('bluehouseapp_node_new')) }}
             </div>
         </div>
     </ol>
@@ -62,31 +63,19 @@
                 <ul>
 
                     <li>
-                        <a href="{{ path('bluehouseapp_node_edit', { 'id': entity.id }) }}">编辑</a>
+                        {{ buttons.edit(path('bluehouseapp_node_edit', { 'id': entity.id })) }}
                     </li>
 
                     <li>
                     {% if entity.enabled %}
-                        <a href="{{path('bluehouseapp_node_disable',{id:entity.id})}}"
-                           onclick="return confirm('您确定禁用{{entity.name}}吗？')">
-                            禁用
-                        </a>
+                        {{ buttons.disable(path('bluehouseapp_node_disable',{id:entity.id})) }}
 
                     {% else %}
-                        <a href="{{path('bluehouseapp_node_enable',{id:entity.id})}}"
-                           onclick="return confirm('您确定启动{{entity.name}}吗？')">
-                            启用
-                        </a>
+                        {{ buttons.enable(path('bluehouseapp_node_enable',{id:entity.id})) }}
                     {% endif %}
                     </li>
                     <li>
-
-                        <a href="{{path('bluehouseapp_node_delete',{id:entity.id})}}"
-                           onclick="return confirm('您确定要删除{{entity.name}}吗？')">
-                            删除
-                        </a>
-
-
+                        {{ buttons.delete(path('bluehouseapp_node_delete',{id:entity.id})) }}
                     </li>
                 </ul>
                 </td>

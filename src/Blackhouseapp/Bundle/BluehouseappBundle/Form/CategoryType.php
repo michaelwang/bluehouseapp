@@ -35,11 +35,11 @@ class CategoryType extends AbstractType
 
                 )
             ))
-            ->add('保存','submit',array(
-                'attr'=>array(
-                    'style'=>'margin-top:20px;'
-                )
-            ))
+//            ->add('保存','submit',array(
+//                'attr'=>array(
+//                    'style'=>'margin-top:20px;'
+//                )
+//            ))
         ;
     }
     

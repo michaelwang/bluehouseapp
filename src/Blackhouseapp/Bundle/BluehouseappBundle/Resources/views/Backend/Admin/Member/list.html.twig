@@ -1,5 +1,6 @@
 {% extends "BlackhouseappBluehouseappBundle:Backend/Admin/layout:layout.html.twig" %}
 {% from 'BlackhouseappBluehouseappBundle:Macros:misc.html.twig'  import pagination %}
+{% import 'BlackhouseappBluehouseappBundle:Macros:buttons.html.twig' as buttons %}
 {% block title %}
     用户管理
 {% endblock %}
@@ -63,11 +64,9 @@
                 <td>
 
                         {% if entity.locked %}
-                            <a href="{{path('bluehouseapp_member_enable',{id:entity.id})}}" onclick="return confirm('您确定要启用{{entity.username}}吗？')"><button class="btn btn-default">启用</button></a>
-
+                            {{ buttons.enable(path('bluehouseapp_member_enable',{id:entity.id})) }}
                          {% else %}
-                             <a href="{{path('bluehouseapp_member_disable',{id:entity.id})}}" onclick="return confirm('您确定要禁用{{entity.username}}吗？')"><button class="btn btn-default">禁用</button></a>
-
+                             {{ buttons.disable(path('bluehouseapp_member_disable',{id:entity.id})) }}
                         {% endif %}
 
                 </td>

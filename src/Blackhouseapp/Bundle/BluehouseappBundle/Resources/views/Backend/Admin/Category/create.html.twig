@@ -1,17 +1,17 @@
 {% extends "BlackhouseappBluehouseappBundle:Backend/Admin/layout:layout.html.twig" %}
+{% from 'BlackhouseappBluehouseappBundle:Macros:actions.html.twig' import create %}
 {% block title %}
     添加分类
 {% endblock %}
 {% block body -%}
     <h1>添加分类</h1>
 
-    {{ form(form) }}
+    {{ form_errors(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('bluehouseapp_category_index') }}">
-           返回列表
-        </a>
-    </li>
-</ul>
+    <form action="{{ path('bluehouseapp_category_create')}}" method="post" class="form-horizontal">
+        <input type="hidden" name="_method" value="POST">
+        {{ form_rest(form) }}
+        {{ create(path('bluehouseapp_category_index')) }}
+    </form>
+
 {% endblock %}
