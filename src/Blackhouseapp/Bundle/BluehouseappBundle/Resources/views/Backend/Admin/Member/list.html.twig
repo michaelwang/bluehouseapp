@@ -15,7 +15,7 @@
             <a href="{{path('bluehouseapp_members_list', { 'locked':'1'})}}">禁用用户 <span class="label label-danger">({{inactiveCount }})</span></a>
         </li>
     </ol>
-
+    {{ pagination(entities) }}
     <table class="table  table-striped table-hover table-condensed">
     <thead>
     <tr>
