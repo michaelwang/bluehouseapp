@@ -1,10 +1,10 @@
 bluehouseapp_banedIPs_index:
-    path:     /
-    defaults: { _controller: "bluehouseapp.controller.banedips:indexAction" }
+    pattern:     /index.{_format}
+    defaults: { _controller: bluehouseapp.controller.banedips:indexAction, _format: ~ }
 
 bluehouseapp_banedIPs_show:
-    path:     /{id}/show
-    defaults: { _controller: "bluehouseapp.controller.banedips:showAction" }
+    path:     /{id}/show.{_format}
+    defaults: { _controller: bluehouseapp.controller.banedips:showAction, _format: ~ }
 
 
 bluehouseapp_banedIPs_create:
@@ -14,7 +14,7 @@ bluehouseapp_banedIPs_create:
 
 bluehouseapp_banedIPs_update:
     path:     /{id}/update
-    defaults: { _controller: "bluehouseapp.controller.banedips:updateAction" }
+    defaults: { _controller: bluehouseapp.controller.banedips:updateAction }
 
 
 bluehouseapp_banedIPs_delete:

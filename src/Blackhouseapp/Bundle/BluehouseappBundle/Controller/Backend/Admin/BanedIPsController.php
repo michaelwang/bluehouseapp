@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class BanedIPsController extends ResourceController
 {
 
-
+/**
     public function indexAction(Request $request)
     {
 
@@ -28,7 +28,7 @@ class BanedIPsController extends ResourceController
 
         $results->setCurrentPage($request->get('page', 1), true, true);
         $results->setMaxPerPage($this->config->getPaginationMaxPerPage());
-
+//        var_dump($results);exit;
         $view = $this
             ->view()
             ->setTemplate($this->config->getTemplate('index.html'))
@@ -39,25 +39,25 @@ class BanedIPsController extends ResourceController
 
         return $this->handleView($view);
     }
-
+**/
 
 
     /**
      * Lists all BanedIPs entities.
-
-    public function indexAction()
+     */
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('BlackhouseappBluehouseappBundle:BanedIPs')->findAll();
-
-        return $this->render('BlackhouseappBluehouseappBundle:Backend/Admin/BanedIPs:index.html.twig', array(
-            'entities' => $entities,
-        ));
-
-
+        $view = $this -> view()
+            ->setTemplate($this->config->getTemplate('index.html'))
+            ->setTemplateVar($this->config->getPluralResourceName())
+            ->setData($entities)
+        ;
+        return $this->handleView($view);
     }
-   */
+
     /**
      * Creates a new BanedIPs entity.
      *
