@@ -1,17 +1,18 @@
 {% extends "BlackhouseappBluehouseappBundle:Backend/Admin/layout:layout.html.twig" %}
+{% from 'BlackhouseappBluehouseappBundle:Macros:actions.html.twig' import update %}
 {% block title %}修改屏蔽IP{% endblock %}
 
 {% block body -%}
+    {%  set entity=banedIPs %}
     <h1>编辑屏蔽IP</h1>
 
-    {{ form(form) }}
+    {{ form_errors(form) }}
+    <form action="{{ path('bluehouseapp_banedIPs_update', {'id': entity.id}) }}" method="post" class="form-horizontal"  role="form">
+        <input type="hidden" name="_method" value="PUT">
+        {{ form_rest(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('bluehouseapp_banedips_index') }}">
-           返回列表
-        </a>
-    </li>
+        {{ update(path('bluehouseapp_banedIPs_index')) }}
+    </form>
 
-</ul>
+
 {% endblock %}

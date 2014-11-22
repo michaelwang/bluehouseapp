@@ -1,4 +1,4 @@
-bluehouseapp_banedips_index:
+bluehouseapp_banedIPs_index:
     path:     /
     defaults: { _controller: "bluehouseapp.controller.banedips:indexAction" }
 
@@ -6,25 +6,17 @@ bluehouseapp_banedIPs_show:
     path:     /{id}/show
     defaults: { _controller: "bluehouseapp.controller.banedips:showAction" }
 
-bluehouseapp_banedips_new:
-    path:     /new
-    defaults: { _controller: "bluehouseapp.controller.banedips:createAction" }
 
-bluehouseapp_banedips_create:
+bluehouseapp_banedIPs_create:
     path:     /create
     defaults: { _controller: "bluehouseapp.controller.banedips:createAction" }
-    requirements: { _method: post }
 
-bluehouseapp_banedips_edit:
-    path:     /{id}/edit
-    defaults: { _controller: "bluehouseapp.controller.banedips:updateAction" }
 
-bluehouseapp_banedips_update:
+bluehouseapp_banedIPs_update:
     path:     /{id}/update
     defaults: { _controller: "bluehouseapp.controller.banedips:updateAction" }
-    requirements: { _method: post|put }
 
-bluehouseapp_banedips_delete:
+
+bluehouseapp_banedIPs_delete:
     path:     /{id}/delete
     defaults: { _controller: "bluehouseapp.controller.banedips:deleteAction" }
-    requirements: { _method: get|post|delete }

@@ -1,6 +1,6 @@
 {% extends "BlackhouseappBluehouseappBundle:Backend/Admin/layout:layout.html.twig" %}
 {% from 'BlackhouseappBluehouseappBundle:Macros:misc.html.twig'  import pagination %}
-
+{% import 'BlackhouseappBluehouseappBundle:Macros:buttons.html.twig' as buttons %}
 
 {% block title %}
     禁止IP管理
@@ -15,12 +15,13 @@
     <ol class="breadcrumb clearfix">
         <div class="clearfix">
             <div class="pull-left">
-                <a href="{{path('bluehouseapp_banedips_new')}}"><button class="btn btn-primary">创建</button></a>
+                {{ buttons.create(path('bluehouseapp_banedIPs_create')) }}
             </div>
+
         </div>
     </ol>
 
-
+    {{ pagination(entities) }}
     <table class="table  table-striped table-hover table-condensed">
         <thead>
             <tr>
@@ -42,11 +43,17 @@
                 <td>{{ entity.toDate|date("Y-m-d H:i") }}</td>
                 <td>
                 <ul>
+
                     <li>
-                        <a href="{{ path('bluehouseapp_banedIPs_show', { 'id': entity.id }) }}">显示</a>
+                        {{ buttons.delete(path('bluehouseapp_banedIPs_delete', {'id': entity.id})) }}
                     </li>
                     <li>
-                        <a href="{{ path('bluehouseapp_banedips_edit', { 'id': entity.id }) }}">编辑</a>
+
+                        {{ buttons.show(path('bluehouseapp_banedIPs_show', {'id': entity.id})) }}
+                    </li>
+                    <li>
+                        {{ buttons.edit(path('bluehouseapp_banedIPs_update', {'id': entity.id})) }}
+
                     </li>
                 </ul>
                 </td>
