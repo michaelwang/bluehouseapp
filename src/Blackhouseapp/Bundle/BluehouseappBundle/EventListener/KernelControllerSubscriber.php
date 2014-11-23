@@ -71,6 +71,7 @@ class KernelControllerSubscriber implements EventSubscriberInterface
 
         $controller = reset($controller);
         if ($controller instanceof ResourceController) {
+
             $this->processRequest($controller, $event->getRequest());
         }
     }
@@ -81,11 +82,13 @@ class KernelControllerSubscriber implements EventSubscriberInterface
      */
     private function processRequest(ResourceController $controller, Request $request)
     {
+
         $parameters = array_merge($this->settings, $this->parseApiData($request));
         list($parameters, $parameterNames) = $this->parametersParser->parse($parameters, $request);
 
-       // $this->parameters->replace($parameters);
+         $this->parameters->replace($parameters);
         $this->parameters->set('parameter_name', $parameterNames);
+
 
         $controller->getConfiguration()->setRequest($request);
         $controller->getConfiguration()->setParameters($this->parameters);

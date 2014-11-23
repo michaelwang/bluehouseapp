@@ -17,7 +17,7 @@ use Blackhouseapp\Bundle\BluehouseappBundle\Controller\Resource\ResourceControll
  */
 class CategoryController extends ResourceController
 {
-
+    /**
     public function indexAction(Request $request)
     {
 
@@ -38,6 +38,7 @@ class CategoryController extends ResourceController
 
         return $this->handleView($view);
     }
+     */
         /**
      * Lists all Category entities.
      *

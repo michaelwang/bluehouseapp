@@ -1,6 +1,14 @@
 bluehouseapp_node_index:
     path:     /
-    defaults: { _controller: "bluehouseapp.controller.node:indexAction" }
+    defaults:
+      _controller: bluehouseapp.controller.node:indexAction
+      _bluehouseapp:
+        sortable: true
+        sorting:
+            id:  desc
+        filterable: true
+        criteria:
+          status: true
 
 bluehouseapp_node_show:
     path:     /{id}/show

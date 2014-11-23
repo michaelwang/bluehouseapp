@@ -39,13 +39,13 @@
 
 {% macro disable(url, message) %}
     <a href="{{ url }}" class="btn btn-default">
-        <i class="glyphicon glyphicon-eye-close"></i><span>{{ message is empty ? '禁止': message }}</span>
+        <i class="glyphicon glyphicon-eye-close"></i><span>{{ message is empty ? '禁用': message }}</span>
     </a>
 {% endmacro %}
 
 {% macro enable(url, message) %}
     <a href="{{ url }}" class="btn btn-default">
-        <i class="glyphicon glyphicon-eye-open"></i><span>{{ message is empty ? '启动': message }}</span>
+        <i class="glyphicon glyphicon-eye-open"></i><span>{{ message is empty ? '启用': message }}</span>
     </a>
 {% endmacro %}
 

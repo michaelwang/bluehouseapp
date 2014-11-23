@@ -1,6 +1,14 @@
 bluehouseapp_category_index:
     path:     /
-    defaults: { _controller: "bluehouseapp.controller.category:indexAction" }
+    defaults:
+      _controller: bluehouseapp.controller.category:indexAction
+      _bluehouseapp:
+        sortable: true
+        sorting:
+            id:  desc
+        filterable: true
+        criteria:
+          status: true
 
 bluehouseapp_category_show:
     path:     /{id}/show

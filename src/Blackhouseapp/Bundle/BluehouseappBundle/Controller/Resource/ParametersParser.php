@@ -23,7 +23,25 @@ class ParametersParser
      */
     public function parse(array $parameters, Request $request)
     {
+        if (!isset($parameterNames)) {
+            $parameterNames = array();
+        }
 
+        foreach ($parameters as $key => $value) {
+            if (is_array($value)) {
+                list($parameters[$key] , $parameterNames[$key]) = $this->parse($value, $request);
+            }
+
+            if (is_string($value) && 0 === strpos($value, '$')) {
+                $parameterName = substr($value, 1);
+                $parameters[$key] = $request->get($parameterName);
+                $parameterNames[$key] = $parameterName;
+            }
+
+
+        }
+
+        return array($parameters, $parameterNames);
     }
 
     /**

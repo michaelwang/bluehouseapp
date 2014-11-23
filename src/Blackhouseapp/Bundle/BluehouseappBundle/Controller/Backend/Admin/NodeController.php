@@ -17,29 +17,30 @@ use Blackhouseapp\Bundle\BluehouseappBundle\Controller\Resource\ResourceControll
  */
 class NodeController extends ResourceController
 {
+    /*
+        public function indexAction(Request $request)
+        {
 
-    public function indexAction(Request $request)
-    {
+            $repo=$this->getRepository();
 
-        $repo=$this->getRepository();
+            $results=$repo->createPaginator(array('status'=>true),array('id'=>'desc'));
 
-        $results=$repo->createPaginator(array('status'=>true),array('id'=>'desc'));
+            $results->setCurrentPage($request->get('page', 1), true, true);
+            $results->setMaxPerPage($this->config->getPaginationMaxPerPage());
 
-        $results->setCurrentPage($request->get('page', 1), true, true);
-        $results->setMaxPerPage($this->config->getPaginationMaxPerPage());
+            $view = $this
+                ->view()
+                ->setTemplate($this->config->getTemplate('index.html'))
+                ->setData(array(
+                    'nodes'    => $results
+                ))
+            ;
 
-        $view = $this
-            ->view()
-            ->setTemplate($this->config->getTemplate('index.html'))
-            ->setData(array(
-                'nodes'    => $results
-            ))
-        ;
-
-        return $this->handleView($view);
+            return $this->handleView($view);
 
 
-    }
+        }
+    */
     /**
      * Lists all Node entities.
 

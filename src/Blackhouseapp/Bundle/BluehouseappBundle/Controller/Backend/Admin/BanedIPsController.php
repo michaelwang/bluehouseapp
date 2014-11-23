@@ -45,6 +45,7 @@ class BanedIPsController extends ResourceController
     /**
      * Lists all BanedIPs entities.
      */
+    /*
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -57,7 +58,7 @@ class BanedIPsController extends ResourceController
         ;
         return $this->handleView($view);
     }
-
+*/
     /**
      * Creates a new BanedIPs entity.
      *

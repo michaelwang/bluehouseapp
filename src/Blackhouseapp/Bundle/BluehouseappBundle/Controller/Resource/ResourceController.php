@@ -119,6 +119,7 @@ class ResourceController extends FOSRestController
 
         $repository = $this->getRepository();
 
+
         if ($this->config->isPaginated()) {
             $resources = $this->resourceResolver->getResource(
                 $repository,

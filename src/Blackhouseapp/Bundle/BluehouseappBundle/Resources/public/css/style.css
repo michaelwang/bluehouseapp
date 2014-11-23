@@ -836,7 +836,7 @@ a.box-count-livid:hover {
     box-shadow: 0 1px 0 rgba(66, 66, 77, 0.1);
 }
 .super.button {
-    background-image: url("images/bg_blended_light.png");
+    background-image: url("../images/bg_blended_light.png");
     padding: 4px 15px 4px 15px;
     border: 1px solid rgba(80,80,90, 0.2);
     border-bottom-color: rgba(80,80,90, 0.35);

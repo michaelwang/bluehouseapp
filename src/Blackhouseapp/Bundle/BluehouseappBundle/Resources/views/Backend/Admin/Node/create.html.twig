@@ -9,7 +9,7 @@
 
     {{ form_errors(form) }}
 
-    <form action="{{ path('bluehouseapp_node_create')}}" method="post" class="form-horizontal">
+    <form action="{{ path('bluehouseapp_node_create')}}" method="post" class="form-horizontal"  enctype="multipart/form-data">
         <input type="hidden" name="_method" value="POST">
         {{ form_rest(form) }}
         {{ create(path('bluehouseapp_node_index')) }}
