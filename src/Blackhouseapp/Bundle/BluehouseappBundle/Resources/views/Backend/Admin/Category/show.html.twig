@@ -1,4 +1,5 @@
 {% extends "BlackhouseappBluehouseappBundle:Backend/Admin/layout:layout.html.twig" %}
+{% import 'BlackhouseappBluehouseappBundle:Macros:buttons.html.twig' as buttons %}
 {% block title %}
     显示分类
 {% endblock %}
@@ -41,12 +42,11 @@
 
         <ul class="record_actions">
     <li>
-        <a href="{{path('bluehouseapp_category_index')}}"><button class="btn btn-primary">返回</button></a>
+        {{ buttons.generic(path('bluehouseapp_category_index'),'返回列表') }}
 
     </li>
     <li>
-        <a href="{{path('bluehouseapp_category_edit', { 'id': entity.id })}}">
-            <button class="btn btn-primary">编辑</button></a>
+        {{ buttons.edit(path('bluehouseapp_category_edit', { 'id': entity.id })) }}
 
 
     </li>

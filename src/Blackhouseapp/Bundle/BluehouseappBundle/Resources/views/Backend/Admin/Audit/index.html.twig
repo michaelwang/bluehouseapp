@@ -1,5 +1,6 @@
 {% extends "BlackhouseappBluehouseappBundle:Backend/Admin/layout:layout.html.twig" %}
 {% from 'BlackhouseappBluehouseappBundle:Macros:misc.html.twig'  import pagination %}
+{% import 'BlackhouseappBluehouseappBundle:Macros:buttons.html.twig' as buttons %}
 
 {% block title %}
     审计管理
@@ -8,7 +9,7 @@
     <div class="page-header">
         <h2>审计管理</h2>
     </div>
-
+    {{ pagination(entities) }}
     <table class="table  table-striped table-hover table-condensed">
         <thead>
             <tr>
@@ -39,12 +40,12 @@
                 <td>
                 <ul>
                     {% if entity.type=='post_comment' %}
-                    <li>
-                        <a href="{{ path('bluehouseapp_audit_postcomment_delete', { 'postCommentId': entity.entityId ,'auditId':entity.id}) }}"  onclick="return confirm('您确定删除内容为:{{entity.content}}的{{ entity.type }}吗？')">删除</a>
-                    </li>
+                        <li>
+                            {{ buttons.delete(path('bluehouseapp_audit_postcomment_delete', { 'postCommentId': entity.entityId ,'auditId':entity.id})) }}
+                        </li>
                     {% elseif entity.type=='post' %}
                         <li>
-                            <a href="{{ path('bluehouseapp_audit_post_delete', { 'postId': entity.entityId ,'auditId':entity.id}) }}"  onclick="return confirm('您确定删除内容为:{{entity.content}}的{{ entity.type }}吗？')">删除</a>
+                            {{ buttons.delete(path('bluehouseapp_audit_post_delete', { 'postId': entity.entityId ,'auditId':entity.id})) }}
                         </li>
                     {% endif %}
                 </ul>
