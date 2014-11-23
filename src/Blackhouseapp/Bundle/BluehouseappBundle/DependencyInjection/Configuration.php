@@ -40,6 +40,7 @@ class Configuration implements ConfigurationInterface
             ->children()
             ->scalarNode('audit')->defaultValue('BlackhouseappBluehouseappBundle:Backend/Admin/Audit')->end()
             ->scalarNode('banedIPs')->defaultValue('BlackhouseappBluehouseappBundle:Backend/Admin/BanedIPs')->end()
+#            ->scalarNode('audit')->defaultValue('BlackhouseappBluehouseappBundle:Backend/Admin/Audit')->end()
             ->scalarNode('node')->defaultValue('BlackhouseappBluehouseappBundle:Backend/Admin/Node')->end()
             ->scalarNode('category')->defaultValue('BlackhouseappBluehouseappBundle:Backend/Admin/Category')->end()
             ->scalarNode('member')->defaultValue('BlackhouseappBluehouseappBundle:Backend/Admin/Member')->end()

@@ -129,9 +129,9 @@ fos_user:
         sender_name:   蓝房子
 
 fos_rest:
-    view:
-        formats:
-            json: true
+   format_listener:
+            rules:
+            - { path: '^/', priorities: [ 'json', 'html'], fallback_format: html, prefer_extension: true }
 
 liip_imagine:
     filter_sets:
@@ -242,6 +242,10 @@ vich_uploader:
             upload_destination: member_fs
             delete_on_remove: true
             inject_on_load: true
+
+david_badura_faker:
+  locale: en_EN
+
 monolog:
     handlers:
         main:
@@ -250,3 +254,4 @@ monolog:
             level:  debug
         console:
             type:   console
+

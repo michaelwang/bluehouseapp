@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Blackhouseapp\Bundle\BluehouseappBundle\Entity\Audit;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Blackhouseapp\Bundle\BluehouseappBundle\Controller\Resource\ResourceController;
 /**
  * Audit controller.
  *
@@ -19,7 +20,7 @@ class AuditController extends ResourceController
 
     /**
      * Lists all Audit entities.
-     */
+     */    
     public function indexAction(Request $request)
     {
 
@@ -39,7 +40,6 @@ class AuditController extends ResourceController
         ;
 
         return $this->handleView($view);
-
 
     }
 

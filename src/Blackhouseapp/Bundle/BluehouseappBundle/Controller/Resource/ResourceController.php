@@ -145,13 +145,14 @@ class ResourceController extends FOSRestController
             );
         }
 
+#        echo $this->config->getPluralResourceName();
+#        exit;
         $view = $this
             ->view()
             ->setTemplate($this->config->getTemplate('index.html'))
             ->setTemplateVar($this->config->getPluralResourceName())
             ->setData($resources)
         ;
-
         return $this->handleView($view);
     }
 
