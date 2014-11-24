@@ -9,7 +9,7 @@
 
 
     {{ form_errors(form) }}
-    <form action="{{ path('bluehouseapp_node_update', {'id': entity.id}) }}" method="post" class="form-horizontal"  role="form">
+    <form action="{{ path('bluehouseapp_node_update', {'id': entity.id}) }}" method="post" class="form-horizontal"  role="form" enctype="multipart/form-data">
         <input type="hidden" name="_method" value="PUT">
         {{ form_rest(form) }}
 
