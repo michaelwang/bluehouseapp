@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
+use Hateoas\HateoasBuilder;
 /**
  * Base resource controller.
  *
@@ -111,9 +111,6 @@ class ResourceController extends FOSRestController
      */
     public function indexAction(Request $request)
     {
-
-
-
         $criteria = $this->config->getCriteria();
         $sorting = $this->config->getSorting();
 
@@ -137,6 +134,9 @@ class ResourceController extends FOSRestController
                         $request->attributes->get('_route_params')
                     )
                 );
+               // $hateoas = HateoasBuilder::create()->build();
+                //$json = $hateoas->serialize($resources, 'json');
+              //  $resources=$json;
             }
         } else {
             $resources = $this->resourceResolver->getResource(
@@ -153,6 +153,7 @@ class ResourceController extends FOSRestController
             ->setTemplate($this->config->getTemplate('index.html'))
             ->setTemplateVar($this->config->getPluralResourceName())
             ->setData($resources)
+
         ;
         return $this->handleView($view);
     }
@@ -382,10 +383,10 @@ class ResourceController extends FOSRestController
     protected function handleView(View $view)
     {
         $handler = $this->get('fos_rest.view_handler');
-        $handler->setExclusionStrategyGroups($this->config->getSerializationGroups());
+       // $handler->setExclusionStrategyGroups($this->config->getSerializationGroups());
 
         if ($version = $this->config->getSerializationVersion()) {
-            $handler->setExclusionStrategyVersion($version);
+       //     $handler->setExclusionStrategyVersion($version);
         }
 
         return $handler->handle($view);

@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class BanedIPsController extends ResourceController
 {
 
-/**
+/*
     public function indexAction(Request $request)
     {
 
@@ -39,8 +39,8 @@ class BanedIPsController extends ResourceController
 
         return $this->handleView($view);
     }
-**/
 
+*/
 
     /**
      * Lists all BanedIPs entities.
