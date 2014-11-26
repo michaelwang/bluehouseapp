@@ -1,8 +1,0 @@
-bluehouseapp_post_delete:
-    path:     /post_delete/{id}
-    defaults: { _controller: "bluehouseapp.controller.post:deleteAction" }
-    requirements: { _method: get|delete }
-bluehouseapp_postcomment_delete:
-    path:     /postcomment/delete/{id}
-    defaults: { _controller: "bluehouseapp.controller.post:deletePostCommentAction" }
-    requirements: { _method: get|delete }

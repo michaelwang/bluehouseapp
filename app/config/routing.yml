@@ -1,5 +1,5 @@
 bluehouseapp:
-        resource: "@BlackhouseappBluehouseappBundle/Resources/config/routing/main.yml"
+        resource: "@BluehouseappWebBundle/Resources/config/routing/main.yml"
 _imagine:
     resource: .
     type:     imagine
