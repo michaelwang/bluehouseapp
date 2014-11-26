@@ -28,7 +28,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\TimeBundle\KnpTimeBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
-            new \Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
+            new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
             new Bluehouseapp\Bundle\CoreBundle\BluehouseappCoreBundle(),
             new Bluehouseapp\Bundle\WebBundle\BluehouseappWebBundle(),
         );
