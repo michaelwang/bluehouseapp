@@ -6,15 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
-class NodeType extends AbstractType
+class NodeType extends AbstractResourceType
 {
-    private $isEdit;
-    private $em;
-    public function __construct($isEdit=false,$em) {
-        $this->em = $em;
-
-        $this->isEdit = $isEdit;
-    }
 
     /**
      * @param FormBuilderInterface $builder
@@ -42,6 +35,15 @@ class NodeType extends AbstractType
 
                 )
             ))
+            ->add('category','bluehouseapp_category_entity_choice',array(
+                'empty_value'=>'请选择分类',
+                'label'=>'分类(必填)',
+                'required'=>true,
+                'attr'=>array(
+                    'class'=>'input-block-level'
+                )
+            ))
+        /*
             ->add('category', 'entity', array(
                 'label'=>'分类(必填)',
                 'attr'=>array(
@@ -61,10 +63,10 @@ class NodeType extends AbstractType
                     },
 
             ))
-
+*/
         ->add('image','file',array(
             'label'=>'节点头像',
-            'required'=>!$this->isEdit,
+            'required'=>false,//!$options['isEdit'],//!$this->isEdit,
             'attr'=>array(
 
             )
@@ -94,15 +96,7 @@ class NodeType extends AbstractType
         ;
     }
     
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'Bluehouseapp\Bundle\CoreBundle\Entity\Node'
-        ));
-    }
+
 
     /**
      * @return string

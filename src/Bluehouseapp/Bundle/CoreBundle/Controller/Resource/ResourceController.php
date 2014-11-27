@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Hateoas\HateoasBuilder;
+use Hateoas\Factory\EmbeddedsFactory;
 /**
  * Base resource controller.
  *
@@ -300,11 +301,7 @@ class ResourceController extends FOSRestController
     public function getForm($resource = null)
     {
 
-        $logger = $this->get('logger');
-        $logger->info( $this->config->getBundlePrefix());
-        $logger->info( $this->config->getTemplateNamespace());
-        $logger->info( $this->config->getFormType());
-        $logger->info( $this->config->isApiRequest());
+
 
         if ($this->config->isApiRequest()) {
             return $this->container->get('form.factory')->createNamed('', $this->config->getFormType(), $resource);

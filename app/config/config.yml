@@ -135,6 +135,7 @@ fos_rest:
    view:
         formats:
             json: true
+   disable_csrf_role: ROLE_ADMIN
 
 liip_imagine:
     filter_sets:

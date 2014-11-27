@@ -91,18 +91,17 @@ class MemberController  extends ResourceController
         if(!$member->getNickname()){
             $member->setNickname($member->getUsername());
         }
-        $isEdit = $member->getAvatar()!='';
-        $memberType = new MemberType();
-        $form = $this->createForm($memberType,$member,array(
+
+
+
+        $form = $this->createForm('bluehouseapp_member',$member,array(
             'action'=>$this->generateUrl('member_update'),
             'method'=>'POST'
         ));
 
-        $memberImageType = new MemberImageType($isEdit);
-        $memberImageForm = $this->createForm($memberImageType,$member,array(
-            'action'=>$this->generateUrl('member_update_image'),
-            'method'=>'POST'
-        ));
+
+
+        $memberImageForm= $this->getMemberImageForm($member);
 
         $param['member']=$member;
         $param['form']=$form->createView();
@@ -122,19 +121,14 @@ class MemberController  extends ResourceController
         $current = $this->get('security.context')->getToken()->getUser();
         $member = $this->getRepository()->find($current->getId());
 
-        $memberType = new MemberType();
-        $form = $this->createForm($memberType,$member,array(
+      //  $memberType = new MemberType();
+        $form = $this->createForm('bluehouseapp_member',$member,array(
             'action'=>$this->generateUrl('member_update'),
             'method'=>'POST'
         ));
 
+        $memberImageForm= $this->getMemberImageForm($member);
 
-        $isEdit = $member->getAvatar()!='';
-        $memberType = new MemberImageType($isEdit);
-        $memberImageForm = $this->createForm($memberType,$member,array(
-            'action'=>$this->generateUrl('member_update_image'),
-            'method'=>'POST'
-        ));
         $memberImageForm->handleRequest($request);
         if($memberImageForm->isValid()){
             $em = $this->getDoctrine()->getManager();
@@ -156,6 +150,22 @@ class MemberController  extends ResourceController
     }
 
 
+    public  function  getMemberImageForm($member){
+        $isEdit = $member->getAvatar()!='';
+        $memberImageType = new MemberImageType($isEdit);
+/*
+        $memberImageForm = $this->createForm('bluehouseapp_member_image',$member,array(
+            'action'=>$this->generateUrl('member_update_image'),
+            'method'=>'POST'
+        ),array('isEdit'=>$isEdit));
+*/
+        $memberImageForm = $this->createForm($memberImageType,$member,array(
+            'action'=>$this->generateUrl('member_update_image'),
+            'method'=>'POST'
+        ));
+    return $memberImageForm;
+}
+
     /**
      *
      */
@@ -164,16 +174,9 @@ class MemberController  extends ResourceController
         $current = $this->get('security.context')->getToken()->getUser();
         $member = $this->getRepository()->find($current->getId());
 
-        $isEdit = $member->getAvatar()!='';
-        $memberImageType = new MemberImageType($isEdit);
-        $memberImageForm = $this->createForm($memberImageType,$member,array(
-            'action'=>$this->generateUrl('member_update_image'),
-            'method'=>'POST'
-        ));
+        $memberImageForm= $this->getMemberImageForm($member);
 
-
-        $memberType = new MemberType();
-        $form = $this->createForm($memberType,$member,array(
+        $form = $this->createForm('bluehouseapp_member',$member,array(
             'action'=>$this->generateUrl('member_update'),
             'method'=>'POST'
         ));
@@ -197,8 +200,6 @@ class MemberController  extends ResourceController
             ->setData($param)
         ;
         return $this->handleView($view);
-
-
     }
 
     /**

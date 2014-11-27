@@ -10,10 +10,17 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class MemberImageType  extends AbstractType{
 
-    private $isEdit;
-    public function __construct($isEdit=false)
+    protected $className,$isEdit;
+
+    /**
+     * Constructor.
+     *
+     * @param string $className
+     */
+    public function __construct($isEdit)
     {
-        $this->isEdit = $isEdit;
+
+        $this->isEdit=$isEdit;
     }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -32,11 +39,10 @@ class MemberImageType  extends AbstractType{
     ;
 
     }
-
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Bluehouseapp\Bundle\CoreBundle\Entity\Member'
+            'data_class' =>'Bluehouseapp\Bundle\CoreBundle\Entity\Member'      // $this->$className
         ));
     }
 
@@ -45,6 +51,6 @@ class MemberImageType  extends AbstractType{
      */
     public function getName()
     {
-        return 'bluehouseapp_memberimage';
+        return 'bluehouseapp_member_image';
     }
 } 

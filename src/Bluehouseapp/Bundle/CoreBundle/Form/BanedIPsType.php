@@ -39,15 +39,6 @@ class BanedIPsType extends AbstractResourceType
         ;
     }
     
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'Bluehouseapp\Bundle\CoreBundle\Entity\BanedIPs'
-        ));
-    }
 
     /**
      * @return string

@@ -8,7 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 
-class MemberType  extends AbstractType
+class MemberType  extends AbstractResourceType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -77,12 +77,6 @@ class MemberType  extends AbstractType
 
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'Bluehouseapp\Bundle\CoreBundle\Entity\Member'
-        ));
-    }
 
     /**
      * @return string

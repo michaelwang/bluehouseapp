@@ -19,9 +19,24 @@
         <parameter key="bluehouseapp.event_subscriber.kernel_controller.class">Bluehouseapp\Bundle\CoreBundle\EventListener\KernelControllerSubscriber</parameter>
         <parameter key="bluehouseapp.event_subscriber.kernel_request.class">Bluehouseapp\Bundle\CoreBundle\EventListener\KernelRequestSubscriber</parameter>
 
+        <parameter key="bluehouseapp.form.type.category_entity.class">Bluehouseapp\Bundle\CoreBundle\Form\CategoryEntityType</parameter>
+        <parameter key="bluehouseapp.form.type.member_image.class">Bluehouseapp\Bundle\CoreBundle\Form\MemberImageType</parameter>
 
     </parameters>
     <services>
+
+        <service id="bluehouseapp.form.type.category_entity" class="%bluehouseapp.form.type.category_entity.class%">
+            <argument>%bluehouseapp.model.category.class%</argument>
+            <tag name="form.type" alias="bluehouseapp_category_entity_choice" />
+        </service>
+        <!--
+        <service id="bluehouseapp.form.type.member_image" class="%bluehouseapp.form.type.member_image.class%">
+            <argument>%bluehouseapp.model.member.class%</argument>
+            <tag name="form.type" alias="bluehouseapp_member_image" />
+        </service>
+        -->
+
+
 
         <service id="bluehouseapp.controller.configuration_factory" class="%bluehouseapp.controller.configuration_factory.class%">
             <argument type="service" id="bluehouseapp.controller.parameters_parser" />

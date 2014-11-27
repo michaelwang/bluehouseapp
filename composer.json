@@ -56,10 +56,10 @@
         "davidbadura/faker-bundle": "1.0.*",
         "pagerfanta/pagerfanta": "1.0.*@dev",
         "white-october/pagerfanta-bundle":"1.0.*@dev",
-	"willdurand/hateoas": "2.4.*@dev",
+	    "willdurand/hateoas": "2.4.*@dev",
         "willdurand/hateoas-bundle": "1.0.*@dev",
         "symfony/expression-language": "~2.4",
-	"doctrine/annotations" : "~1.0"
+	    "doctrine/annotations" : "~1.0"
     },
     "scripts": {
         "post-install-cmd": [
