@@ -24,7 +24,6 @@ class AppKernel extends Kernel
             new Liip\ImagineBundle\LiipImagineBundle(),
             new FM\ElfinderBundle\FMElfinderBundle(),
             new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle(),
-            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Knp\Bundle\TimeBundle\KnpTimeBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
@@ -37,7 +36,7 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-            $bundles[] = new DavidBadura\FakerBundle\DavidBaduraFakerBundle();
+
         }
 
         return $bundles;

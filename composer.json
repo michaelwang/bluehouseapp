@@ -42,7 +42,6 @@
         "liip/imagine-bundle": "v0.21.1",
         "helios-ag/fm-elfinder-bundle": "1.x",
         "exercise/htmlpurifier-bundle": "dev-master",
-        "knplabs/knp-paginator-bundle": "dev-master",
         "knplabs/knp-time-bundle": "dev-master",
         "Trsteel/ckeditor-bundle": "~1.4",
         "jms/serializer": "0.13@dev",
