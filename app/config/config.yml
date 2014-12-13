@@ -258,3 +258,13 @@ monolog:
         console:
             type:   console
 
+fos_oauth_server:
+      db_driver: orm       # Driver availables: orm, mongodb, or propel
+      client_class:  Bluehouseapp\Bundle\CoreBundle\Entity\Client
+      access_token_class: Bluehouseapp\Bundle\CoreBundle\Entity\AccessToken
+      refresh_token_class: Bluehouseapp\Bundle\CoreBundle\Entity\RefreshToken
+      auth_code_class:  Bluehouseapp\Bundle\CoreBundle\Entity\AuthCode
+      service:
+           user_provider: fos_user.user_manager
+            
+            

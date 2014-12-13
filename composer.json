@@ -24,7 +24,7 @@
         "php": ">=5.3.3",
         "symfony/symfony": "2.5.*",
         "doctrine/orm": "~2.2,>=2.2.3",
-        "doctrine/common": "~2.0",	
+        "doctrine/common": "~2.0",
         "doctrine/doctrine-bundle": "~1.2",
         "twig/extensions": "~1.0",
         "symfony/assetic-bundle": "~2.3",
@@ -59,7 +59,8 @@
 	"willdurand/hateoas": "2.4.*@dev",
         "willdurand/hateoas-bundle": "1.0.*@dev",
         "symfony/expression-language": "~2.4",
-	"doctrine/annotations" : "~1.0"
+        "doctrine/annotations" : "~1.0",
+        "friendsofsymfony/oauth-server-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
