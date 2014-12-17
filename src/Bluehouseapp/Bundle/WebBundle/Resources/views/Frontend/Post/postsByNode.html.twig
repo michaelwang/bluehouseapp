@@ -1,6 +1,6 @@
 {% extends "BluehouseappWebBundle:Frontend/layout:layout.html.twig" %}
 {% from 'BluehouseappWebBundle:Macros:misc.html.twig'  import pagination %}
-{% block title %}蓝房子{% endblock %}
+{% block title %}星墅湾{% endblock %}
 {% block body -%}
     <div class="h20"></div>
     <div class="box">
@@ -14,7 +14,7 @@
     {% endif %}
 
             </div>
-                <div class="fr f12"><span class="box_snow">主题总数</span> <strong class="box_gray">{{ postCounts }}</strong></div><a href={{ path('post') }}>蓝房子</a>
+                <div class="fr f12"><span class="box_snow">主题总数</span> <strong class="box_gray">{{ postCounts }}</strong></div><a href={{ path('post') }}>星墅湾</a>
                 <span class="box_chevron">&nbsp;>&nbsp;</span> {{ currentNode.name }}
 
                 <div class="h10"></div>
@@ -106,7 +106,7 @@
     <div class="box">
         <div class="box-cell">
             <div class="box-fr"><a href="#">浏览全部节点</a></div>
-            <span class="box-fade"><strong>蓝房子</strong> / 节点导航</span>
+            <span class="box-fade"><strong>星墅湾</strong> / 节点导航</span>
         </div>
     {% for category in categories %}
         {% if loop.last %}
