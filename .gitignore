@@ -17,3 +17,4 @@ composer.lock
 /iOS/post/post.xcodeproj/xcuserdata/wangzhenhua.xcuserdatad/
 nohup.out
 .gitignore
+web/assets/

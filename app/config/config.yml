@@ -258,3 +258,19 @@ monolog:
         console:
             type:   console
 
+fos_oauth_server:
+      db_driver: orm       # Driver availables: orm, mongodb, or propel
+      client_class:  Bluehouseapp\Bundle\CoreBundle\Entity\Client
+      access_token_class: Bluehouseapp\Bundle\CoreBundle\Entity\AccessToken
+      refresh_token_class: Bluehouseapp\Bundle\CoreBundle\Entity\RefreshToken
+      auth_code_class:  Bluehouseapp\Bundle\CoreBundle\Entity\AuthCode
+      service:
+           user_provider: fos_user.user_manager
+
+hwi_oauth:
+      firewall_name: main
+      resource_owners:
+           qq:
+              type:                qq
+              client_id:           101177731
+              client_secret:       869ce40764037676ad464cebc02a41b5

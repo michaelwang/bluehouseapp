@@ -1,18 +1,31 @@
 # app/config/security.yml
 security:
-    encoders:
+     encoders:
         FOS\UserBundle\Model\UserInterface: sha512
 
-    role_hierarchy:
+     role_hierarchy:
         ROLE_MANAGER:     ROLE_USER
         ROLE_ADMIN:       [ROLE_USER,ROLE_MANAGER]
-
-
-    providers:
+     providers:
         fos_userbundle:
             id: fos_user.user_provider.username
+     firewalls:
+        oauth_token:
+              pattern:    ^/oauth/v2/token
+              security:   false
+        oauth_authorize:
+              pattern:    ^/oauth/v2/auth
+              form_login:
+                     provider: fos_userbundle
+                     check_path: /oauth/v2/auth_login_check
+                     login_path: /oauth/v2/auth_login
+              anonymous:  true
+        api:
+              pattern:    ^/api
+              fos_oauth:  true
+              stateless:  true
+              anonymous:  true
 
-    firewalls:
         main:
             pattern: ^/
             form_login:
@@ -22,13 +35,23 @@ security:
                 always_use_default_target_path: true
             logout:       true
             anonymous:    true
+            oauth:
+              resource_owners:
+                 qq: "/login/check-qq" # 需要在routing.yml中定义该route
+              login_path:        /login
+              failure_path:      /login
+              oauth_user_provider:
+                    service: sylius.user 
 
-    access_control:
+     access_control:
         - { path: ^/login$,                      role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login/check-qq,              role: IS_AUTHENTICATED_ANONYMOUSLY }        
         - { path: ^/register,                    role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting,                   role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/manager,                     role: ROLE_MANAGER }
         - { path: ^/admin,                       role: ROLE_ADMIN }
         - { path: ^/member,                      role: ROLE_USER }
         - { path: ^/,                            role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/oauth/v2/auth_login,         roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/oauth/v2/auth,               roles: ROLE_USER }
 

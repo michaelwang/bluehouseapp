@@ -18,7 +18,7 @@
         <parameter key="bluehouseapp.event_subscriber.load_orm_metadata.class">Bluehouseapp\Bundle\CoreBundle\EventListener\LoadORMMetadataSubscriber</parameter>
         <parameter key="bluehouseapp.event_subscriber.kernel_controller.class">Bluehouseapp\Bundle\CoreBundle\EventListener\KernelControllerSubscriber</parameter>
         <parameter key="bluehouseapp.event_subscriber.kernel_request.class">Bluehouseapp\Bundle\CoreBundle\EventListener\KernelRequestSubscriber</parameter>
-
+        <parameter key="sylius.user.class">Bluehouseapp\Bundle\CoreBundle\Entity\Member</parameter>
 
     </parameters>
     <services>
@@ -69,6 +69,11 @@
             <argument type="service" id="router" />
 	    <argument type="service" id="event_dispatcher" />
         </service>
+
+        <service id="sylius.user" class="%sylius.user.class%">
+          <argument type="service" id="fos_user.user_manager" />
+        </service>
+        
     </services>
 
 </container>

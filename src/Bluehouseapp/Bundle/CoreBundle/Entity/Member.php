@@ -9,6 +9,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
+use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
+use FOS\UserBundle\Model\UserManagerInterface;
 
 /**
  * @UniqueEntity(
@@ -19,7 +22,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Bluehouseapp\Bundle\CoreBundle\Entity\MemberRepository")
  */
-class Member extends BaseUser
+class Member extends BaseUser implements OAuthAwareUserProviderInterface
 {
 
     const ROLE_ADMIN = 'ROLE_ADMIN';
@@ -32,9 +35,10 @@ class Member extends BaseUser
      */
     protected $id;
 
-    public function __construct()
+    public function __construct(UserManagerInterface $userManager = null)
     {
         parent::__construct();
+        $this->userManager = $userManager;
         $this->created = new \DateTime();
         $this->modified = $this->created;
         $this->addRole(self::ROLE_USER);
@@ -158,6 +162,12 @@ class Member extends BaseUser
     protected $oschina;
 
 
+    /** @ORM\Column(name="qq_id", type="string", length=255, nullable=true) */
+    protected $qq_id;
+
+    /** @ORM\Column(name="qq_access_token", type="string", length=255, nullable=true) */
+    protected $qq_access_token;
+
     /**
      * @ORM\Column(name="city",type="string",length=60,nullable=true)
      * @Assert\Length(
@@ -167,7 +177,7 @@ class Member extends BaseUser
      */
     protected $city;
 
-
+    protected $userManager;
 
     /*
    * @UniqueEntity(
@@ -391,5 +401,90 @@ class Member extends BaseUser
         return $this->oschina;
     }
 
+    public function loadUserByOAuthUserResponse(UserResponseInterface $response)
+    {
+        $username = $response->getUsername();
+        $user = $this->userManager->findUserBy(array('username' => $username));
+        //when the user is registrating
+        if (null === $user) {
+            $service = $response->getResourceOwner()->getName();
+            $setter = 'set' . ucfirst($service);
+            $setter_id = $setter . 'Id';
+            $setter_token = $setter . 'AccessToken';
+            // create new user here
+            $user = $this->userManager->createUser();
+            $user->$setter_id($username);
+            $user->$setter_token($response->getAccessToken());
+            //I have set all requested data with the user's username
+            //modify here with relevant data
+            $user->setUsername($username);
+            $user->setNickname($response->getNickName());
+            $user->setEmail($username . '@yoursite.com');
+            $user->setPassword($username);
+            $user->setPath($response->getProfilePicture());
+            $user->setEnabled(true);
+            $this->userManager->updateUser($user);
+            return $user;
+        }
 
+        //if user exists - go with the HWIOAuth way
+        $serviceName = $response->getResourceOwner()->getName();
+        $setter = 'set' . ucfirst($serviceName) . 'AccessToken';
+
+        //update access token
+        $user->$setter($response->getAccessToken());
+
+        return $user;
+
+    }
+
+
+
+
+
+    /**
+     * Set qq_id
+     *
+     * @param string $qqId
+     * @return Member
+     */
+    public function setQqId($qqId)
+    {
+        $this->qq_id = $qqId;
+
+        return $this;
+    }
+
+    /**
+     * Get qq_id
+     *
+     * @return string 
+     */
+    public function getQqId()
+    {
+        return $this->qq_id;
+    }
+
+    /**
+     * Set qq_access_token
+     *
+     * @param string $qqAccessToken
+     * @return Member
+     */
+    public function setQqAccessToken($qqAccessToken)
+    {
+        $this->qq_access_token = $qqAccessToken;
+
+        return $this;
+    }
+
+    /**
+     * Get qq_access_token
+     *
+     * @return string 
+     */
+    public function getQqAccessToken()
+    {
+        return $this->qq_access_token;
+    }
 }

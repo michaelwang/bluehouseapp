@@ -156,7 +156,7 @@ class Configuration implements ConfigurationInterface
             ->prototype('integer')->end()
             ->defaultValue(array(20, 30, 50))
             ->end()
-            ->integerNode('default_page_size')->defaultValue(10)->end()
+            ->integerNode('default_page_size')->defaultValue(5)->end()
             ->booleanNode('sortable')->defaultFalse()->end()
             ->variableNode('sorting')->defaultNull()->end()
             ->booleanNode('filterable')->defaultFalse()->end()
