@@ -19,7 +19,7 @@ class MemberType  extends AbstractType
                 'required'=>true,
                 'attr'=>array(
                     'class'=>'input-block-level',
-                    'placeholder'=>'楼号-房号'
+                    'placeholder'=>'昵称'
                 )
             ))
             ->add('city','text',array(
