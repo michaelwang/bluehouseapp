@@ -15,7 +15,7 @@ class MemberType  extends AbstractType
     {
         $builder
             ->add('nickname',"text",array(
-                'label'=>'昵称(必填)',
+                'label'=>'昵称(*必填*)',
                 'required'=>true,
                 'attr'=>array(
                     'class'=>'input-block-level',
