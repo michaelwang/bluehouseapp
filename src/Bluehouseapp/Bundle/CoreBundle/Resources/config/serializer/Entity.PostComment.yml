@@ -1,0 +1,26 @@
+Bluehouseapp\Bundle\CoreBundle\Entity\PostComment:
+    exclusion_policy: ALL
+    xml_root_name: postComment
+    properties:
+        id:
+            expose: true
+            type: integer
+            xml_attribute: true
+        content:
+            expose: true
+            type: string
+        modified:
+            expose: true
+            type: DateTime
+
+    relations:
+        - rel: member
+          href:
+                route: bluehouseapp_api_member_show
+                parameters:
+                    username: expr(object.getMember().getUsername())
+        - rel: post
+          href:
+                route: bluehouseapp_api_post_show
+                parameters:
+                    id: expr(object.getPost().getId())
