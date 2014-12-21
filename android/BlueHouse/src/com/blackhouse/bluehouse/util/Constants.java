@@ -9,7 +9,7 @@ package com.blackhouse.bluehouse.util;
 public class Constants {
 
 	
-	public static final String BASEURL = "http://192.168.0.112:8000";
+	public static final String BASEURL = "http://bluehouseapp.com";
 	
 	public static final String POST = "/post";
 	
