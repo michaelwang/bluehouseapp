@@ -12,7 +12,10 @@ Bluehouseapp\Bundle\CoreBundle\Entity\PostComment:
         modified:
             expose: true
             type: DateTime
-
+    virtual_properties:
+        getMemberName:
+            serialized_name: memberName
+            type: string
     relations:
         - rel: member
           href:

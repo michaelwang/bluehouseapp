@@ -292,6 +292,13 @@ class PostComment {
     }
 
 
+    public function  getMemberName()
+    {
+        $member = $this->getMember();
+        $name = $member->getNickname() ? $member->getNickname() : $member->getUsername();
+        return $name;
+    }
+
 
 
 } 

@@ -24,6 +24,10 @@ Bluehouseapp\Bundle\CoreBundle\Entity\Post:
         commentCount:
             expose: true
             type: integer
+    virtual_properties:
+        getMemberName:
+            serialized_name: memberName
+            type: string
     relations:
         - rel: node
           href:
