@@ -28,7 +28,15 @@ Bluehouseapp\Bundle\CoreBundle\Entity\Post:
         getMemberName:
             serialized_name: memberName
             type: string
+        getNodeName:
+            serialized_name: nodeName
+            type: string
     relations:
+        - rel: detail
+          href:
+                route: bluehouseapp_api_post_show
+                parameters:
+                    id: expr(object.getId())
         - rel: node
           href:
                 route: bluehouseapp_api_node_show

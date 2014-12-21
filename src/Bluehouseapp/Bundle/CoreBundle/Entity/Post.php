@@ -403,4 +403,8 @@ class Post
     }
 
 
+   public  function  getNodeName(){
+       $node=$this->getNode();
+       return $node->getName();
+   }
 }
