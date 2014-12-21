@@ -299,6 +299,12 @@ class PostComment {
         return $name;
     }
 
+    public function  getPostTitle()
+    {
+        $post = $this->getPost();
+        $title = $post->getTitle();
+        return $title;
+    }
 
 
 } 

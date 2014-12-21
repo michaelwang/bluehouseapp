@@ -16,6 +16,9 @@ Bluehouseapp\Bundle\CoreBundle\Entity\PostComment:
         getMemberName:
             serialized_name: memberName
             type: string
+        getPostTitle:
+            serialized_name: postTitle
+            type: string
     relations:
         - rel: member
           href:
