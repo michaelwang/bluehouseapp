@@ -1,8 +1,4 @@
-welcome:
-    path:     /
-    defaults: { _controller: "BluehouseappWebBundle:Welcome:index" }
-    requirements: { _method: get }
 
 bluehouseapp_frontend:
     resource: @BluehouseappWebBundle/Resources/config/routing/frontend/routing_frontEnd.yml
-    prefix: /web
+    prefix: /

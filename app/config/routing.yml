@@ -1,5 +1,5 @@
 bluehouseapp_web:
-          resource: "@BluehouseappWebBundle/Resources/config/routing/main.yml"
+    resource: "@BluehouseappWebBundle/Resources/config/routing/main.yml"
 
 bluehouseapp_api:
     resource: "@BluehouseappApiBundle/Resources/config/routing/main.yml"
