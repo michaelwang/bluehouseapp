@@ -305,6 +305,9 @@ class PostComment {
         $title = $post->getTitle();
         return $title;
     }
-
+    public  function  getMemberImageURL(){
+        $member = $this->getMember();
+        return $member->getUserimageurl();
+    }
 
 } 

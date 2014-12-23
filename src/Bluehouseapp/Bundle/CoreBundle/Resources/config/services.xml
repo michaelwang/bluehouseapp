@@ -83,6 +83,13 @@
             <argument type="service" id="router" />
 	    <argument type="service" id="event_dispatcher" />
         </service>
+
+        <service id="bluehouseapp.set_image_url.orm.listener" class="Bluehouseapp\Bundle\CoreBundle\Listener\ModelSetImageURLListener">
+            <argument type="service" id="vich_uploader.templating.helper.uploader_helper" />
+            <tag name="doctrine.event_listener" event="postLoad" />
+
+        </service>
+
     </services>
 
 </container>

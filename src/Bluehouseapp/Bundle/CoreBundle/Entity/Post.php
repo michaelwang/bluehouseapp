@@ -407,4 +407,9 @@ class Post
        $node=$this->getNode();
        return $node->getName();
    }
+
+    public  function  getMemberImageURL(){
+        $member = $this->getMember();
+        return $member->getUserimageurl();
+    }
 }

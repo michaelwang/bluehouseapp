@@ -27,6 +27,9 @@ Bluehouseapp\Bundle\CoreBundle\Entity\Member:
         description:
             expose: true
             type: string
+        userimageurl:
+            expose: true
+            type: string
     relations:
         - rel: posts
           href:

@@ -31,6 +31,9 @@ Bluehouseapp\Bundle\CoreBundle\Entity\Post:
         getNodeName:
             serialized_name: nodeName
             type: string
+        getMemberImageURL:
+            serialized_name: memberimageurl
+            type: string
     relations:
         - rel: detail
           href:
