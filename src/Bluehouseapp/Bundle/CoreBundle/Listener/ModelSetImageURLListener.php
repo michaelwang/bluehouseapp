@@ -11,14 +11,21 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 use Bluehouseapp\Bundle\CoreBundle\Entity\Member;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\ORM\Event\PostFlushEventArgs;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
+
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 class ModelSetImageURLListener implements EventSubscriber{
 
     private $helper;
-    public function __construct(UploaderHelper $helper)
+    private $liip_imagine_manager;
+    private  $image_data_manager;
+
+    public function __construct(UploaderHelper $helper,CacheManager $liip_imagine_manager )
     {
         $this->helper = $helper;
+        $this->liip_imagine_manager = $liip_imagine_manager;
+
+
     }
 
     public function getSubscribedEvents()
@@ -37,8 +44,18 @@ class ModelSetImageURLListener implements EventSubscriber{
             $userImage=$accessor->getValue($entity, 'userImage');
             if($userImage!=null){
                 $path = $this->helper->asset($entity, 'userImage');
-                if($path!=null)
-                    $entity->setUserImageURL($path);
+                if($path!=null){
+                    $filter="mini_image";
+                 $filterPath=$this->liip_imagine_manager->getBrowserPath($path,$filter,false);
+
+
+                    $entity->setUserImageURL($filterPath);
+                }
+
+            }else{
+                $defaultMemberImageURL="/bundles/bluehouseappweb/images/user_default_mini.png";
+
+                $entity->setUserImageURL($defaultMemberImageURL);
             }
 
         }

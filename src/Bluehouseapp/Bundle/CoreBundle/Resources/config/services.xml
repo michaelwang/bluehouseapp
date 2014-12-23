@@ -86,6 +86,9 @@
 
         <service id="bluehouseapp.set_image_url.orm.listener" class="Bluehouseapp\Bundle\CoreBundle\Listener\ModelSetImageURLListener">
             <argument type="service" id="vich_uploader.templating.helper.uploader_helper" />
+            <argument type="service" id="liip_imagine.cache.manager" />
+
+
             <tag name="doctrine.event_listener" event="postLoad" />
 
         </service>
