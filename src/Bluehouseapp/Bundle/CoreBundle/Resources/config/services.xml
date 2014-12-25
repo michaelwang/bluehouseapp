@@ -73,7 +73,7 @@
         <service id="sylius.user" class="%sylius.user.class%">
           <argument type="service" id="fos_user.user_manager" />
         </service>
-        
+
     </services>
 
 </container>
