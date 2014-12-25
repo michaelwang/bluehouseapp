@@ -18,3 +18,5 @@ composer.lock
 nohup.out
 .gitignore
 web/assets/
+/app/SymfonyRequirements.php
+composer.lock
