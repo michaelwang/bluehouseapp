@@ -142,31 +142,31 @@ fos_rest:
 liip_imagine:
     filter_sets:
         face_image:
-            quality: 75
+            quality: 100
             filters:
                 thumbnail: { size: [170, 170], mode: outbound}
         avatar_image:
-            quality: 75
+            quality: 100
             filters:
                 thumbnail: { size: [73, 73], mode: outbound }
         banner_image:
-            quality: 75
+            quality: 100
             filters:
                 thumbnail: { size: [940, 360], mode: outbound }
         small_image:
-            quality: 75
+            quality: 100
             filters:
                 thumbnail: { size: [48, 48], mode: outbound }
         mini_image:
-            quality: 75
+            quality: 100
             filters:
-                thumbnail: { size: [24, 24], mode: outbound }
+                thumbnail: { size: [36, 36], mode: outbound }
         product_image:
-                     quality: 75
+                     quality: 100
                      filters:
                          thumbnail: { size: [480, 480], mode: outbound }
         page_image:
-            quality: 75
+            quality: 100
             filters:
                 relative_resize: { widen: 600 }
 

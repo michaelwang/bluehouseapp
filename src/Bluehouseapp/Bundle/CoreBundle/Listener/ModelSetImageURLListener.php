@@ -7,6 +7,7 @@
  */
 
 namespace Bluehouseapp\Bundle\CoreBundle\Listener;
+use Bluehouseapp\Bundle\CoreBundle\Entity\Node;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Bluehouseapp\Bundle\CoreBundle\Entity\Member;
 use Doctrine\Common\EventSubscriber;
@@ -56,6 +57,25 @@ class ModelSetImageURLListener implements EventSubscriber{
                 $defaultMemberImageURL="/bundles/bluehouseappweb/images/user_default_mini.png";
 
                 $entity->setUserImageURL($defaultMemberImageURL);
+            }
+
+        }
+
+        if ( $entity instanceof Node) {
+
+            $accessor = PropertyAccess::createPropertyAccessor();
+
+            $NodeImage=$accessor->getValue($entity, 'image');
+            if($NodeImage!=null){
+                $path = $this->helper->asset($entity, 'image');
+                if($path!=null){
+                    $filter="avatar_image";
+                    $filterPath=$this->liip_imagine_manager->getBrowserPath($path,$filter,false);
+
+
+                    $entity->setNodeimageurl($filterPath);
+                }
+
             }
 
         }

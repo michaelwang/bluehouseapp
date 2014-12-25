@@ -12,6 +12,9 @@ Bluehouseapp\Bundle\CoreBundle\Entity\Node:
         description:
              expose: true
              type: string
+        nodeimageurl:
+             expose: true
+             type: string
     relations:
         - rel: posts
           href:
