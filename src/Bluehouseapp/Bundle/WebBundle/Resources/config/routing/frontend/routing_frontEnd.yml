@@ -63,7 +63,7 @@ member_update:
            _bluehouseapp:
              template:  BluehouseappWebBundle:Frontend/Member:edit.html.twig
 user_show:
-        path:    /user/{username}
+        path:    /user/{username}.{_format}
         defaults:
            _controller: bluehouseapp.controller.member:showMemberAction
            _bluehouseapp:

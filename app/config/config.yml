@@ -246,9 +246,6 @@ vich_uploader:
             delete_on_remove: true
             inject_on_load: true
 
-david_badura_faker:
-  locale: en_EN
-
 monolog:
     handlers:
         main:
@@ -266,11 +263,5 @@ fos_oauth_server:
       auth_code_class:  Bluehouseapp\Bundle\CoreBundle\Entity\AuthCode
       service:
            user_provider: fos_user.user_manager
-
-hwi_oauth:
-      firewall_name: main
-      resource_owners:
-           qq:
-              type:                qq
-              client_id:           101177731
-              client_secret:       869ce40764037676ad464cebc02a41b5
+           options:
+             supported_scopes: read

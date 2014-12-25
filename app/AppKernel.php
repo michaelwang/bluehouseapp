@@ -32,14 +32,12 @@ class AppKernel extends Kernel
             new Bluehouseapp\Bundle\CoreBundle\BluehouseappCoreBundle(),
             new Bluehouseapp\Bundle\WebBundle\BluehouseappWebBundle(),
             new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
-            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-            $bundles[] = new DavidBadura\FakerBundle\DavidBaduraFakerBundle();
         }
 
         return $bundles;

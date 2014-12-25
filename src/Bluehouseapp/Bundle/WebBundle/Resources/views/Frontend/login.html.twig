@@ -1,5 +1,5 @@
 <div class="form">
-  <form id="login" class="vertical" action="" method="post">
+  <form id="login" class="vertical" action="{{ path('acme_oauth_server_auth_login_check') }}" method="post">
     <div class="form_title">
       OAuth Authorization
     </div>
@@ -18,4 +18,4 @@
       <input type="submit" id="_submit" name="_submit" value="Log In" />
     </div>
  </form>
-</div>">
+</div>

@@ -34,7 +34,7 @@ class SecurityController extends Controller
         $lastUsername = (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);
 
         return $this->render(
-            'BluehouseBundleapp:WebBundle:Frontend:login.html.twig',
+            'BluehouseappWebBundle:Frontend:login.html.twig',
             array(
                 'last_username' => $lastUsername,
                 'error' => $error,
