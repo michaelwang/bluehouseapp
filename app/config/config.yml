@@ -55,9 +55,9 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
+        path: "%database_path%"
         # if using pdo_sqlite as your database driver, add the path in parameters.yml
         # e.g. database_path: "%kernel.root_dir%/data/data.db3"
-        path:     "%database_path%"
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
@@ -108,15 +108,6 @@ fm_elfinder:
                 upload_deny: ['all']
                 upload_max_size: 4M
 
-knp_paginator:
-    page_range: 5
-    default_options:
-        page_name: page
-        sort_field_name: sort
-        sort_direction_name: direction
-        distinct: true
-    template:
-        pagination: BluehouseappWebBundle:include:pagination.html.twig
 
 knp_time: ~
 
@@ -128,42 +119,55 @@ fos_user:
         address:        %mailer_user%
         sender_name:   蓝房子
 
+#fos_rest:
+#   format_listener:
+#            rules:
+#            - { path: '^/', priorities: [ 'json', 'html'], fallback_format: html, prefer_extension: true }
+#   view:
+#        formats:
+#            json: true
+#   disable_csrf_role: ROLE_ADMIN
+
 fos_rest:
-   format_listener:
-            rules:
-            - { path: '^/', priorities: [ 'json', 'html'], fallback_format: html, prefer_extension: true }
-   view:
+    disable_csrf_role: ROLE_API
+    view:
         formats:
             json: true
+            xml:  true
+        empty_content: 204
+    format_listener:
+        rules:
+             - { path: '^/api', priorities: ['json'], fallback_format: json, prefer_extension: true }
+             - { path: '^/' }
 
 liip_imagine:
     filter_sets:
         face_image:
-            quality: 75
+            quality: 100
             filters:
                 thumbnail: { size: [170, 170], mode: outbound}
         avatar_image:
-            quality: 75
+            quality: 100
             filters:
                 thumbnail: { size: [73, 73], mode: outbound }
         banner_image:
-            quality: 75
+            quality: 100
             filters:
                 thumbnail: { size: [940, 360], mode: outbound }
         small_image:
-            quality: 75
+            quality: 100
             filters:
                 thumbnail: { size: [48, 48], mode: outbound }
         mini_image:
-            quality: 75
+            quality: 100
             filters:
-                thumbnail: { size: [24, 24], mode: outbound }
+                thumbnail: { size: [36, 36], mode: outbound }
         product_image:
-                     quality: 75
+                     quality: 100
                      filters:
                          thumbnail: { size: [480, 480], mode: outbound }
         page_image:
-            quality: 75
+            quality: 100
             filters:
                 relative_resize: { widen: 600 }
 
@@ -246,6 +250,7 @@ vich_uploader:
             delete_on_remove: true
             inject_on_load: true
 
+
 monolog:
     handlers:
         main:
@@ -265,3 +270,19 @@ fos_oauth_server:
            user_provider: fos_user.user_manager
            options:
              supported_scopes: read
+
+jms_serializer:
+    metadata:
+        cache: file
+        debug: true
+        #debug: "%kernel.debug%"
+        file_cache:
+            dir: "%kernel.cache_dir%/serializer"
+        auto_detection: true
+        directories:
+            FOSUB:
+                namespace_prefix: "FOS\\UserBundle"
+                path: "%kernel.root_dir%/Resources/FOSUserBundle/serializer"
+            bluehouseapp-post:
+                namespace_prefix: "Bluehouseapp\\Bundle\\CoreBundle"
+                path: "@BluehouseappCoreBundle/Resources/config/serializer"

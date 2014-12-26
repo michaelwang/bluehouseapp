@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Hateoas\HateoasBuilder;
+use Hateoas\Factory\EmbeddedsFactory;
 /**
  * Base resource controller.
  *
@@ -94,11 +95,12 @@ class ResourceController extends FOSRestController
      */
     public function showAction(Request $request)
     {
+        $criteria = $this->config->getCriteria();
         $view = $this
             ->view()
             ->setTemplate($this->config->getTemplate('show.html'))
             ->setTemplateVar($this->config->getResourceName())
-            ->setData($this->findOr404($request))
+            ->setData($this->findOr404($request,$criteria))
         ;
 
         return $this->handleView($view);
@@ -300,11 +302,7 @@ class ResourceController extends FOSRestController
     public function getForm($resource = null)
     {
 
-        $logger = $this->get('logger');
-        $logger->info( $this->config->getBundlePrefix());
-        $logger->info( $this->config->getTemplateNamespace());
-        $logger->info( $this->config->getFormType());
-        $logger->info( $this->config->isApiRequest());
+
 
         if ($this->config->isApiRequest()) {
             return $this->container->get('form.factory')->createNamed('', $this->config->getFormType(), $resource);
@@ -331,12 +329,12 @@ class ResourceController extends FOSRestController
             $default = array();
         }
 
-        $criteria = array_merge($default, $criteria);
+        $criteria= array_merge($default, $criteria);
 
         if (!$resource = $this->resourceResolver->getResource(
             $this->getRepository(),
             'findOneBy',
-            array($this->config->getCriteria($criteria)))
+            array($criteria))
         ) {
             throw new NotFoundHttpException(
                 sprintf(

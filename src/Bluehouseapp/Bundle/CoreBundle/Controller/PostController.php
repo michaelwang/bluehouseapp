@@ -19,7 +19,7 @@ use  Bluehouseapp\Bundle\CoreBundle\Controller\Resource\ResourceController;
 class PostController extends ResourceController
 {
 
-    public function indexAction(Request $request)
+    public function listAction(Request $request)
     {
         return $this->redirect($this->generateUrl('post_by_category', array('currentCategoryId'=>'0')));
     }
@@ -224,7 +224,8 @@ class PostController extends ResourceController
      */
     private function createCreateForm(Post $entity,$currentNodeId)
     {
-        $form = $this->createForm(new PostType(), $entity, array(
+        //new PostType()
+        $form = $this->createForm('bluehouseapp_post', $entity, array(
             'action' => $this->generateUrl('post_create',array('nodeId' =>$currentNodeId)),
             'method' => 'POST',
         ));
@@ -333,8 +334,8 @@ class PostController extends ResourceController
 
     private function getCommentForm($post, $comment)
     {
-        $commentType = new PostCommentType();
-        $form = $this->createForm($commentType, $comment, array(
+      //  $commentType = new PostCommentType();
+        $form = $this->createForm('bluehouseapp_postComment', $comment, array(
             'action' => $this->generateUrl('post_comment_create', array('id' => $post->getId())),
             'method' => 'POST'
         ));

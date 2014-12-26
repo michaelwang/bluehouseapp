@@ -1,5 +1,9 @@
-bluehouseapp:
-        resource: "@BluehouseappWebBundle/Resources/config/routing/main.yml"
+bluehouseapp_web:
+    resource: "@BluehouseappWebBundle/Resources/config/routing/main.yml"
+
+bluehouseapp_api:
+    resource: "@BluehouseappApiBundle/Resources/config/routing/main.yml"
+    prefix: /api
 _imagine:
     resource: .
     type:     imagine
@@ -44,3 +48,7 @@ acme_oauth_server_auth_login:
 acme_oauth_server_auth_login_check:
      pattern:  /oauth/v2/auth_login_check
      defaults: { _controller: BluehouseappCoreBundle:Security:loginCheck }
+
+acme_oauth_server_api_user:
+     pattern:  /api/user
+     defaults: { _controller: BluehouseappCoreBundle:Security:user }

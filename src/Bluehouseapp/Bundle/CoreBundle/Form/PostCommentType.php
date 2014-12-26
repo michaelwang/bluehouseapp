@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PostCommentType extends AbstractType
+class PostCommentType extends AbstractResourceType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -31,21 +31,13 @@ class PostCommentType extends AbstractType
         ;
     }
     
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'Bluehouseapp\Bundle\CoreBundle\Entity\PostComment'
-        ));
-    }
+
 
     /**
      * @return string
      */
     public function getName()
     {
-        return 'bluehouseapp_postcomment';
+        return 'bluehouseapp_postComment';
     }
 }

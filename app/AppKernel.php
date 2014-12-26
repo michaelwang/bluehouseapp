@@ -24,7 +24,6 @@ class AppKernel extends Kernel
             new Liip\ImagineBundle\LiipImagineBundle(),
             new FM\ElfinderBundle\FMElfinderBundle(),
             new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle(),
-            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Knp\Bundle\TimeBundle\KnpTimeBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
@@ -32,6 +31,7 @@ class AppKernel extends Kernel
             new Bluehouseapp\Bundle\CoreBundle\BluehouseappCoreBundle(),
             new Bluehouseapp\Bundle\WebBundle\BluehouseappWebBundle(),
             new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
+            new Bluehouseapp\Bundle\ApiBundle\BluehouseappApiBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

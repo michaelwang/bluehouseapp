@@ -22,7 +22,7 @@ use FOS\UserBundle\Model\UserManagerInterface;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Bluehouseapp\Bundle\CoreBundle\Entity\MemberRepository")
  */
-class Member extends BaseUser implements OAuthAwareUserProviderInterface
+class Member extends BaseUser 
 {
 
     const ROLE_ADMIN = 'ROLE_ADMIN';
@@ -161,12 +161,6 @@ class Member extends BaseUser implements OAuthAwareUserProviderInterface
      */
     protected $oschina;
 
-
-    /** @ORM\Column(name="qq_id", type="string", length=255, nullable=true) */
-    protected $qq_id;
-
-    /** @ORM\Column(name="qq_access_token", type="string", length=255, nullable=true) */
-    protected $qq_access_token;
 
     /**
      * @ORM\Column(name="city",type="string",length=60,nullable=true)
@@ -401,90 +395,24 @@ class Member extends BaseUser implements OAuthAwareUserProviderInterface
         return $this->oschina;
     }
 
-    public function loadUserByOAuthUserResponse(UserResponseInterface $response)
-    {
-        $username = $response->getUsername();
-        $user = $this->userManager->findUserBy(array('username' => $username));
-        //when the user is registrating
-        if (null === $user) {
-            $service = $response->getResourceOwner()->getName();
-            $setter = 'set' . ucfirst($service);
-            $setter_id = $setter . 'Id';
-            $setter_token = $setter . 'AccessToken';
-            // create new user here
-            $user = $this->userManager->createUser();
-            $user->$setter_id($username);
-            $user->$setter_token($response->getAccessToken());
-            //I have set all requested data with the user's username
-            //modify here with relevant data
-            $user->setUsername($username);
-            $user->setNickname($response->getNickName());
-            $user->setEmail($username . '@yoursite.com');
-            $user->setPassword($username);
-            $user->setPath($response->getProfilePicture());
-            $user->setEnabled(true);
-            $this->userManager->updateUser($user);
-            return $user;
-        }
 
-        //if user exists - go with the HWIOAuth way
-        $serviceName = $response->getResourceOwner()->getName();
-        $setter = 'set' . ucfirst($serviceName) . 'AccessToken';
-
-        //update access token
-        $user->$setter($response->getAccessToken());
-
-        return $user;
-
-    }
-
-
-
-
+    private $userimageurl;
 
     /**
-     * Set qq_id
-     *
-     * @param string $qqId
-     * @return Member
+     * @param mixed $userimageurl
      */
-    public function setQqId($qqId)
+    public function setUserimageurl($userimageurl)
     {
-        $this->qq_id = $qqId;
-
-        return $this;
+        $this->userimageurl = $userimageurl;
     }
 
     /**
-     * Get qq_id
-     *
-     * @return string 
+     * @return mixed
      */
-    public function getQqId()
+    public function getUserimageurl()
     {
-        return $this->qq_id;
+        return $this->userimageurl;
     }
 
-    /**
-     * Set qq_access_token
-     *
-     * @param string $qqAccessToken
-     * @return Member
-     */
-    public function setQqAccessToken($qqAccessToken)
-    {
-        $this->qq_access_token = $qqAccessToken;
 
-        return $this;
-    }
-
-    /**
-     * Get qq_access_token
-     *
-     * @return string 
-     */
-    public function getQqAccessToken()
-    {
-        return $this->qq_access_token;
-    }
 }

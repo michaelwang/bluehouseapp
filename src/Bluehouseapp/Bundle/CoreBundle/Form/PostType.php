@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PostType extends AbstractType
+class PostType extends AbstractResourceType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -41,15 +41,6 @@ class PostType extends AbstractType
         ;
     }
     
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'Bluehouseapp\Bundle\CoreBundle\Entity\Post'
-        ));
-    }
 
     /**
      * @return string

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CategoryType extends AbstractType
+class CategoryType extends AbstractResourceType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -35,23 +35,11 @@ class CategoryType extends AbstractType
 
                 )
             ))
-//            ->add('保存','submit',array(
-//                'attr'=>array(
-//                    'style'=>'margin-top:20px;'
-//                )
-//            ))
+
         ;
     }
     
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'Bluehouseapp\Bundle\CoreBundle\Entity\Category'
-        ));
-    }
+
 
     /**
      * @return string

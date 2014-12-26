@@ -12,16 +12,29 @@
 
         <parameter key="bluehouseapp.controller.configuration_factory.class">Bluehouseapp\Bundle\CoreBundle\Controller\Resource\ConfigurationFactory</parameter>
 
-
         <parameter key="bluehouseapp.controller.parameters_parser.class">Bluehouseapp\Bundle\CoreBundle\Controller\Resource\ParametersParser</parameter>
         <parameter key="bluehouseapp.controller.parameters.class">Bluehouseapp\Bundle\CoreBundle\Controller\Resource\Parameters</parameter>
         <parameter key="bluehouseapp.event_subscriber.load_orm_metadata.class">Bluehouseapp\Bundle\CoreBundle\EventListener\LoadORMMetadataSubscriber</parameter>
         <parameter key="bluehouseapp.event_subscriber.kernel_controller.class">Bluehouseapp\Bundle\CoreBundle\EventListener\KernelControllerSubscriber</parameter>
         <parameter key="bluehouseapp.event_subscriber.kernel_request.class">Bluehouseapp\Bundle\CoreBundle\EventListener\KernelRequestSubscriber</parameter>
         <parameter key="sylius.user.class">Bluehouseapp\Bundle\CoreBundle\Entity\Member</parameter>
-
+        <parameter key="bluehouseapp.form.type.category_entity.class">Bluehouseapp\Bundle\CoreBundle\Form\CategoryEntityType</parameter>
+        <parameter key="bluehouseapp.form.type.member_image.class">Bluehouseapp\Bundle\CoreBundle\Form\MemberImageType</parameter>
     </parameters>
     <services>
+
+        <service id="bluehouseapp.form.type.category_entity" class="%bluehouseapp.form.type.category_entity.class%">
+            <argument>%bluehouseapp.model.category.class%</argument>
+            <tag name="form.type" alias="bluehouseapp_category_entity_choice" />
+        </service>
+        <!--
+        <service id="bluehouseapp.form.type.member_image" class="%bluehouseapp.form.type.member_image.class%">
+            <argument>%bluehouseapp.model.member.class%</argument>
+            <tag name="form.type" alias="bluehouseapp_member_image" />
+        </service>
+        -->
+
+
 
         <service id="bluehouseapp.controller.configuration_factory" class="%bluehouseapp.controller.configuration_factory.class%">
             <argument type="service" id="bluehouseapp.controller.parameters_parser" />
@@ -69,9 +82,13 @@
             <argument type="service" id="router" />
 	    <argument type="service" id="event_dispatcher" />
         </service>
-
         <service id="sylius.user" class="%sylius.user.class%">
           <argument type="service" id="fos_user.user_manager" />
+        </service>
+        <service id="bluehouseapp.set_image_url.orm.listener" class="Bluehouseapp\Bundle\CoreBundle\Listener\ModelSetImageURLListener">
+            <argument type="service" id="vich_uploader.templating.helper.uploader_helper" />
+            <argument type="service" id="liip_imagine.cache.manager" />
+            <tag name="doctrine.event_listener" event="postLoad" />
         </service>
 
     </services>

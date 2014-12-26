@@ -91,18 +91,17 @@ class MemberController  extends ResourceController
         if(!$member->getNickname()){
             $member->setNickname($member->getUsername());
         }
-        $isEdit = $member->getAvatar()!='';
-        $memberType = new MemberType();
-        $form = $this->createForm($memberType,$member,array(
+
+
+
+        $form = $this->createForm('bluehouseapp_member',$member,array(
             'action'=>$this->generateUrl('member_update'),
             'method'=>'POST'
         ));
 
-        $memberImageType = new MemberImageType($isEdit);
-        $memberImageForm = $this->createForm($memberImageType,$member,array(
-            'action'=>$this->generateUrl('member_update_image'),
-            'method'=>'POST'
-        ));
+
+
+        $memberImageForm= $this->getMemberImageForm($member);
 
         $param['member']=$member;
         $param['form']=$form->createView();
@@ -122,19 +121,14 @@ class MemberController  extends ResourceController
         $current = $this->get('security.context')->getToken()->getUser();
         $member = $this->getRepository()->find($current->getId());
 
-        $memberType = new MemberType();
-        $form = $this->createForm($memberType,$member,array(
+      //  $memberType = new MemberType();
+        $form = $this->createForm('bluehouseapp_member',$member,array(
             'action'=>$this->generateUrl('member_update'),
             'method'=>'POST'
         ));
 
+        $memberImageForm= $this->getMemberImageForm($member);
 
-        $isEdit = $member->getAvatar()!='';
-        $memberType = new MemberImageType($isEdit);
-        $memberImageForm = $this->createForm($memberType,$member,array(
-            'action'=>$this->generateUrl('member_update_image'),
-            'method'=>'POST'
-        ));
         $memberImageForm->handleRequest($request);
         if($memberImageForm->isValid()){
             $em = $this->getDoctrine()->getManager();
@@ -156,6 +150,22 @@ class MemberController  extends ResourceController
     }
 
 
+    public  function  getMemberImageForm($member){
+        $isEdit = $member->getAvatar()!='';
+        $memberImageType = new MemberImageType($isEdit);
+/*
+        $memberImageForm = $this->createForm('bluehouseapp_member_image',$member,array(
+            'action'=>$this->generateUrl('member_update_image'),
+            'method'=>'POST'
+        ),array('isEdit'=>$isEdit));
+*/
+        $memberImageForm = $this->createForm($memberImageType,$member,array(
+            'action'=>$this->generateUrl('member_update_image'),
+            'method'=>'POST'
+        ));
+    return $memberImageForm;
+}
+
     /**
      *
      */
@@ -164,16 +174,9 @@ class MemberController  extends ResourceController
         $current = $this->get('security.context')->getToken()->getUser();
         $member = $this->getRepository()->find($current->getId());
 
-        $isEdit = $member->getAvatar()!='';
-        $memberImageType = new MemberImageType($isEdit);
-        $memberImageForm = $this->createForm($memberImageType,$member,array(
-            'action'=>$this->generateUrl('member_update_image'),
-            'method'=>'POST'
-        ));
+        $memberImageForm= $this->getMemberImageForm($member);
 
-
-        $memberType = new MemberType();
-        $form = $this->createForm($memberType,$member,array(
+        $form = $this->createForm('bluehouseapp_member',$member,array(
             'action'=>$this->generateUrl('member_update'),
             'method'=>'POST'
         ));
@@ -197,8 +200,6 @@ class MemberController  extends ResourceController
             ->setData($param)
         ;
         return $this->handleView($view);
-
-
     }
 
     /**
@@ -212,31 +213,51 @@ class MemberController  extends ResourceController
         if (!$entity) {
             throw new NotFoundHttpException('这个用户不存在');
         }
+        /*
+        if ($this->config->isApiRequest()) {
+            $criteria = $this->config->getCriteria();
+            $member=$this->findOr404($request,$criteria);
+            $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+            $path = $helper->asset($member, 'userImage');
+
+            $member->setUserImageURL($path);
+            $view = $this
+                ->view()
+                ->setTemplate($this->config->getTemplate('show.html'))
+                ->setTemplateVar($this->config->getResourceName())
+                ->setData($member)
+            ;
+
+            return $this->handleView($view);
+
+        }else{
+        */
+            $posts = $this->get('bluehouseapp.repository.post')->getPostsByMember($entity);
+
+            $lastComments = array();
+            foreach ($posts  as $post){
+                $lastComments[$post->getId()]=$this->get('bluehouseapp.repository.postcomment')->getLastComment($post);
+
+            }
+
+            $postComments = $this->get('bluehouseapp.repository.postcomment')->getPostCommentsByMember($entity);
 
 
-        $posts = $this->get('bluehouseapp.repository.post')->getPostsByMember($entity);
+            $param['member'] = $entity;
+            $param['posts'] = $posts;
+            $param['lastComments'] = $lastComments;
+            $param['postComments'] = $postComments;
+            //  return $param;
 
-        $lastComments = array();
-        foreach ($posts  as $post){
-            $lastComments[$post->getId()]=$this->get('bluehouseapp.repository.postcomment')->getLastComment($post);
+            $view = $this
+                ->view()
+                ->setTemplate($this->config->getTemplate('show.html'))
+                ->setData($param)
+            ;
+            return $this->handleView($view);
+       // }
 
-        }
 
-        $postComments = $this->get('bluehouseapp.repository.postcomment')->getPostCommentsByMember($entity);
-
-
-        $param['member'] = $entity;
-        $param['posts'] = $posts;
-        $param['lastComments'] = $lastComments;
-        $param['postComments'] = $postComments;
-        //  return $param;
-
-        $view = $this
-            ->view()
-            ->setTemplate($this->config->getTemplate('show.html'))
-            ->setData($param)
-        ;
-        return $this->handleView($view);
 
 
     }

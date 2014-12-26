@@ -2,8 +2,8 @@
 
 {% block body -%}
     <h2>创建主题
-    {% if node %}
-    (所属节点:{{ node.name }})</h2>
+    {% if entity.node %}
+    (所属节点:{{ entity.node.name }})</h2>
     {% endif %}
 
     <div style="width: 100%">

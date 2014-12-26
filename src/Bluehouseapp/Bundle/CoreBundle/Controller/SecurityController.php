@@ -5,6 +5,7 @@ namespace Bluehouseapp\Bundle\CoreBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class SecurityController extends Controller
 {
@@ -50,5 +51,22 @@ class SecurityController extends Controller
 
 
     }
+
+    public function userAction()
+    {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        if($user) {
+            return new JsonResponse(array(
+                'id' => $user->getId(),
+                'username' => $user->getUsername()
+            ));
+        }
+
+        return new JsonResponse(array(
+            'message' => 'User is not identified'
+        ));
+
+    }
+
 
 }

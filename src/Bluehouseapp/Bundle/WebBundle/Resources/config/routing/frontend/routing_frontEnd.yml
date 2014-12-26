@@ -1,10 +1,7 @@
-welcome:
-    path:     /
-    defaults: { _controller: "BluehouseappWebBundle:Welcome:index" }
-    requirements: { _method: get }
+
 post:
     path:     /post
-    defaults: { _controller: "bluehouseapp.controller.post:indexAction" }
+    defaults: { _controller: "bluehouseapp.controller.post:listAction" }
     requirements: { _method: get }
 post_by_node:
     path:     /post/node/{currentNodeId}
@@ -63,7 +60,7 @@ member_update:
            _bluehouseapp:
              template:  BluehouseappWebBundle:Frontend/Member:edit.html.twig
 user_show:
-        path:    /user/{username}.{_format}
+        path:    /user/{username}
         defaults:
            _controller: bluehouseapp.controller.member:showMemberAction
            _bluehouseapp:
