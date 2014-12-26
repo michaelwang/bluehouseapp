@@ -55,6 +55,7 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
+        path: "%database_path%"
         # if using pdo_sqlite as your database driver, add the path in parameters.yml
         # e.g. database_path: "%kernel.root_dir%/data/data.db3"
 
@@ -267,6 +268,8 @@ fos_oauth_server:
       auth_code_class:  Bluehouseapp\Bundle\CoreBundle\Entity\AuthCode
       service:
            user_provider: fos_user.user_manager
+           options:
+             supported_scopes: read
 
 jms_serializer:
     metadata:

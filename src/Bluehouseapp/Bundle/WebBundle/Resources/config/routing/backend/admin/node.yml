@@ -11,7 +11,7 @@ bluehouseapp_node_index:
           status: true
 
 bluehouseapp_node_show:
-    path:     /{id}/show
+    path:     /{id}/show.{_format}
     defaults: { _controller: "bluehouseapp.controller.node:showAction" }
 
 bluehouseapp_node_new:

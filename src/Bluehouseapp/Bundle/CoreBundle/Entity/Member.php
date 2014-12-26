@@ -9,6 +9,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
+use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
+use FOS\UserBundle\Model\UserManagerInterface;
 
 /**
  * @UniqueEntity(
@@ -19,7 +22,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Bluehouseapp\Bundle\CoreBundle\Entity\MemberRepository")
  */
-class Member extends BaseUser
+class Member extends BaseUser 
 {
 
     const ROLE_ADMIN = 'ROLE_ADMIN';
@@ -32,9 +35,10 @@ class Member extends BaseUser
      */
     protected $id;
 
-    public function __construct()
+    public function __construct(UserManagerInterface $userManager = null)
     {
         parent::__construct();
+        $this->userManager = $userManager;
         $this->created = new \DateTime();
         $this->modified = $this->created;
         $this->addRole(self::ROLE_USER);
@@ -167,7 +171,7 @@ class Member extends BaseUser
      */
     protected $city;
 
-
+    protected $userManager;
 
     /*
    * @UniqueEntity(
@@ -409,11 +413,6 @@ class Member extends BaseUser
     {
         return $this->userimageurl;
     }
-
-
-
-
-
 
 
 }

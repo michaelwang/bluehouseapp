@@ -19,7 +19,6 @@ class AppKernel extends Kernel
             new Trsteel\CkeditorBundle\TrsteelCkeditorBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new \FOS\RestBundle\FOSRestBundle(),
-            new \FOS\OAuthServerBundle\FOSOAuthServerBundle(),
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
@@ -31,6 +30,7 @@ class AppKernel extends Kernel
             new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
             new Bluehouseapp\Bundle\CoreBundle\BluehouseappCoreBundle(),
             new Bluehouseapp\Bundle\WebBundle\BluehouseappWebBundle(),
+            new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
             new Bluehouseapp\Bundle\ApiBundle\BluehouseappApiBundle(),
         );
 
@@ -38,7 +38,6 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-
         }
 
         return $bundles;

@@ -17,10 +17,9 @@
         <parameter key="bluehouseapp.event_subscriber.load_orm_metadata.class">Bluehouseapp\Bundle\CoreBundle\EventListener\LoadORMMetadataSubscriber</parameter>
         <parameter key="bluehouseapp.event_subscriber.kernel_controller.class">Bluehouseapp\Bundle\CoreBundle\EventListener\KernelControllerSubscriber</parameter>
         <parameter key="bluehouseapp.event_subscriber.kernel_request.class">Bluehouseapp\Bundle\CoreBundle\EventListener\KernelRequestSubscriber</parameter>
-
+        <parameter key="sylius.user.class">Bluehouseapp\Bundle\CoreBundle\Entity\Member</parameter>
         <parameter key="bluehouseapp.form.type.category_entity.class">Bluehouseapp\Bundle\CoreBundle\Form\CategoryEntityType</parameter>
         <parameter key="bluehouseapp.form.type.member_image.class">Bluehouseapp\Bundle\CoreBundle\Form\MemberImageType</parameter>
-
     </parameters>
     <services>
 
@@ -83,14 +82,13 @@
             <argument type="service" id="router" />
 	    <argument type="service" id="event_dispatcher" />
         </service>
-
+        <service id="sylius.user" class="%sylius.user.class%">
+          <argument type="service" id="fos_user.user_manager" />
+        </service>
         <service id="bluehouseapp.set_image_url.orm.listener" class="Bluehouseapp\Bundle\CoreBundle\Listener\ModelSetImageURLListener">
             <argument type="service" id="vich_uploader.templating.helper.uploader_helper" />
             <argument type="service" id="liip_imagine.cache.manager" />
-
-
             <tag name="doctrine.event_listener" event="postLoad" />
-
         </service>
 
     </services>
