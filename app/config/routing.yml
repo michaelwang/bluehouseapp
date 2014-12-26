@@ -43,7 +43,6 @@ fos_oauth_server_authorize:
 
 acme_oauth_server_auth_login:
      pattern:  /oauth/v2/auth_login
-<<<<<<< HEAD
      defaults: { _controller: BluehouseappCoreBundle:Security:login }
 
 acme_oauth_server_auth_login_check:
@@ -53,10 +52,3 @@ acme_oauth_server_auth_login_check:
 acme_oauth_server_api_user:
      pattern:  /api/user
      defaults: { _controller: BluehouseappCoreBundle:Security:user }
-=======
-     defaults: { _controller: BluehouseappBundle:Security:login }
-
-acme_oauth_server_auth_login_check:
-     pattern:  /oauth/v2/auth_login_check
-     defaults: { _controller: BluehouseappBundle:Security:loginCheck }
->>>>>>> e6a95f48795e120bdb78726e9bda46c691e37f9e
