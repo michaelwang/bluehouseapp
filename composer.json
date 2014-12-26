@@ -57,8 +57,12 @@
         "willdurand/hateoas-bundle": "1.0.*@dev",
         "symfony/expression-language": "~2.4",
         "doctrine/annotations" : "~1.0",
+<<<<<<< HEAD
         "friendsofsymfony/oauth-server-bundle": "@stable",
         "friendsofsymfony/elastica-bundle":     "~3.0.2"
+=======
+        "friendsofsymfony/oauth-server-bundle": "dev-master"
+>>>>>>> e6a95f48795e120bdb78726e9bda46c691e37f9e
     },
     "scripts": {
         "post-install-cmd": [

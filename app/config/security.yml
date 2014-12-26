@@ -9,11 +9,20 @@ security:
      providers:
         fos_userbundle:
             id: fos_user.user_provider.username
+<<<<<<< HEAD
      firewalls:
+=======
+
+    firewalls:
+        oauth_token:
+              pattern:    ^/oauth/v2/token
+              security:   false
+>>>>>>> e6a95f48795e120bdb78726e9bda46c691e37f9e
         oauth_authorize:
               pattern:    ^/oauth/v2/auth
               form_login:
                      provider: fos_userbundle
+<<<<<<< HEAD
                      check_path: acme_oauth_server_auth_login_check
                      login_path: acme_oauth_server_auth_login
               anonymous:  true
@@ -24,6 +33,16 @@ security:
         oauth_token:
               pattern:    ^/oauth/v2/token
               security:   false
+=======
+                     check_path: /oauth/v2/auth_login_check
+                     login_path: /oauth/v2/auth_login
+              anonymous:  true
+        api:
+              pattern:    ^/api
+              fos_oauth:  true
+              stateless:  true
+              anonymous:  true
+>>>>>>> e6a95f48795e120bdb78726e9bda46c691e37f9e
         main:
             pattern: ^/
             form_login:
@@ -55,6 +74,7 @@ security:
         - { path: ^/web/admin,                       role: ROLE_ADMIN }
         - { path: ^/web/member,                      role: ROLE_USER }
         - { path: ^/,                            role: IS_AUTHENTICATED_ANONYMOUSLY }
+<<<<<<< HEAD
         - { path: ^/oauth/v2/,                   role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api,                         roles: [ IS_AUTHENTICATED_FULLY ] }
 
@@ -62,4 +82,8 @@ security:
 
 
 
+=======
+        - { path: ^/oauth/v2/auth_login,         roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/oauth/v2/auth,               roles: ROLE_USER }
+>>>>>>> e6a95f48795e120bdb78726e9bda46c691e37f9e
 

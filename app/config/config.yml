@@ -268,6 +268,7 @@ fos_oauth_server:
       auth_code_class:  Bluehouseapp\Bundle\CoreBundle\Entity\AuthCode
       service:
            user_provider: fos_user.user_manager
+<<<<<<< HEAD
            options:
              supported_scopes: read
 
@@ -286,3 +287,7 @@ jms_serializer:
             bluehouseapp-post:
                 namespace_prefix: "Bluehouseapp\\Bundle\\CoreBundle"
                 path: "@BluehouseappCoreBundle/Resources/config/serializer"
+=======
+            
+            
+>>>>>>> e6a95f48795e120bdb78726e9bda46c691e37f9e
